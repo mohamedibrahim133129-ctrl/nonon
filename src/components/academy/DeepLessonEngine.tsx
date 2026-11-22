@@ -23,6 +23,7 @@ import { t } from '../../i18n/translations';
 import { ConceptDomain, LocalizedText, NonoMood } from '../../types/nonoland';
 import { getInternalAgeBand } from '../../utils/ageAdaptation';
 import { useAcademyAudio } from '../../utils/academyAudioController';
+import { resolveArabicLetterNameAudioUrl } from '../../utils/arabicLetterAudioMap';
 import { soundEngine } from '../../utils/soundEngine';
 import { NonoCharacter } from '../NonoCharacter';
 import { AcademyAudioBar } from './AcademyAudioBar';
@@ -745,7 +746,16 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                 <button
                   type="button"
                   onClick={() => {
-                    void academyAudio.speak(arabicData.nameAr, 'ar');
+                    const letterNameAudioUrl = resolveArabicLetterNameAudioUrl({
+                      letterId: arabicData.letterId,
+                      char: arabicData.char,
+                      nameAr: arabicData.nameAr,
+                    });
+                    void academyAudio.speak(
+                      arabicData.nameAr,
+                      'ar',
+                      letterNameAudioUrl ? { audioUrl: letterNameAudioUrl } : undefined,
+                    );
                     setStageDone(true);
                   }}
                   className="px-5 py-3 rounded-2xl bg-[#8054D9] text-white font-bold cursor-pointer"

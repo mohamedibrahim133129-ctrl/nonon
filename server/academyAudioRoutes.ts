@@ -3,6 +3,7 @@ import type express from 'express';
 import {
   ACADEMY_LOOKUP_FILE,
   ACADEMY_MANIFEST_FILE,
+  computeQuotaRenewalState,
   diagnoseGeminiTtsAvailability,
   getAcademyBatchStatus,
   getNextAcademyResumeItem,
@@ -41,6 +42,7 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
     let totalAssets = 0;
     let needsReviewCount = 0;
     let nextResumeAssetId: string | null = null;
+    let quotaRenewalGate = computeQuotaRenewalState([]);
     if (fs.existsSync(ACADEMY_MANIFEST_FILE)) {
       try {
         const doc = JSON.parse(fs.readFileSync(ACADEMY_MANIFEST_FILE, 'utf8')) as AcademyAudioManifestDocument;
@@ -49,6 +51,7 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
         needsReviewCount = doc.needsReviewCount || 0;
         if (Array.isArray(doc.items)) {
           nextResumeAssetId = getNextAcademyResumeItem(doc.items)?.assetId || null;
+          quotaRenewalGate = computeQuotaRenewalState(doc.items);
         }
       } catch {
         // ignore
@@ -60,6 +63,7 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
       runtimeTtsDisabledForAcademy: true,
       primaryModel: PRIMARY_TTS_MODEL,
       fallbackModel: FALLBACK_TTS_MODEL,
+      quotaRenewalGate,
       manifestSummary: {
         totalAssets,
         validCount,
@@ -97,6 +101,7 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
       }
       const includeItems = req.query.includeItems === '1';
       const nextResume = getNextAcademyResumeItem(doc.items);
+      const quotaRenewalGate = computeQuotaRenewalState(doc.items);
       const flaggedAssets = doc.items
         .filter((i) => i.pronunciationReviewStatus === 'needs-review')
         .map((i) => ({
@@ -120,6 +125,7 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
         verifiedCorrectCount:
           doc.verifiedCorrectCount ??
           doc.items.filter((i) => i.pronunciationReviewStatus === 'verified-correct').length,
+        quotaRenewalGate,
         flaggedAssets,
         nextResumeAsset: nextResume
           ? {

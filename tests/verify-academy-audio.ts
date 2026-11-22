@@ -10,6 +10,11 @@ import {
 import {
   ACADEMY_LOOKUP_FILE,
   ACADEMY_MANIFEST_FILE,
+  ACADEMY_TTS_FALLBACK_MODEL,
+  ACADEMY_TTS_PRIMARY_MODEL,
+  FREE_TIER_TTS_MODEL_LIMITS,
+  computeQuotaRenewalState,
+  computeStrictFreeTierBatchDelayMs,
   diagnoseGeminiTtsAvailability,
   getNextAcademyResumeItem,
   matchesExpectedSpokenLetterTranscript,
@@ -297,9 +302,36 @@ async function run() {
   const diagBlock = serviceSrc.slice(diagStart, diagEnd);
   assert(!/\.generateContent\s*\(/.test(diagBlock), 'diagnoseGeminiTtsAvailability MUST NOT call generateContent');
   assert(
-    serviceSrc.includes("batchStatus.delayMs = Math.max(4500"),
-    'Batch generation must enforce Free Tier RPM floor',
+    serviceSrc.includes('computeStrictFreeTierBatchDelayMs('),
+    'Batch generation must enforce strict Free Tier 3-RPM interval via computeStrictFreeTierBatchDelayMs',
   );
+  assert(
+    serviceSrc.includes('computeQuotaRenewalState('),
+    'Batch generation must check RetryInfo quota renewal gate before consuming requests',
+  );
+
+  // Verify 3-RPM models never use 6.5s (6500ms) or faster intervals and respect 10-RPD caps
+  assert.strictEqual(FREE_TIER_TTS_MODEL_LIMITS[ACADEMY_TTS_PRIMARY_MODEL].rpm, 3);
+  assert.strictEqual(FREE_TIER_TTS_MODEL_LIMITS[ACADEMY_TTS_PRIMARY_MODEL].rpd, 10);
+  assert.strictEqual(FREE_TIER_TTS_MODEL_LIMITS[ACADEMY_TTS_FALLBACK_MODEL].rpm, 3);
+  assert.strictEqual(FREE_TIER_TTS_MODEL_LIMITS[ACADEMY_TTS_FALLBACK_MODEL].rpd, 10);
+  const clamped6500 = computeStrictFreeTierBatchDelayMs(
+    [ACADEMY_TTS_PRIMARY_MODEL, ACADEMY_TTS_FALLBACK_MODEL],
+    6500,
+  );
+  assert(clamped6500 >= 21_000, `Expected >=21000ms for 3-RPM model even when 6500ms requested, got ${clamped6500}`);
+  const defaultDelay = computeStrictFreeTierBatchDelayMs([ACADEMY_TTS_PRIMARY_MODEL]);
+  assert(defaultDelay >= 21_000, `Expected default batch delay >=21000ms for 3-RPM model, got ${defaultDelay}`);
+
+  // Verify RetryInfo cooldown gate blocks pre-renewal execution without making API calls
+  const preRenewalGate = computeQuotaRenewalState(manifest.items, Date.parse('2026-11-22T16:00:00.000Z'));
+  assert.strictEqual(preRenewalGate.quotaRenewed, false);
+  assert(
+    preRenewalGate.knownQuotaResetAt && /^2026-11-23T0(7:59|8:00):/.test(preRenewalGate.knownQuotaResetAt),
+    `Unexpected knownQuotaResetAt: ${preRenewalGate.knownQuotaResetAt}`,
+  );
+  const postRenewalGate = computeQuotaRenewalState(manifest.items, Date.parse('2026-11-23T08:05:00.000Z'));
+  assert.strictEqual(postRenewalGate.quotaRenewed, true);
 
   // Ensure server.ts does not automatically trigger story audio backfill on startup unless explicitly opted in
   const serverSrc = fs.readFileSync(path.resolve(process.cwd(), 'server.ts'), 'utf8');
@@ -307,7 +339,7 @@ async function run() {
     serverSrc.includes("process.env.ENABLE_STARTUP_STORY_AUDIO_BACKFILL === '1'"),
     'server.ts must gate automatic startup story audio backfill behind ENABLE_STARTUP_STORY_AUDIO_BACKFILL',
   );
-  console.log(`   ✓ Verified zero runtime TTS, non-consuming model diagnosis, and gated startup backfill.`);
+  console.log(`   ✓ Verified zero runtime TTS, 3-RPM (>=21s) & 10-RPD limits, non-consuming diagnosis, renewal gate, and gated startup backfill.`);
 
   console.log('[5/6] Verifying Quran Story MP3s (41 assets) remain untouched & valid...');
   let storyValid = 0;

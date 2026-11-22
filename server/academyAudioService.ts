@@ -31,6 +31,158 @@ export const ACADEMY_TTS_PRIMARY_MODEL = 'gemini-3.8-flash-lite-tts';
 export const ACADEMY_TTS_FALLBACK_MODEL = 'gemini-3.8-flash-tts';
 export const ACADEMY_TTS_VOICE = 'Zephyr';
 
+export interface FreeTierModelRateLimit {
+  rpm: number;
+  rpd: number;
+  minIntervalMs: number;
+  defaultIntervalMs: number;
+}
+
+export const FREE_TIER_TTS_MODEL_LIMITS: Record<string, FreeTierModelRateLimit> = {
+  [ACADEMY_TTS_PRIMARY_MODEL]: {
+    rpm: 3,
+    rpd: 10,
+    minIntervalMs: 21_000,
+    defaultIntervalMs: 22_000,
+  },
+  [ACADEMY_TTS_FALLBACK_MODEL]: {
+    rpm: 3,
+    rpd: 10,
+    minIntervalMs: 21_000,
+    defaultIntervalMs: 22_000,
+  },
+};
+
+export function getFreeTierModelRateLimit(model: string): FreeTierModelRateLimit {
+  return (
+    FREE_TIER_TTS_MODEL_LIMITS[model] || {
+      rpm: 3,
+      rpd: 10,
+      minIntervalMs: 21_000,
+      defaultIntervalMs: 22_000,
+    }
+  );
+}
+
+/**
+ * Computes the safest inter-request delay for a set of TTS models.
+ * Never allows a 6.5s (6500ms) or faster interval when any selected model is limited to 3 RPM.
+ */
+export function computeStrictFreeTierBatchDelayMs(models: string[], requestedDelayMs?: number): number {
+  const effectiveModels = models.length > 0 ? models : [ACADEMY_TTS_PRIMARY_MODEL];
+  let strictMinMs = 21_000;
+  let strictDefaultMs = 22_000;
+  for (const m of effectiveModels) {
+    const lim = getFreeTierModelRateLimit(m);
+    if (lim.minIntervalMs > strictMinMs) strictMinMs = lim.minIntervalMs;
+    if (lim.defaultIntervalMs > strictDefaultMs) strictDefaultMs = lim.defaultIntervalMs;
+  }
+  const base = typeof requestedDelayMs === 'number' && Number.isFinite(requestedDelayMs) ? requestedDelayMs : strictDefaultMs;
+  return Math.max(strictMinMs, base);
+}
+
+const PACIFIC_DATE_FMT = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/Los_Angeles',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+export function getPacificDayKey(date: Date | number | string = Date.now()): string {
+  const d = date instanceof Date ? date : new Date(date);
+  return Number.isNaN(d.getTime()) ? '' : PACIFIC_DATE_FMT.format(d);
+}
+
+export interface AcademyQuotaRenewalState {
+  quotaRenewed: boolean | 'UNKNOWN';
+  knownQuotaResetAt: string | null;
+  latest429At: string | null;
+  remainingCooldownSeconds: number;
+  strictRpmLimit: number;
+  strictRpdLimitPerModel: number;
+  minIntervalMs: number;
+  defaultIntervalMs: number;
+  reason: string;
+}
+
+export function computeQuotaRenewalState(
+  items: AcademyAudioManifestItem[],
+  nowMs = Date.now(),
+): AcademyQuotaRenewalState {
+  const strictMinMs = computeStrictFreeTierBatchDelayMs([ACADEMY_TTS_PRIMARY_MODEL, ACADEMY_TTS_FALLBACK_MODEL]);
+  const primaryLim = getFreeTierModelRateLimit(ACADEMY_TTS_PRIMARY_MODEL);
+
+  let latestResetMs = 0;
+  let latest429Ms = 0;
+
+  for (const item of items) {
+    if (!item.lastError || !item.updatedAt) continue;
+    const isDaily429 = /\b429\b|RESOURCE_EXHAUSTED|GenerateRequestsPerDay|PerDay/i.test(item.lastError);
+    if (!isDaily429) continue;
+
+    const updatedMs = Date.parse(item.updatedAt);
+    if (!Number.isFinite(updatedMs)) continue;
+
+    const retryMatch = /"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/i.exec(item.lastError);
+    if (!retryMatch) continue;
+
+    const retrySec = Number.parseFloat(retryMatch[1]);
+    if (!Number.isFinite(retrySec) || retrySec <= 0) continue;
+
+    const resetMs = updatedMs + Math.ceil(retrySec * 1000);
+    if (resetMs > latestResetMs) {
+      latestResetMs = resetMs;
+    }
+    if (updatedMs > latest429Ms) {
+      latest429Ms = updatedMs;
+    }
+  }
+
+  if (latestResetMs <= 0) {
+    return {
+      quotaRenewed: 'UNKNOWN',
+      knownQuotaResetAt: null,
+      latest429At: null,
+      remainingCooldownSeconds: 0,
+      strictRpmLimit: primaryLim.rpm,
+      strictRpdLimitPerModel: primaryLim.rpd,
+      minIntervalMs: primaryLim.minIntervalMs,
+      defaultIntervalMs: strictMinMs,
+      reason: 'No recorded daily 429 RetryInfo cooldown window found; model quota availability remains UNKNOWN until verified.',
+    };
+  }
+
+  const remainingMs = Math.max(0, latestResetMs - nowMs);
+  const resetIso = new Date(latestResetMs).toISOString();
+  const latest429Iso = latest429Ms > 0 ? new Date(latest429Ms).toISOString() : null;
+
+  if (remainingMs > 0) {
+    return {
+      quotaRenewed: false,
+      knownQuotaResetAt: resetIso,
+      latest429At: latest429Iso,
+      remainingCooldownSeconds: Math.ceil(remainingMs / 1000),
+      strictRpmLimit: primaryLim.rpm,
+      strictRpdLimitPerModel: primaryLim.rpd,
+      minIntervalMs: primaryLim.minIntervalMs,
+      defaultIntervalMs: strictMinMs,
+      reason: `Gemini Free Tier daily quota has NOT renewed yet. Recorded 429 RetryInfo resets at ${resetIso} (~${Math.ceil(remainingMs / 60_000)}m remaining).`,
+    };
+  }
+
+  return {
+    quotaRenewed: true,
+    knownQuotaResetAt: resetIso,
+    latest429At: latest429Iso,
+    remainingCooldownSeconds: 0,
+    strictRpmLimit: primaryLim.rpm,
+    strictRpdLimitPerModel: primaryLim.rpd,
+    minIntervalMs: primaryLim.minIntervalMs,
+    defaultIntervalMs: strictMinMs,
+    reason: `Recorded RetryInfo reset time (${resetIso}) has elapsed. Ready for paced Free Tier generation (${primaryLim.rpm} RPM / ${primaryLim.rpd} RPD).`,
+  };
+}
+
 export interface AcademyMp3ValidationResult {
   valid: boolean;
   status: 'valid' | 'missing' | 'invalid';
@@ -728,6 +880,14 @@ export async function generateAcademyAudioItem(
   const dailyExhaustedModels: string[] = [];
 
   for (const model of models) {
+    const modelLim = getFreeTierModelRateLimit(model);
+    const lastAt = lastTtsRequestAtByModel.get(model) || 0;
+    const elapsedSinceLast = Date.now() - lastAt;
+    if (lastAt > 0 && elapsedSinceLast < modelLim.minIntervalMs) {
+      await new Promise((r) => setTimeout(r, modelLim.minIntervalMs - elapsedSinceLast));
+    }
+    lastTtsRequestAtByModel.set(model, Date.now());
+
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 28_000);
     try {
@@ -889,12 +1049,13 @@ const batchStatus: AcademyBatchStatus = {
   currentAssetId: null,
   currentText: null,
   activeModel: ACADEMY_TTS_PRIMARY_MODEL,
-  delayMs: 1200,
+  delayMs: 22_000,
   lastError: null,
 };
 
 let activeBatchPromise: Promise<AcademyBatchStatus> | null = null;
 let stopRequested = false;
+const lastTtsRequestAtByModel = new Map<string, number>();
 
 export function getAcademyBatchStatus(): AcademyBatchStatus {
   return { ...batchStatus };
@@ -927,6 +1088,7 @@ export async function diagnoseGeminiTtsAvailability(): Promise<{
   nonConsuming: true;
   probeMethod: 'metadata_only_no_generation';
   quotaMetadataApiAvailable: false;
+  quotaRenewalGate: AcademyQuotaRenewalState;
   listedTtsAndAudioModels: Array<{
     name: string;
     displayName?: string;
@@ -941,11 +1103,13 @@ export async function diagnoseGeminiTtsAvailability(): Promise<{
   ];
 
   if (!apiKey) {
+    const manifestItems = loadExistingManifestFromDisk();
     return {
       configured: false,
       nonConsuming: true,
       probeMethod: 'metadata_only_no_generation',
       quotaMetadataApiAvailable: false,
+      quotaRenewalGate: computeQuotaRenewalState(manifestItems),
       listedTtsAndAudioModels: [],
       modelProbes: candidateModels.map(({ model, tier }) => ({
         model,
@@ -1012,11 +1176,15 @@ export async function diagnoseGeminiTtsAvailability(): Promise<{
     };
   });
 
+  const manifestItems = loadExistingManifestFromDisk();
+  const quotaRenewalGate = computeQuotaRenewalState(manifestItems);
+
   return {
     configured: true,
     nonConsuming: true,
     probeMethod: 'metadata_only_no_generation',
     quotaMetadataApiAvailable: false,
+    quotaRenewalGate,
     listedTtsAndAudioModels,
     modelProbes,
   };
@@ -1136,8 +1304,16 @@ export async function startAcademyAudioBatchGeneration(opts?: {
     batchStatus.attemptedThisRun = 0;
     batchStatus.succeededThisRun = 0;
     batchStatus.lastError = null;
-    // Enforce conservative RPM pacing floor (>= 4500ms, default 6500ms) for Free Tier protection
-    batchStatus.delayMs = Math.max(4500, opts?.delayMs ?? 6500);
+    // Strict RPM floor (>= 21,000ms, default 22,000ms) for 3-RPM Free Tier TTS models — never 6.5s
+    const confirmedFreeTierModels = new Set([ACADEMY_TTS_PRIMARY_MODEL, ACADEMY_TTS_FALLBACK_MODEL]);
+    let preferredModel =
+      opts?.preferredModel && confirmedFreeTierModels.has(opts.preferredModel)
+        ? opts.preferredModel
+        : ACADEMY_TTS_PRIMARY_MODEL;
+    const activeModels = opts?.singleModelOnly
+      ? [preferredModel]
+      : [ACADEMY_TTS_PRIMARY_MODEL, ACADEMY_TTS_FALLBACK_MODEL];
+    batchStatus.delayMs = computeStrictFreeTierBatchDelayMs(activeModels, opts?.delayMs);
 
     try {
       const doc = await syncAndValidateAcademyManifest({
@@ -1154,6 +1330,17 @@ export async function startAcademyAudioBatchGeneration(opts?: {
 
       refreshCounts(doc.items);
 
+      // Do not consume quota before recorded daily RetryInfo reset timestamp
+      const quotaGate = computeQuotaRenewalState(doc.items);
+      if (quotaGate.quotaRenewed === false) {
+        batchStatus.state = 'partial';
+        batchStatus.lastError = quotaGate.reason;
+        batchStatus.finishedAt = new Date().toISOString();
+        batchStatus.currentAssetId = null;
+        batchStatus.currentText = null;
+        return getAcademyBatchStatus();
+      }
+
       // Prioritize strictly by curriculum order (alphabet -> numbers -> colors/shapes -> vocab -> Level 1 -> Deep -> Exams)
       const minLen = typeof opts?.minTextLength === 'number' ? Math.max(1, opts.minTextLength) : 1;
       const queue = doc.items
@@ -1167,15 +1354,23 @@ export async function startAcademyAudioBatchGeneration(opts?: {
 
       const maxToProcess = opts?.limit && opts.limit > 0 ? Math.min(queue.length, opts.limit) : queue.length;
 
-      const confirmedFreeTierModels = new Set([ACADEMY_TTS_PRIMARY_MODEL, ACADEMY_TTS_FALLBACK_MODEL]);
-      let preferredModel =
-        opts?.preferredModel && confirmedFreeTierModels.has(opts.preferredModel)
-          ? opts.preferredModel
-          : ACADEMY_TTS_PRIMARY_MODEL;
       const skipModels = new Set<string>();
       if (opts?.singleModelOnly) {
         for (const m of confirmedFreeTierModels) {
           if (m !== preferredModel) skipModels.add(m);
+        }
+      }
+
+      // Track per-model daily requests in current Pacific day to enforce strict RPD cap
+      const todayPacific = getPacificDayKey();
+      const dailyCountByModel = new Map<string, number>();
+      for (const m of confirmedFreeTierModels) {
+        const usedToday = doc.items.filter(
+          (i) => i.model === m && i.updatedAt && getPacificDayKey(i.updatedAt) === todayPacific,
+        ).length;
+        dailyCountByModel.set(m, usedToday);
+        if (usedToday >= getFreeTierModelRateLimit(m).rpd) {
+          skipModels.add(m);
         }
       }
       const stopOn429 = opts?.stopOn429 !== false; // Strict default: stop & save progress on HTTP 429
@@ -1200,16 +1395,32 @@ export async function startAcademyAudioBatchGeneration(opts?: {
           }
         }
 
+        // Stop gracefully if all active Free Tier models reached their strict RPD cap
+        const availableActive = activeModels.filter((m) => !skipModels.has(m));
+        if (availableActive.length === 0) {
+          batchStatus.state = 'partial';
+          batchStatus.lastError = `Strict Free Tier RPD cap (${getFreeTierModelRateLimit(preferredModel).rpd}/day per model) reached for active models; stopping before exceeding daily limit.`;
+          break;
+        }
+        if (skipModels.has(preferredModel)) {
+          preferredModel = availableActive[0];
+        }
+
         batchStatus.currentAssetId = item.assetId;
         batchStatus.currentText = item.text;
         batchStatus.activeModel = preferredModel;
 
         batchStatus.attemptedThisRun++;
+        dailyCountByModel.set(preferredModel, (dailyCountByModel.get(preferredModel) || 0) + 1);
         const res = await generateAcademyAudioItem(item, {
           preferredModel,
           skipModels,
           stopOn429,
         });
+        const actualModelUsed = res.ok ? res.model : preferredModel;
+        if (dailyCountByModel.get(actualModelUsed)! >= getFreeTierModelRateLimit(actualModelUsed).rpd) {
+          skipModels.add(actualModelUsed);
+        }
 
         if (res.ok) {
           item.generationStatus = 'ready';
