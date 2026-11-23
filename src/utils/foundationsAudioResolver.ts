@@ -1,0 +1,93 @@
+import foundationsAudioInventory from '../data/foundationsAudioInventory.json';
+import { type AcademyAudioLang, normalizeAcademyAudioText } from './academyAudioText';
+
+interface FoundationsAudioInventoryDocument {
+  version: number;
+  totalFiles: number;
+  arabicCount: number;
+  englishCount: number;
+  itemIds: string[];
+  byLangText: {
+    ar: Record<string, string>;
+    en: Record<string, string>;
+  };
+}
+
+const inventory = foundationsAudioInventory as FoundationsAudioInventoryDocument;
+
+const FOUNDATIONS_ITEM_ID_RE = /^(ar|en)_[a-f0-9]{16}$/;
+
+const KNOWN_FOUNDATIONS_ITEM_IDS = new Set<string>(
+  Array.isArray(inventory.itemIds) ? inventory.itemIds : [],
+);
+
+/**
+ * Validates that an identifier is an exact known Foundations curriculum item_id
+ * without empty values, whitespace, path separators, traversal segments, or extensions.
+ */
+export function isValidFoundationsItemId(itemId: unknown): itemId is string {
+  if (typeof itemId !== 'string') return false;
+  if (!FOUNDATIONS_ITEM_ID_RE.test(itemId)) return false;
+  return KNOWN_FOUNDATIONS_ITEM_IDS.has(itemId);
+}
+
+/**
+ * Resolves an exact curriculum item_id to `/assets/audio/foundations/{item_id}.mp3`.
+ * Rejects empty IDs, invalid path characters, spoken text, lesson titles, and unknown IDs.
+ */
+export function resolveFoundationsAudioUrl(
+  itemId: string | null | undefined,
+): string | null {
+  if (!isValidFoundationsItemId(itemId)) {
+    return null;
+  }
+  return `/assets/audio/foundations/${itemId}.mp3`;
+}
+
+/**
+ * Looks up the exact pre-verified Foundations item_id for a curriculum spoken text
+ * and language from the static inventory. Never guesses IDs or constructs filenames from text.
+ */
+export function findFoundationsItemId(
+  text: string,
+  lang: AcademyAudioLang,
+): string | null {
+  const clean = normalizeAcademyAudioText(text);
+  if (!clean) return null;
+  const langMap = lang === 'en' ? inventory.byLangText?.en : inventory.byLangText?.ar;
+  const candidateId = langMap?.[clean];
+  if (!isValidFoundationsItemId(candidateId)) {
+    return null;
+  }
+  if (!candidateId.startsWith(`${lang}_`)) {
+    return null;
+  }
+  return candidateId;
+}
+
+/**
+ * Resolves both the exact Foundations item_id and URL for a curriculum item's spoken text.
+ * Returns null if no exact verified Foundations recording exists for that text and language.
+ */
+export function resolveFoundationsAudioForText(
+  text: string,
+  lang: AcademyAudioLang,
+): { itemId: string; audioUrl: string } | null {
+  const itemId = findFoundationsItemId(text, lang);
+  if (!itemId) return null;
+  const audioUrl = resolveFoundationsAudioUrl(itemId);
+  if (!audioUrl) return null;
+  return { itemId, audioUrl };
+}
+
+export function getFoundationsAudioInventoryStats(): {
+  totalFiles: number;
+  arabicCount: number;
+  englishCount: number;
+} {
+  return {
+    totalFiles: KNOWN_FOUNDATIONS_ITEM_IDS.size,
+    arabicCount: inventory.arabicCount ?? 0,
+    englishCount: inventory.englishCount ?? 0,
+  };
+}

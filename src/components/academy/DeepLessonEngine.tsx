@@ -24,6 +24,7 @@ import { ConceptDomain, LocalizedText, NonoMood } from '../../types/nonoland';
 import { getInternalAgeBand } from '../../utils/ageAdaptation';
 import { useAcademyAudio } from '../../utils/academyAudioController';
 import { resolveArabicLetterNameAudioUrl } from '../../utils/arabicLetterAudioMap';
+import { findFoundationsItemId } from '../../utils/foundationsAudioResolver';
 import { soundEngine } from '../../utils/soundEngine';
 import { NonoCharacter } from '../NonoCharacter';
 import { AcademyAudioBar } from './AcademyAudioBar';
@@ -319,7 +320,9 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <button
                 type="button"
                 onClick={() => {
-                  void academyAudio.speak(t(colorData.introLine, language), language, {
+                  const introText = t(colorData.introLine, language);
+                  void academyAudio.speak(introText, language, {
+                    itemId: findFoundationsItemId(introText, language) ?? undefined,
                     label: t(colorData.title, language),
                   });
                   markSuccess('exposed', 'ممتاز! تعرّفنا على اللون!', 'Awesome! Color introduced!');
@@ -350,7 +353,10 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                     type="button"
                     onClick={() => {
                       soundEngine.playPop();
-                      void academyAudio.speak(t(ex.label, language), language);
+                      const exLabel = t(ex.label, language);
+                      void academyAudio.speak(exLabel, language, {
+                        itemId: findFoundationsItemId(exLabel, language) ?? undefined,
+                      });
                       setStageDone(true);
                     }}
                     className="p-4 rounded-2xl bg-[#FFF8E9] border-2 border-[#27345C]/10 hover:border-[#8054D9] text-center space-y-2 cursor-pointer"
@@ -381,7 +387,10 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                   const colorName =
                     ACADEMY_COLORS.find((c) => c.id === colorData.colorId)?.name[language] || '';
                   if (colorName) {
-                    void academyAudio.speak(colorName, language, { slow: true });
+                    void academyAudio.speak(colorName, language, {
+                      slow: true,
+                      itemId: findFoundationsItemId(colorName, language) ?? undefined,
+                    });
                   }
                 }}
                 className="px-5 py-3 rounded-2xl bg-[#FFD84D] text-[#27345C] font-extrabold inline-flex items-center gap-2 cursor-pointer"
@@ -722,7 +731,10 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <button
                 type="button"
                 onClick={() => {
-                  void academyAudio.speak(arabicData.introLine.ar, 'ar', { label: arabicData.nameAr });
+                  void academyAudio.speak(arabicData.introLine.ar, 'ar', {
+                    itemId: findFoundationsItemId(arabicData.introLine.ar, 'ar') ?? undefined,
+                    label: arabicData.nameAr,
+                  });
                   markSuccess('exposed', 'تعرفت على الحرف!', 'Letter introduced!');
                 }}
                 className="nono-btn-tactile px-6 py-3 rounded-2xl bg-[#8054D9] text-white font-bold inline-flex items-center gap-2 cursor-pointer"
@@ -765,7 +777,11 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                 <button
                   type="button"
                   onClick={() => {
-                    void academyAudio.speak(arabicData.examples[0].word, 'ar', { slow: true });
+                    const exWord = arabicData.examples[0].word;
+                    void academyAudio.speak(exWord, 'ar', {
+                      slow: true,
+                      itemId: findFoundationsItemId(exWord, 'ar') ?? undefined,
+                    });
                     markSuccess('exposed', 'ممتاز! رددت النطق الصحيح!', 'Great listening & repeating!');
                   }}
                   className="px-5 py-3 rounded-2xl bg-[#FFD84D] text-[#27345C] font-extrabold cursor-pointer"
@@ -851,7 +867,9 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                     key={i}
                     type="button"
                     onClick={() => {
-                      void academyAudio.speak(ex.word, 'ar');
+                      void academyAudio.speak(ex.word, 'ar', {
+                        itemId: findFoundationsItemId(ex.word, 'ar') ?? undefined,
+                      });
                       setStageDone(true);
                     }}
                     className="p-4 rounded-2xl bg-[#FFF8E9] border border-[#27345C]/12 hover:border-[#8054D9] text-center space-y-1 cursor-pointer"
@@ -877,7 +895,13 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               </h2>
               <button
                 type="button"
-                onClick={() => void academyAudio.speak(arabicData.examples[0].word, 'ar', { slow: true })}
+                onClick={() => {
+                  const exWord = arabicData.examples[0].word;
+                  void academyAudio.speak(exWord, 'ar', {
+                    slow: true,
+                    itemId: findFoundationsItemId(exWord, 'ar') ?? undefined,
+                  });
+                }}
                 className="px-4 py-2 rounded-xl bg-[#FFD84D]/50 text-sm font-bold cursor-pointer"
               >
                 🔊 {language === 'ar' ? 'اسمع الكلمة' : 'Hear Word'}
@@ -1006,7 +1030,11 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                 type="button"
                 onClick={() => {
                   const rawSentence = arabicData.readingSentences[getInternalAgeBand(activeChild)].ar;
-                  void academyAudio.speak(rawSentence, 'ar', { slow: true, label: rawSentence });
+                  void academyAudio.speak(rawSentence, 'ar', {
+                    slow: true,
+                    itemId: findFoundationsItemId(rawSentence, 'ar') ?? undefined,
+                    label: rawSentence,
+                  });
                   markSuccess('applied', 'قراءة رائعة!', 'Wonderful reading practice!');
                 }}
                 className="nono-btn-tactile px-6 py-3 rounded-2xl bg-[#8054D9] text-white font-bold inline-flex items-center gap-2 cursor-pointer"
@@ -1069,8 +1097,10 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <button
                 type="button"
                 onClick={() => {
-                  void academyAudio.speak(`${englishData.upper}. ${englishData.word}`, 'en', {
+                  const enCue = `${englishData.upper}. ${englishData.word}`;
+                  void academyAudio.speak(enCue, 'en', {
                     slow: stageIdx === 1,
+                    itemId: findFoundationsItemId(enCue, 'en') ?? undefined,
                   });
                   markSuccess('exposed', 'سمعت نطق الحرف!', 'Heard name and sound!');
                 }}
@@ -1134,13 +1164,14 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <button
                 type="button"
                 onClick={() => {
-                  void academyAudio.speak(
+                  const enCue =
                     stageIdx === 9
                       ? englishData.readingSentence[getInternalAgeBand(activeChild)].en
-                      : englishData.word,
-                    'en',
-                    { slow: true },
-                  );
+                      : englishData.word;
+                  void academyAudio.speak(enCue, 'en', {
+                    slow: true,
+                    itemId: findFoundationsItemId(enCue, 'en') ?? undefined,
+                  });
                   markSuccess('recalled', 'أحسنت في هذه المرحلة!', 'Stage completed!');
                 }}
                 className="nono-btn-tactile px-6 py-3 rounded-2xl bg-[#39BDF2] text-white font-bold cursor-pointer"
@@ -1196,7 +1227,9 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <button
                 type="button"
                 onClick={() => {
-                  void academyAudio.speak(t(mathData.explanation, language), language, {
+                  const expText = t(mathData.explanation, language);
+                  void academyAudio.speak(expText, language, {
+                    itemId: findFoundationsItemId(expText, language) ?? undefined,
                     label: t(mathData.title, language),
                   });
                   markSuccess('exposed', 'فهمنا الفكرة الأساسية!', 'Great start!');
@@ -1248,7 +1281,13 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               <h2 className="text-2xl font-extrabold text-[#27345C]">{t(mathData.operationPrompt, language)}</h2>
               <button
                 type="button"
-                onClick={() => void academyAudio.speak(t(mathData.operationPrompt, language), language, { slow: true })}
+                onClick={() => {
+                  const opText = t(mathData.operationPrompt, language);
+                  void academyAudio.speak(opText, language, {
+                    slow: true,
+                    itemId: findFoundationsItemId(opText, language) ?? undefined,
+                  });
+                }}
                 className="px-4 py-2 rounded-xl bg-[#FFD84D]/50 text-[#27345C] text-xs font-extrabold inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Volume2 className="w-4 h-4" />
@@ -1289,7 +1328,13 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
               </h2>
               <button
                 type="button"
-                onClick={() => void academyAudio.speak(t(mathData.wordProblem.prompt, language), language, { slow: true })}
+                onClick={() => {
+                  const wpText = t(mathData.wordProblem.prompt, language);
+                  void academyAudio.speak(wpText, language, {
+                    slow: true,
+                    itemId: findFoundationsItemId(wpText, language) ?? undefined,
+                  });
+                }}
                 className="px-4 py-2 rounded-xl bg-[#FFD84D]/50 text-[#27345C] text-xs font-extrabold inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Volume2 className="w-4 h-4" />

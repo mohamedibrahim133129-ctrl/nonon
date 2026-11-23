@@ -51,6 +51,7 @@ import {
   isContentAppropriateForChild,
 } from '../utils/ageAdaptation';
 import { useAcademyAudio } from '../utils/academyAudioController';
+import { findFoundationsItemId } from '../utils/foundationsAudioResolver';
 import { soundEngine } from '../utils/soundEngine';
 
 type AcademyTab = 'level1' | 'daily' | 'arabic' | 'english' | 'numbers' | 'colors-shapes';
@@ -168,7 +169,8 @@ export const AcademyScreen: React.FC = () => {
   const colorObjB = ACADEMY_COLORS.find((c) => c.id === mixB) || ACADEMY_COLORS[1];
 
   const speakSlowOrNormal = (text: string, lang: 'ar' | 'en', slow = false, label?: string) => {
-    void academyAudio.speak(text, lang, { slow, label: label || text });
+    const itemId = findFoundationsItemId(text, lang) ?? undefined;
+    void academyAudio.speak(text, lang, { slow, itemId, label: label || text });
   };
 
   const conceptStats = useMemo(() => {

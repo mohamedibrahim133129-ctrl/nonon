@@ -32,6 +32,7 @@ import {
 import { UNIFIED_STAGE_ID } from '../utils/ageAdaptation';
 import { AcademyAudioBar } from '../components/academy/AcademyAudioBar';
 import { useAcademyAudio } from '../utils/academyAudioController';
+import { findFoundationsItemId } from '../utils/foundationsAudioResolver';
 import { soundEngine } from '../utils/soundEngine';
 
 type ClientExamQuestion = Omit<ExamQuestionItem, 'correctOptionId' | 'explanation'>;
@@ -472,12 +473,14 @@ export const ExamsScreen: React.FC = () => {
             <div className="space-y-3">
               <button
                 type="button"
-                onClick={() =>
-                  void academyAudio.speak(q.audioText!, q.audioLang || language, {
+                onClick={() => {
+                  const qLang = q.audioLang || language;
+                  void academyAudio.speak(q.audioText!, qLang, {
                     slow: true,
+                    itemId: findFoundationsItemId(q.audioText!, qLang) ?? undefined,
                     label: language === 'ar' ? 'استمع للسؤال بوضوح' : 'Listen to Question',
-                  })
-                }
+                  });
+                }}
                 className="px-5 py-2.5 rounded-2xl bg-[#FFD84D]/50 text-[#27345C] text-xs sm:text-sm font-extrabold inline-flex items-center gap-2 cursor-pointer"
               >
                 <Volume2 className="w-4 h-4" />

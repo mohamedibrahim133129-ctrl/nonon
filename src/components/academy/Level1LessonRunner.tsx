@@ -22,6 +22,7 @@ import {
 } from '../../types/nonoland';
 import { useAcademyAudio } from '../../utils/academyAudioController';
 import { resolveLevel1VocabSpokenText } from '../../utils/academyAudioText';
+import { findFoundationsItemId } from '../../utils/foundationsAudioResolver';
 import { soundEngine } from '../../utils/soundEngine';
 
 type ClientL1Question = Omit<Level1QuestionItem, 'correctOptionId' | 'feedbackOnWrong'>;
@@ -146,8 +147,14 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
     ];
   }, [lesson, distractors]);
 
-  const speakCue = (text: string, slow = false, audioUrl?: string) => {
-    void academyAudio.speak(text, cueLang, { slow, audioUrl, label: text });
+  const speakCue = (text: string, slow = false, audioUrl?: string, itemId?: string) => {
+    const resolvedItemId = itemId ?? (findFoundationsItemId(text, cueLang) ?? undefined);
+    void academyAudio.speak(text, cueLang, {
+      slow,
+      audioUrl,
+      itemId: resolvedItemId,
+      label: text,
+    });
   };
 
   const resolveTargetSpokenCue = () => {
@@ -1104,12 +1111,14 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
                     {q.audioText && (
                       <button
                         type="button"
-                        onClick={() =>
-                          void academyAudio.speak(q.audioText!, q.audioLang || language, {
+                        onClick={() => {
+                          const qLang = q.audioLang || language;
+                          void academyAudio.speak(q.audioText!, qLang, {
                             slow: true,
+                            itemId: findFoundationsItemId(q.audioText!, qLang) ?? undefined,
                             label: q.audioText,
-                          })
-                        }
+                          });
+                        }}
                         className="h-11 px-4 rounded-xl bg-[#FFD84D]/50 text-[#27345C] font-extrabold text-xs inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <Volume2 className="w-4 h-4" />

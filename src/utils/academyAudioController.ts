@@ -5,6 +5,10 @@ import {
   getAcademyAudioUrlFromAssetId,
   normalizeAcademyAudioText,
 } from './academyAudioText';
+import {
+  findFoundationsItemId,
+  resolveFoundationsAudioUrl,
+} from './foundationsAudioResolver';
 
 export type AcademyAudioStatus =
   | 'idle'
@@ -41,6 +45,7 @@ export interface PlayAcademyAudioOptions {
   slow?: boolean;
   label?: string;
   audioUrl?: string;
+  itemId?: string;
   csrfToken?: string | null;
 }
 
@@ -59,16 +64,35 @@ export function resolveAcademyRecordingUrl(
   text: string,
   lang: AcademyAudioLang,
   explicitAudioUrl?: string,
+  explicitItemId?: string,
 ): string | null {
   if (isSafeAcademyAudioUrl(explicitAudioUrl)) {
     return explicitAudioUrl.trim();
   }
   const clean = normalizeAcademyAudioText(text);
-  if (!clean) return null;
   const langMap = lang === 'en' ? lookupData.en : lookupData.ar;
+
+  if (typeof explicitItemId === 'string') {
+    const foundationsUrl = resolveFoundationsAudioUrl(explicitItemId);
+    if (foundationsUrl) {
+      return foundationsUrl;
+    }
+    if (clean && langMap?.[clean] && langMap[clean] === explicitItemId) {
+      return getAcademyAudioUrlFromAssetId(explicitItemId, lang);
+    }
+    return null;
+  }
+
+  if (!clean) return null;
   const assetId = langMap?.[clean];
-  if (!assetId) return null;
-  return getAcademyAudioUrlFromAssetId(assetId, lang);
+  if (assetId) {
+    return getAcademyAudioUrlFromAssetId(assetId, lang);
+  }
+  const foundationsId = findFoundationsItemId(clean, lang);
+  if (foundationsId) {
+    return resolveFoundationsAudioUrl(foundationsId);
+  }
+  return null;
 }
 
 function isSafeAcademyAudioUrl(raw: unknown): raw is string {
@@ -185,7 +209,10 @@ export class AcademyAudioController {
   ): Promise<boolean> {
     const cleanText = normalizeAcademyAudioText(text);
     const explicitUrl = isSafeAcademyAudioUrl(options.audioUrl) ? options.audioUrl.trim() : undefined;
-    if (!cleanText && !explicitUrl) {
+    const explicitItemId = typeof options.itemId === 'string' ? options.itemId : undefined;
+    const resolvedItemIdUrl =
+      explicitItemId !== undefined ? resolveAcademyRecordingUrl(cleanText, lang, undefined, explicitItemId) : null;
+    if (!cleanText && !explicitUrl && !resolvedItemIdUrl) {
       return false;
     }
 
@@ -196,11 +223,11 @@ export class AcademyAudioController {
 
     this.lastRequest = { text: cleanText, lang, options: { ...options } };
 
-    const cacheKey = `${lang}|${cleanText}`;
+    const cacheKey = `${lang}|${explicitItemId ?? ''}|${cleanText}`;
     const resolvedUrl =
       explicitUrl ||
       this.playbackUrlCache.get(cacheKey) ||
-      resolveAcademyRecordingUrl(cleanText, lang, explicitUrl);
+      resolveAcademyRecordingUrl(cleanText, lang, explicitUrl, explicitItemId);
 
     if (!resolvedUrl) {
       this.emit({

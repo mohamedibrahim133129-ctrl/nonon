@@ -10,6 +10,7 @@ import {
   normalizeAcademyAudioText,
   resolveLevel1VocabSpokenText,
 } from '../utils/academyAudioText';
+import { findFoundationsItemId } from '../utils/foundationsAudioResolver';
 
 const audioLookupMaps = academyAudioLookup as {
   ar: Record<string, string>;
@@ -19,7 +20,10 @@ const audioLookupMaps = academyAudioLookup as {
 function hasPreGeneratedAudio(text: string, lang: AcademyAudioLang): boolean {
   const clean = normalizeAcademyAudioText(text);
   if (!clean) return false;
-  return Boolean((lang === 'en' ? audioLookupMaps.en : audioLookupMaps.ar)?.[clean]);
+  if ((lang === 'en' ? audioLookupMaps.en : audioLookupMaps.ar)?.[clean]) {
+    return true;
+  }
+  return findFoundationsItemId(clean, lang) !== null;
 }
 
 function makeVocab(
