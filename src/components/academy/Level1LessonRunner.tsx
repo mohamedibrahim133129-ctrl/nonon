@@ -1091,6 +1091,54 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
               (() => {
                 const q = quizQuestions[quizIdx];
                 const picked = quizAnswers[q.id];
+                const stage10Audio: { text: string; lang: 'ar' | 'en'; label: string } | null = (() => {
+                  if (!q.audioText) return null;
+                  if (lesson.subject === 'numbers') {
+                    if (cueLang === 'en') {
+                      if (
+                        q.qType === 'visual-id' ||
+                        q.qType === 'audio-id' ||
+                        q.qType === 'initial-sound' ||
+                        q.qType === 'finder'
+                      ) {
+                        const text = String(lesson.numberValue ?? 0);
+                        return { text, lang: 'en', label: text };
+                      }
+                      if (q.qType === 'listen-choose') {
+                        return { text: q.audioText, lang: 'en', label: q.audioText };
+                      }
+                      // Q03 / Q06 are Arabic-only sentence recordings with no English equivalent
+                      return null;
+                    }
+                    if (q.qType === 'listen-choose') {
+                      return { text: q.audioText, lang: 'en', label: q.audioText };
+                    }
+                    if (
+                      q.qType === 'visual-id' ||
+                      q.qType === 'audio-id' ||
+                      q.qType === 'initial-sound' ||
+                      q.qType === 'finder'
+                    ) {
+                      const text = lesson.secondarySymbol || q.audioText;
+                      return { text, lang: 'ar', label: text };
+                    }
+                    return { text: q.audioText, lang: 'ar', label: q.audioText };
+                  }
+                  if (lesson.subject === 'colors') {
+                    if (cueLang === 'en') {
+                      const text = lesson.secondarySymbol || q.audioText;
+                      return { text, lang: 'en', label: text };
+                    }
+                    if (q.qType === 'audio-id') {
+                      const text = lesson.secondarySymbol || q.audioText;
+                      return { text, lang: 'en', label: text };
+                    }
+                    const text = lesson.targetSymbol || q.audioText;
+                    return { text, lang: 'ar', label: text };
+                  }
+                  const qLang = q.audioLang || cueLang;
+                  return { text: q.audioText, lang: qLang, label: q.audioText };
+                })();
                 return (
                   <div className="space-y-5">
                     <div className="flex items-center justify-between text-xs font-extrabold text-[#27345C]/70">
@@ -1108,15 +1156,14 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
 
                     {q.visualCue && <div className="text-4xl py-1">{q.visualCue}</div>}
 
-                    {q.audioText && (
+                    {stage10Audio && (
                       <button
                         type="button"
                         onClick={() => {
-                          const qLang = q.audioLang || language;
-                          void academyAudio.speak(q.audioText!, qLang, {
+                          void academyAudio.speak(stage10Audio.text, stage10Audio.lang, {
                             slow: true,
-                            itemId: findFoundationsItemId(q.audioText!, qLang) ?? undefined,
-                            label: q.audioText,
+                            itemId: findFoundationsItemId(stage10Audio.text, stage10Audio.lang) ?? undefined,
+                            label: stage10Audio.label,
                           });
                         }}
                         className="h-11 px-4 rounded-xl bg-[#FFD84D]/50 text-[#27345C] font-extrabold text-xs inline-flex items-center gap-1.5 cursor-pointer"

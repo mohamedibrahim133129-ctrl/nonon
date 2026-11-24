@@ -51,6 +51,8 @@ import {
   isContentAppropriateForChild,
 } from '../utils/ageAdaptation';
 import { useAcademyAudio } from '../utils/academyAudioController';
+import { resolveAuthoritativeNumberSpokenText } from '../utils/academyAudioText';
+import { resolveArabicLetterNameAudioUrl } from '../utils/arabicLetterAudioMap';
 import { findFoundationsItemId } from '../utils/foundationsAudioResolver';
 import { soundEngine } from '../utils/soundEngine';
 
@@ -168,9 +170,42 @@ export const AcademyScreen: React.FC = () => {
   const colorObjA = ACADEMY_COLORS.find((c) => c.id === mixA) || ACADEMY_COLORS[0];
   const colorObjB = ACADEMY_COLORS.find((c) => c.id === mixB) || ACADEMY_COLORS[1];
 
-  const speakSlowOrNormal = (text: string, lang: 'ar' | 'en', slow = false, label?: string) => {
-    const itemId = findFoundationsItemId(text, lang) ?? undefined;
-    void academyAudio.speak(text, lang, { slow, itemId, label: label || text });
+  const speakSlowOrNormal = (
+    text: string,
+    lang: 'ar' | 'en',
+    slow = false,
+    label?: string,
+    audioUrl?: string,
+  ) => {
+    const itemId = audioUrl ? undefined : (findFoundationsItemId(text, lang) ?? undefined);
+    void academyAudio.speak(text, lang, { slow, audioUrl, itemId, label: label || text });
+  };
+
+  const speakArabicLetterName = (
+    letter: { id: string; char: string; nameAr: string },
+    slow = false,
+  ) => {
+    const letterUrl = resolveArabicLetterNameAudioUrl({
+      letterId: letter.id,
+      char: letter.char,
+      nameAr: letter.nameAr,
+    });
+    void academyAudio.speak(letter.nameAr, 'ar', {
+      slow,
+      audioUrl: letterUrl ?? undefined,
+      label: `${letter.char} — ${letter.nameAr}`,
+    });
+  };
+
+  const speakAcademyNumber = (num: number, lang: 'ar' | 'en', slow = false) => {
+    const spoken = resolveAuthoritativeNumberSpokenText(num, lang);
+    const displayLabel = `${formatNumber(num, lang)}${spoken && lang === 'ar' ? ` — ${spoken}` : ''}`;
+    if (!spoken) {
+      void academyAudio.speak(String(num), lang, { slow, label: displayLabel });
+      return;
+    }
+    const itemId = findFoundationsItemId(spoken, lang) ?? undefined;
+    void academyAudio.speak(spoken, lang, { slow, itemId, label: displayLabel });
   };
 
   const conceptStats = useMemo(() => {
@@ -871,7 +906,7 @@ export const AcademyScreen: React.FC = () => {
                       setArIndex(idx);
                       setArChallengeResult('none');
                       soundEngine.playPop();
-                      speakSlowOrNormal(`${item.nameAr}، ${item.word}`, 'ar');
+                      speakArabicLetterName(item, false);
                       recordConceptInteraction({
                         conceptId: `ar-${item.id}`,
                         domain: 'arabic',
@@ -932,7 +967,7 @@ export const AcademyScreen: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => speakSlowOrNormal(`${currentAr.nameAr}، ${currentAr.word}`, 'ar', false)}
+                  onClick={() => speakArabicLetterName(currentAr, false)}
                   className="px-4 py-2.5 rounded-xl bg-[#8054D9] text-white text-xs sm:text-sm font-bold flex items-center gap-2 cursor-pointer"
                 >
                   <Volume2 className="w-4 h-4" />
@@ -940,7 +975,7 @@ export const AcademyScreen: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => speakSlowOrNormal(`${currentAr.nameAr}، ${currentAr.word}`, 'ar', true)}
+                  onClick={() => speakArabicLetterName(currentAr, true)}
                   className="px-4 py-2.5 rounded-xl bg-[#FFD84D]/40 text-[#27345C] text-xs sm:text-sm font-bold flex items-center gap-2 cursor-pointer"
                 >
                   <Ear className="w-4 h-4" />
@@ -1379,7 +1414,7 @@ export const AcademyScreen: React.FC = () => {
                     onClick={() => {
                       setSelectedNumber(num);
                       soundEngine.playPop();
-                      speakSlowOrNormal(String(num), language);
+                      speakAcademyNumber(num, language);
                       recordConceptInteraction({
                         conceptId: `num-${num}`,
                         domain: 'numbers',
@@ -1407,7 +1442,7 @@ export const AcademyScreen: React.FC = () => {
                   </span>
                   <button
                     type="button"
-                    onClick={() => speakSlowOrNormal(String(selectedNumber), language, true)}
+                    onClick={() => speakAcademyNumber(selectedNumber, language, true)}
                     className="px-3 py-1.5 rounded-xl bg-white border border-[#27345C]/15 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                   >
                     <Volume2 className="w-4 h-4 text-[#FF9360]" />

@@ -314,6 +314,8 @@ for (const rec of ARABIC_LETTER_NAME_RECORDINGS) {
 // Explicit Alif / Haa spelling equivalences between manifest.json and curriculum display symbols
 BY_CHAR.set('ا', ARABIC_LETTER_NAME_RECORDINGS[0]);
 BY_CHAR.set('أ', ARABIC_LETTER_NAME_RECORDINGS[0]);
+BY_CHAR.set('إ', ARABIC_LETTER_NAME_RECORDINGS[0]);
+BY_CHAR.set('آ', ARABIC_LETTER_NAME_RECORDINGS[0]);
 BY_CHAR.set('ه', ARABIC_LETTER_NAME_RECORDINGS[25]);
 BY_CHAR.set('هـ', ARABIC_LETTER_NAME_RECORDINGS[25]);
 

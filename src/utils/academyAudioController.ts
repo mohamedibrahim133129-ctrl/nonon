@@ -4,6 +4,7 @@ import {
   type AcademyAudioLang,
   getAcademyAudioUrlFromAssetId,
   normalizeAcademyAudioText,
+  parseStandaloneNumberValue,
 } from './academyAudioText';
 import {
   findFoundationsItemId,
@@ -84,6 +85,22 @@ export function resolveAcademyRecordingUrl(
   }
 
   if (!clean) return null;
+
+  const standaloneNum = parseStandaloneNumberValue(clean);
+  if (standaloneNum !== null && standaloneNum >= 0 && standaloneNum <= 20) {
+    if (lang === 'en') {
+      const asciiKey = String(standaloneNum);
+      const enLookupId = langMap?.[asciiKey];
+      if (enLookupId) {
+        return getAcademyAudioUrlFromAssetId(enLookupId, 'en');
+      }
+      const enFoundationsId = findFoundationsItemId(asciiKey, 'en');
+      return enFoundationsId ? resolveFoundationsAudioUrl(enFoundationsId) : null;
+    }
+    const arFoundationsId = findFoundationsItemId(clean, 'ar');
+    return arFoundationsId ? resolveFoundationsAudioUrl(arFoundationsId) : null;
+  }
+
   const assetId = langMap?.[clean];
   if (assetId) {
     return getAcademyAudioUrlFromAssetId(assetId, lang);
@@ -223,7 +240,7 @@ export class AcademyAudioController {
 
     this.lastRequest = { text: cleanText, lang, options: { ...options } };
 
-    const cacheKey = `${lang}|${explicitItemId ?? ''}|${cleanText}`;
+    const cacheKey = `${lang}|${explicitUrl ?? ''}|${explicitItemId ?? ''}|${cleanText}`;
     const resolvedUrl =
       explicitUrl ||
       this.playbackUrlCache.get(cacheKey) ||

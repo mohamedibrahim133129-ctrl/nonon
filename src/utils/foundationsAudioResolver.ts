@@ -1,11 +1,17 @@
 import foundationsAudioInventory from '../data/foundationsAudioInventory.json';
-import { type AcademyAudioLang, normalizeAcademyAudioText } from './academyAudioText';
+import {
+  type AcademyAudioLang,
+  normalizeAcademyAudioText,
+  parseStandaloneNumberValue,
+  resolveAuthoritativeNumberSpokenText,
+} from './academyAudioText';
 
 interface FoundationsAudioInventoryDocument {
   version: number;
   totalFiles: number;
   arabicCount: number;
   englishCount: number;
+  bareDigitArabicAudioDefectIds?: string[];
   itemIds: string[];
   byLangText: {
     ar: Record<string, string>;
@@ -20,6 +26,16 @@ const FOUNDATIONS_ITEM_ID_RE = /^(ar|en)_[a-f0-9]{16}$/;
 const KNOWN_FOUNDATIONS_ITEM_IDS = new Set<string>(
   Array.isArray(inventory.itemIds) ? inventory.itemIds : [],
 );
+
+const DEFECTIVE_ARABIC_BARE_DIGIT_IDS = new Set<string>(
+  Array.isArray(inventory.bareDigitArabicAudioDefectIds)
+    ? inventory.bareDigitArabicAudioDefectIds
+    : [],
+);
+
+export function isDefectiveArabicBareDigitItemId(itemId: string): boolean {
+  return DEFECTIVE_ARABIC_BARE_DIGIT_IDS.has(itemId);
+}
 
 /**
  * Validates that an identifier is an exact known Foundations curriculum item_id
@@ -46,7 +62,9 @@ export function resolveFoundationsAudioUrl(
 
 /**
  * Looks up the exact pre-verified Foundations item_id for a curriculum spoken text
- * and language from the static inventory. Never guesses IDs or constructs filenames from text.
+ * and language from the static inventory. Never guesses IDs, never falls back across
+ * languages, and never resolves standalone Arabic numbers to defective English-spoken
+ * bare-digit files.
  */
 export function findFoundationsItemId(
   text: string,
@@ -54,12 +72,33 @@ export function findFoundationsItemId(
 ): string | null {
   const clean = normalizeAcademyAudioText(text);
   if (!clean) return null;
+
   const langMap = lang === 'en' ? inventory.byLangText?.en : inventory.byLangText?.ar;
+  const standaloneNum = parseStandaloneNumberValue(clean);
+  if (standaloneNum !== null && standaloneNum >= 0 && standaloneNum <= 20) {
+    const authoritativeText = resolveAuthoritativeNumberSpokenText(standaloneNum, lang);
+    if (!authoritativeText) {
+      return null;
+    }
+    const numCandidateId = langMap?.[authoritativeText];
+    if (
+      !isValidFoundationsItemId(numCandidateId) ||
+      !numCandidateId.startsWith(`${lang}_`) ||
+      DEFECTIVE_ARABIC_BARE_DIGIT_IDS.has(numCandidateId)
+    ) {
+      return null;
+    }
+    return numCandidateId;
+  }
+
   const candidateId = langMap?.[clean];
   if (!isValidFoundationsItemId(candidateId)) {
     return null;
   }
   if (!candidateId.startsWith(`${lang}_`)) {
+    return null;
+  }
+  if (DEFECTIVE_ARABIC_BARE_DIGIT_IDS.has(candidateId)) {
     return null;
   }
   return candidateId;

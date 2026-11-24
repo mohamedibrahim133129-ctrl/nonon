@@ -499,7 +499,7 @@ function buildNumbersBank(): Level1QuestionItem[] {
         subject: 'numbers',
         qType: 'visual-id',
         prompt: { ar: `اختر الرقم (${val}):`, en: `Tap the number ${val}:` },
-        audioText: `${val}`,
+        audioText: `${lesson.secondarySymbol}`,
         audioLang: 'ar',
         options: numChoices(idx + 1),
         correctOptionId: 'target',
@@ -540,8 +540,8 @@ function buildNumbersBank(): Level1QuestionItem[] {
           en: `Does this picture show ${val}?`,
         },
         visualCue: repeatEmoji(val, '⭐'),
-        audioText: `${val}`,
-        audioLang: 'en',
+        audioText: `${lesson.secondarySymbol}`,
+        audioLang: 'ar',
         options: [
           { id: 'yes', label: { ar: 'نعم 👍', en: 'Yes 👍' }, visual: '✅' },
           { id: 'no', label: { ar: 'لا 👎', en: 'No 👎' }, visual: '❌' },
@@ -555,8 +555,8 @@ function buildNumbersBank(): Level1QuestionItem[] {
         subject: 'numbers',
         qType: 'finder',
         prompt: { ar: `ابحث عن العدد (${val}) بين الأربعة أرقام:`, en: `Find number ${val} among these 4:` },
-        audioText: `${val}`,
-        audioLang: 'en',
+        audioText: `${lesson.secondarySymbol}`,
+        audioLang: 'ar',
         options: rotateOptions(
           [
             { id: 'target', label: { ar: `${val}`, en: `${val}` }, visual: `${val}` },

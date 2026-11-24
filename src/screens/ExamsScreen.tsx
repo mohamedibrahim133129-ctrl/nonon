@@ -20,6 +20,7 @@ import { NonoCharacter } from '../components/NonoCharacter';
 import { NonoLandLogo } from '../components/NonoLandLogo';
 import { StudentHomeworkSection } from '../components/StudentHomeworkSection';
 import { useNonoLand } from '../context/NonoLandContext';
+import { ACADEMY_COLORS } from '../data/academyData';
 import { AGE_CURRICULUM_OUTCOMES } from '../data/deepCurriculum';
 import { formatNumber, getAgeGroupMeta, t } from '../i18n/translations';
 import {
@@ -32,6 +33,7 @@ import {
 import { UNIFIED_STAGE_ID } from '../utils/ageAdaptation';
 import { AcademyAudioBar } from '../components/academy/AcademyAudioBar';
 import { useAcademyAudio } from '../utils/academyAudioController';
+import { resolveArabicLetterNameAudioUrl } from '../utils/arabicLetterAudioMap';
 import { findFoundationsItemId } from '../utils/foundationsAudioResolver';
 import { soundEngine } from '../utils/soundEngine';
 
@@ -474,11 +476,35 @@ export const ExamsScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => {
+                  const label = language === 'ar' ? 'استمع للسؤال بوضوح' : 'Listen to Question';
+                  if (q.id.startsWith('q-col-') && language === 'en') {
+                    const colorId = q.id.slice('q-col-'.length);
+                    const colorEntry = ACADEMY_COLORS.find((c) => c.id === colorId);
+                    const spoken = colorEntry?.name.en || q.audioText!;
+                    void academyAudio.speak(spoken, 'en', {
+                      slow: true,
+                      itemId: findFoundationsItemId(spoken, 'en') ?? undefined,
+                      label,
+                    });
+                    return;
+                  }
+                  if (q.id.startsWith('q-ar-rec-')) {
+                    const letterId = q.id.slice('q-ar-rec-'.length);
+                    const letterUrl = resolveArabicLetterNameAudioUrl({ letterId });
+                    if (letterUrl) {
+                      void academyAudio.speak(q.audioText!, 'ar', {
+                        slow: true,
+                        audioUrl: letterUrl,
+                        label,
+                      });
+                      return;
+                    }
+                  }
                   const qLang = q.audioLang || language;
                   void academyAudio.speak(q.audioText!, qLang, {
                     slow: true,
                     itemId: findFoundationsItemId(q.audioText!, qLang) ?? undefined,
-                    label: language === 'ar' ? 'استمع للسؤال بوضوح' : 'Listen to Question',
+                    label,
                   });
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-[#FFD84D]/50 text-[#27345C] text-xs sm:text-sm font-extrabold inline-flex items-center gap-2 cursor-pointer"
