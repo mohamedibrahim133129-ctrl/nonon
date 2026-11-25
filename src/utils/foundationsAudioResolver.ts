@@ -33,6 +33,32 @@ const DEFECTIVE_ARABIC_BARE_DIGIT_IDS = new Set<string>(
     : [],
 );
 
+const EN_UNIQUE_LOWERCASE_MAP: ReadonlyMap<string, string> = (() => {
+  const grouped = new Map<string, Set<string>>();
+  for (const [text, itemId] of Object.entries(inventory.byLangText?.en || {})) {
+    const trimmed = text.trim();
+    if (trimmed.length < 2) continue;
+    const lower = trimmed.toLowerCase();
+    const bucket = grouped.get(lower) ?? new Set<string>();
+    bucket.add(itemId);
+    grouped.set(lower, bucket);
+  }
+  const unique = new Map<string, string>();
+  for (const [lower, ids] of grouped.entries()) {
+    if (ids.size === 1) {
+      const onlyId = Array.from(ids)[0];
+      if (
+        KNOWN_FOUNDATIONS_ITEM_IDS.has(onlyId) &&
+        FOUNDATIONS_ITEM_ID_RE.test(onlyId) &&
+        onlyId.startsWith('en_')
+      ) {
+        unique.set(lower, onlyId);
+      }
+    }
+  }
+  return unique;
+})();
+
 export function isDefectiveArabicBareDigitItemId(itemId: string): boolean {
   return DEFECTIVE_ARABIC_BARE_DIGIT_IDS.has(itemId);
 }
@@ -91,7 +117,10 @@ export function findFoundationsItemId(
     return numCandidateId;
   }
 
-  const candidateId = langMap?.[clean];
+  let candidateId: string | undefined = langMap?.[clean];
+  if (!candidateId && lang === 'en' && clean.length >= 2) {
+    candidateId = EN_UNIQUE_LOWERCASE_MAP.get(clean.toLowerCase());
+  }
   if (!isValidFoundationsItemId(candidateId)) {
     return null;
   }

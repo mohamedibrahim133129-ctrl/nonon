@@ -423,6 +423,50 @@ export function buildFullAcademyAudioManifest(
     }
   }
 
+  // 13. ReadingAdventureScreen (Authorized P3 Phonics Cues & Stage 7/8 Mini-Stories)
+  const readingAdventureP3Cues: Array<{
+    text: string;
+    lang: AcademyAudioLang;
+    lessonId: string;
+    stageId: string;
+  }> = [
+    { text: 'Sss, Sun', lang: 'en', lessonId: 'ra-stage2', stageId: 'r2-1' },
+    { text: 'تَ.. تفاحة', lang: 'ar', lessonId: 'ra-stage2', stageId: 'r2-2' },
+    { text: 'Buh, Book', lang: 'en', lessonId: 'ra-stage2', stageId: 'r2-3' },
+    { text: 'قَ.. قمر', lang: 'ar', lessonId: 'ra-stage2', stageId: 'r2-4' },
+    {
+      text: 'في صباح مشمس ☀️، حمل نونو سلة فواكه حمراء فيها ٣ تفاحات 🍎، وذهب إلى الحديقة ليتقاسمها مع صديقه ليو الأسد 🦁.',
+      lang: 'ar',
+      lessonId: 'ra-stage7',
+      stageId: 'mini-story',
+    },
+    {
+      text: 'On a sunny morning ☀️, Nono carried a red basket with 3 apples 🍎 to the garden to share them with his friend Leo the Lion 🦁.',
+      lang: 'en',
+      lessonId: 'ra-stage7',
+      stageId: 'mini-story',
+    },
+    {
+      text: 'زرعت لولو بذرة زهرة صغيرة 🌱 في التربة، ثم سقتها بالماء كل صباح 💧 ووضعتها قرب نافذة مشمسة ☀️. وبعد أسبوع، تفتّحت زهرة صفراء جميلة 🌻!',
+      lang: 'ar',
+      lessonId: 'ra-stage8',
+      stageId: 'mini-story',
+    },
+    {
+      text: 'Lolo planted a tiny flower seed 🌱 in the soil, watered it every morning 💧, and placed it near a sunny window ☀️. A week later, a bright yellow sunflower bloomed 🌻!',
+      lang: 'en',
+      lessonId: 'ra-stage8',
+      stageId: 'mini-story',
+    },
+  ];
+  for (const ra of readingAdventureP3Cues) {
+    add(ra.text, ra.lang, 'ReadingAdventureScreen', ra.lessonId, ra.stageId);
+  }
+
+  // 14. SmartAdaptiveAssessmentPanel (Authorized P3 Phonics Cues)
+  add('Buh, Buh, Ball', 'en', 'SmartAdaptiveAssessmentPanel', 'sa-listen-en-b', 'phonics-cue');
+  add('Cuh, Cuh, Cat', 'en', 'SmartAdaptiveAssessmentPanel', 'sa-phonics-cat', 'phonics-cue');
+
   // Convert accumulated map to sorted manifest items, preserving existing statuses
   const items: AcademyAudioManifestItem[] = [];
   for (const [key, val] of acc.entries()) {

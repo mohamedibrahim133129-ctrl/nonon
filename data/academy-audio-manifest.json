@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-22T15:38:18.007Z",
-  "totalAssets": 1527,
-  "arabicAssets": 859,
-  "englishAssets": 668,
-  "readyCount": 26,
-  "validCount": 26,
-  "missingCount": 1501,
+  "generatedAt": "2026-11-25T10:38:23.026Z",
+  "totalAssets": 1500,
+  "arabicAssets": 845,
+  "englishAssets": 655,
+  "readyCount": 72,
+  "validCount": 72,
+  "missingCount": 1428,
   "invalidCount": 0,
   "needsReviewCount": 4,
   "verifiedCorrectCount": 0,
@@ -343,29 +343,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_041402bfc3c151b8",
-      "legacyCacheKey": "041402bfc3c151b84427ec627662",
-      "text": "بنفسجي — مثال ٢",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_041402bfc3c151b8.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_041402bfc3c151b8.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_042fee1c77c145f1",
       "legacyCacheKey": "042fee1c77c145f1599fefb5cb0f",
       "text": "عَيْن",
@@ -444,16 +421,13 @@
       "text": "3",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM04",
         "num-3"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM04-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_06a6253b8c83b340.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_06a6253b8c83b340.mp3",
@@ -634,12 +608,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_0837a804c0b540f4.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_0837a804c0b540f4.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 21357,
+      "durationSeconds": 2.6,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T09:59:56.057Z"
     },
     {
       "assetId": "ar_084b59282e35beb0",
@@ -858,29 +833,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_0b67f94a8284262e.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_0b67f94a8284262e.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_0bcc3f217feca7ce",
-      "legacyCacheKey": "0bcc3f217feca7ceef192d08f87a",
-      "text": "هدية أبيض",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_0bcc3f217feca7ce.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_0bcc3f217feca7ce.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -1141,12 +1093,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_0ec0d2daa4914678.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_0ec0d2daa4914678.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 24429,
+      "durationSeconds": 3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.205Z"
     },
     {
       "assetId": "ar_0edfbe907888614a",
@@ -1894,12 +1847,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_1826639d324d6df0.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_1826639d324d6df0.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 26541,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:01:17.914Z"
     },
     {
       "assetId": "ar_1838f1969ea6b167",
@@ -1978,6 +1932,29 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "ar_18d87bc9fe20bbde",
+      "legacyCacheKey": "18d87bc9fe20bbded287df196b74",
+      "text": "شريط وردي",
+      "language": "ar",
+      "screens": [
+        "DeepLessonEngine:color"
+      ],
+      "lessonIds": [
+        "deep-color-pink"
+      ],
+      "activityOrStageIds": [
+        "stage2-examples"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_18d87bc9fe20bbde.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_18d87bc9fe20bbde.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 21741,
+      "durationSeconds": 2.7,
+      "maxVolumeDb": null
+    },
+    {
       "assetId": "ar_191aabfa56bb2eaf",
       "legacyCacheKey": "191aabfa56bb2eafcb31fb63a6b0",
       "text": "ج",
@@ -2035,16 +2012,13 @@
       "text": "2",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM03",
         "num-2"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM03-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_1a689dbb6d94d825.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_1a689dbb6d94d825.mp3",
@@ -2598,16 +2572,13 @@
       "text": "0",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM01",
         "num-0"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM01-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_221094f8f0627253.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_221094f8f0627253.mp3",
@@ -2718,29 +2689,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_2301a16ad7953e51",
-      "legacyCacheKey": "2301a16ad7953e5138e4c110bb00",
-      "text": "برتقالي — مثال ٢",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_2301a16ad7953e51.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_2301a16ad7953e51.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_2361a2d9542832c5",
       "legacyCacheKey": "2361a2d9542832c5431f9a943177",
       "text": "أهلاً يا صديقي! بوبو يحب العدّ، واليوم نكتشف معاً العدد 6 (ستة)!",
@@ -2817,6 +2765,29 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "ar_240faf3d808ea53e",
+      "legacyCacheKey": "240faf3d808ea53ec9ce90cd93c2",
+      "text": "فستان باليه وردي",
+      "language": "ar",
+      "screens": [
+        "DeepLessonEngine:color"
+      ],
+      "lessonIds": [
+        "deep-color-pink"
+      ],
+      "activityOrStageIds": [
+        "stage2-examples"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_240faf3d808ea53e.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_240faf3d808ea53e.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 26349,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null
+    },
+    {
       "assetId": "ar_246281f0f52704ad",
       "legacyCacheKey": "246281f0f52704ad6e9c8ba9c2ae",
       "text": "اللون أبيض (White) يظهر في أشياء كثيرة حولنا مثل سحابة بيضاء وأرنب أبيض. المس كل صورة لتسمع اسمها!",
@@ -2878,12 +2849,15 @@
       "text": "جزرة برتقالية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v2"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_25018ee0f5c1dfd5.mp3",
@@ -3076,29 +3050,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_25ae955b29c3df7a",
-      "legacyCacheKey": "25ae955b29c3df7a12ff3212b86e",
-      "text": "هدية وردي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_25ae955b29c3df7a.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_25ae955b29c3df7a.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_25be5d8d7ca46e34",
       "legacyCacheKey": "25be5d8d7ca46e34b0752dbf9108",
       "text": "وردي، زهرة وردية",
@@ -3189,12 +3140,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_26f5fe7f813c4efe.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_26f5fe7f813c4efe.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 26349,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:00:57.490Z"
     },
     {
       "assetId": "ar_2712bcb58b853054",
@@ -3296,12 +3248,15 @@
       "text": "برتقالة",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v1"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_2833c65f9c2be885.mp3",
@@ -3552,12 +3507,15 @@
       "text": "دونات وردية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v4"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_2b2219a448ab0ce9.mp3",
@@ -3568,6 +3526,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "ar_2bab4c7120dabffc",
+      "legacyCacheKey": "2bab4c7120dabffca249b665dce9",
+      "text": "قَ.. قمر",
+      "language": "ar",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage2"
+      ],
+      "activityOrStageIds": [
+        "r2-4"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_2bab4c7120dabffc.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_2bab4c7120dabffc.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 23469,
+      "durationSeconds": 2.9,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:33:41.388Z"
     },
     {
       "assetId": "ar_2c9d8459c04bb452",
@@ -3617,12 +3599,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_2cb89b55f55e1d0c.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_2cb89b55f55e1d0c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 57837,
+      "durationSeconds": 7.2,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:37:55.051Z"
     },
     {
       "assetId": "ar_2cc273e47ea53b96",
@@ -4873,29 +4856,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_3c35f2d876731b98",
-      "legacyCacheKey": "3c35f2d876731b98d5767fe40522",
-      "text": "قلم تلوين وردي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_3c35f2d876731b98.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_3c35f2d876731b98.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_3c3c5e94d836b9d6",
       "legacyCacheKey": "3c3c5e94d836b9d67f7da8920b84",
       "text": "لعبة",
@@ -4959,12 +4919,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_3d2d45e7876fe761.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_3d2d45e7876fe761.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 24045,
+      "durationSeconds": 3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:00:37.162Z"
     },
     {
       "assetId": "ar_3d6f400fbd05b4af",
@@ -5340,12 +5301,15 @@
       "text": "زهرة بنفسجية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v3"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_43dba4b16bdc1700.mp3",
@@ -5575,16 +5539,13 @@
       "text": "10",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM11",
         "num-10"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM11-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_45c601121089575d.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_45c601121089575d.mp3",
@@ -5657,12 +5618,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_467f3e1bf1eb09c8.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_467f3e1bf1eb09c8.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 107181,
+      "durationSeconds": 13.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:02:41.102Z"
     },
     {
       "assetId": "ar_47259f0c403fc5fc",
@@ -5700,7 +5662,10 @@
         "NM09"
       ],
       "activityOrStageIds": [
+        "quiz-NM09-Q01",
         "quiz-NM09-Q02",
+        "quiz-NM09-Q04",
+        "quiz-NM09-Q05",
         "stage5-listen-select",
         "vocab-NM09-qty",
         "vocab-NM09-u1"
@@ -6127,12 +6092,15 @@
       "text": "ثعلب برتقالي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v3"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_4ab42caec0cb73e7.mp3",
@@ -6349,12 +6317,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_4ea604ce7c5164ec.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_4ea604ce7c5164ec.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 24429,
+      "durationSeconds": 3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T09:59:35.526Z"
     },
     {
       "assetId": "ar_4eb3e9d63af5e8a9",
@@ -6487,12 +6456,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_4fdee518dca2ab66.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_4fdee518dca2ab66.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 108525,
+      "durationSeconds": 13.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:02:20.439Z"
     },
     {
       "assetId": "ar_502a4e73a623a882",
@@ -6870,12 +6840,15 @@
       "text": "باذنجان بنفسجي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v2"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_530111653c87b54d.mp3",
@@ -7573,12 +7546,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5ce638df43ce7dbd.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5ce638df43ce7dbd.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 17709,
+      "durationSeconds": 2.2,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:37:10.895Z"
     },
     {
       "assetId": "ar_5d657a527ff2c144",
@@ -7593,7 +7567,10 @@
         "NM10"
       ],
       "activityOrStageIds": [
+        "quiz-NM10-Q01",
         "quiz-NM10-Q02",
+        "quiz-NM10-Q04",
+        "quiz-NM10-Q05",
         "stage5-listen-select",
         "vocab-NM10-qty",
         "vocab-NM10-u1"
@@ -7631,29 +7608,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_5dd028aca50cc940",
-      "legacyCacheKey": "5dd028aca50cc9407eefa2b35e9d",
-      "text": "تيشيرت بنفسجي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_5dd028aca50cc940.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_5dd028aca50cc940.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_5ddf71193434bb33",
       "legacyCacheKey": "5ddf71193434bb33281e6a32fa2d",
       "text": "20",
@@ -7669,12 +7623,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5ddf71193434bb33.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5ddf71193434bb33.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 19821,
+      "durationSeconds": 2.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:01:58.963Z"
     },
     {
       "assetId": "ar_5e126da4cd96c4e9",
@@ -7692,12 +7647,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5e126da4cd96c4e9.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5e126da4cd96c4e9.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 20589,
+      "durationSeconds": 2.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:01:38.617Z"
     },
     {
       "assetId": "ar_5e3e48f0a8f879bc",
@@ -8186,16 +8142,13 @@
       "text": "6",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM07",
         "num-6"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM07-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_621baa63ab4b6057.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_621baa63ab4b6057.mp3",
@@ -9265,12 +9218,15 @@
       "text": "كوب حليب أبيض",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v5"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_6e5042c4cefa30f8.mp3",
@@ -9298,29 +9254,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_6e647e672142c67a.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_6e647e672142c67a.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_6eb7093e94ad1050",
-      "legacyCacheKey": "6eb7093e94ad10503ad5dc94423b",
-      "text": "هدية برتقالي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_6eb7093e94ad1050.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_6eb7093e94ad1050.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -9475,12 +9408,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_705f41f44976a0d3.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_705f41f44976a0d3.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 20589,
+      "durationSeconds": 2.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:04:23.086Z"
     },
     {
       "assetId": "ar_7089ae60d6febeac",
@@ -9649,16 +9583,13 @@
       "text": "8",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM09",
         "num-8"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM09-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_732ba60efb9ff014.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_732ba60efb9ff014.mp3",
@@ -10530,6 +10461,30 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "ar_7e01a36dabc78c26",
+      "legacyCacheKey": "7e01a36dabc78c26955f92f14b73",
+      "text": "في صباح مشمس ، حمل نونو سلة فواكه حمراء فيها ٣ تفاحات ، وذهب إلى الحديقة ليتقاسمها مع صديقه ليو الأسد .",
+      "language": "ar",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage7"
+      ],
+      "activityOrStageIds": [
+        "mini-story"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_7e01a36dabc78c26.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_7e01a36dabc78c26.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 120813,
+      "durationSeconds": 15.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:34:09.786Z"
+    },
+    {
       "assetId": "ar_7e18e8208e7ff331",
       "legacyCacheKey": "7e18e8208e7ff3313e2d238ed0eb",
       "text": "اختر الحرف المختلف ي",
@@ -10568,12 +10523,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_7e481c05b10efdf8.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_7e481c05b10efdf8.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 26733,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:37:32.225Z"
     },
     {
       "assetId": "ar_7e5f32927266e5ed",
@@ -10581,12 +10537,15 @@
       "text": "فلامنجو وردي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v2"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_7e5f32927266e5ed.mp3",
@@ -10641,29 +10600,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_7ee144ae41b7d05f.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_7ee144ae41b7d05f.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_7ff16206bb1071aa",
-      "legacyCacheKey": "7ff16206bb1071aa632ebafc1260",
-      "text": "وردي — مثال ٢",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_7ff16206bb1071aa.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_7ff16206bb1071aa.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -10861,29 +10797,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_8268cef092690292.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_8268cef092690292.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_82abf42733b5a401",
-      "legacyCacheKey": "82abf42733b5a401638a39417e15",
-      "text": "بنفسجي — مثال ١",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_82abf42733b5a401.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_82abf42733b5a401.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -11175,7 +11088,10 @@
         "NM06"
       ],
       "activityOrStageIds": [
+        "quiz-NM06-Q01",
         "quiz-NM06-Q02",
+        "quiz-NM06-Q04",
+        "quiz-NM06-Q05",
         "stage5-listen-select",
         "vocab-NM06-qty",
         "vocab-NM06-u1"
@@ -11310,12 +11226,15 @@
       "text": "مظلة بنفسجية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v4"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_8916f2735ba0d27b.mp3",
@@ -11757,7 +11676,10 @@
         "NM07"
       ],
       "activityOrStageIds": [
+        "quiz-NM07-Q01",
         "quiz-NM07-Q02",
+        "quiz-NM07-Q04",
+        "quiz-NM07-Q05",
         "stage5-listen-select",
         "vocab-NM07-qty",
         "vocab-NM07-u1"
@@ -11871,12 +11793,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_8f9b0ba72633938d.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_8f9b0ba72633938d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 23661,
+      "durationSeconds": 2.9,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T09:59:15.083Z"
     },
     {
       "assetId": "ar_9038826147ed235e",
@@ -12093,29 +12016,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_912c5f6c4b51f2a1",
-      "legacyCacheKey": "912c5f6c4b51f2a12622a5c412c6",
-      "text": "قلم تلوين أبيض",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_912c5f6c4b51f2a1.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_912c5f6c4b51f2a1.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_913516003e1825c0",
       "legacyCacheKey": "913516003e1825c09c22e12cfc0b",
       "text": "حقيبة",
@@ -12158,29 +12058,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_91cc4e2d4d8c6258.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_91cc4e2d4d8c6258.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_91d03bb5166ef796",
-      "legacyCacheKey": "91d03bb5166ef79692024b73ca15",
-      "text": "أبيض — مثال ٢",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_91d03bb5166ef796.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_91d03bb5166ef796.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -12912,7 +12789,10 @@
         "NM02"
       ],
       "activityOrStageIds": [
+        "quiz-NM02-Q01",
         "quiz-NM02-Q02",
+        "quiz-NM02-Q04",
+        "quiz-NM02-Q05",
         "stage5-listen-select",
         "vocab-NM02-qty",
         "vocab-NM02-u1"
@@ -13042,29 +12922,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_9d0f8608b4297ae2",
-      "legacyCacheKey": "9d0f8608b4297ae263c6d662ba16",
-      "text": "أبيض — مثال ١",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_9d0f8608b4297ae2.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_9d0f8608b4297ae2.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_9d31e8381f9d1bc3",
       "legacyCacheKey": "9d31e8381f9d1bc313c7bbc4ebcf",
       "text": "صفر",
@@ -13077,7 +12934,10 @@
         "NM01"
       ],
       "activityOrStageIds": [
+        "quiz-NM01-Q01",
         "quiz-NM01-Q02",
+        "quiz-NM01-Q04",
+        "quiz-NM01-Q05",
         "stage5-listen-select",
         "vocab-NM01-qty",
         "vocab-NM01-u1"
@@ -13219,29 +13079,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_9e76f2e2633501e2",
-      "legacyCacheKey": "9e76f2e2633501e2f8e9f25472ff",
-      "text": "وردي — مثال ١",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_9e76f2e2633501e2.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_9e76f2e2633501e2.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_9eb8decfdd0c1796",
       "legacyCacheKey": "9eb8decfdd0c179603e92962a263",
       "text": "عشرة",
@@ -13254,7 +13091,10 @@
         "NM11"
       ],
       "activityOrStageIds": [
+        "quiz-NM11-Q01",
         "quiz-NM11-Q02",
+        "quiz-NM11-Q04",
+        "quiz-NM11-Q05",
         "stage5-listen-select",
         "vocab-NM11-qty",
         "vocab-NM11-u1"
@@ -13627,12 +13467,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_a28c1cca11de16f2.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_a28c1cca11de16f2.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 17325,
+      "durationSeconds": 2.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.110Z"
     },
     {
       "assetId": "ar_a2e1e7f45dc3b65d",
@@ -13732,16 +13573,13 @@
       "text": "7",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM08",
         "num-7"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM08-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_a6338d7cc6915fd1.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_a6338d7cc6915fd1.mp3",
@@ -14384,12 +14222,15 @@
       "text": "قلب بنفسجي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v5"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_af7cbc09b884dd63.mp3",
@@ -14547,12 +14388,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b1ae65dd508469d9.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b1ae65dd508469d9.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 26925,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:00:16.611Z"
     },
     {
       "assetId": "ar_b1febfc87c576def",
@@ -14655,16 +14497,13 @@
       "text": "5",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM06",
         "num-5"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM06-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b2fc87feafcf8025.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b2fc87feafcf8025.mp3",
@@ -14743,6 +14582,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "ar_b3ba5acb3c9175d6",
+      "legacyCacheKey": "b3ba5acb3c9175d677a9dc693f28",
+      "text": "تَ.. تفاحة",
+      "language": "ar",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage2"
+      ],
+      "activityOrStageIds": [
+        "r2-2"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_b3ba5acb3c9175d6.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_b3ba5acb3c9175d6.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 22125,
+      "durationSeconds": 2.7,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:33:20.341Z"
     },
     {
       "assetId": "ar_b403a5dbc0a6f3de",
@@ -14837,6 +14700,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "ar_b4c46367e54fa49f",
+      "legacyCacheKey": "b4c46367e54fa49fb3652f5c94c1",
+      "text": "زرعت لولو بذرة زهرة صغيرة في التربة، ثم سقتها بالماء كل صباح ووضعتها قرب نافذة مشمسة . وبعد أسبوع، تفتّحت زهرة صفراء جميلة !",
+      "language": "ar",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage8"
+      ],
+      "activityOrStageIds": [
+        "mini-story"
+      ],
+      "mp3Path": "public/assets/audio/academy/ar/ar_b4c46367e54fa49f.mp3",
+      "audioUrl": "/assets/audio/academy/ar/ar_b4c46367e54fa49f.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 132333,
+      "durationSeconds": 16.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:34:30.609Z"
     },
     {
       "assetId": "ar_b4ea760bf2073e23",
@@ -15051,12 +14938,15 @@
       "text": "ثلج أبيض",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v3"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b73da60deb32ca6d.mp3",
@@ -15210,29 +15100,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b9ac9a5ff38befbb.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b9ac9a5ff38befbb.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_b9d6a4548f1f11b9",
-      "legacyCacheKey": "b9d6a4548f1f11b9f1560b34c915",
-      "text": "تيشيرت وردي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_b9d6a4548f1f11b9.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_b9d6a4548f1f11b9.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -15589,16 +15456,13 @@
       "text": "9",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM10",
         "num-9"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM10-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_bf19a297a203a32f.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_bf19a297a203a32f.mp3",
@@ -15665,16 +15529,13 @@
       "text": "4",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM05",
         "num-4"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM05-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_bfbb909231056fda.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_bfbb909231056fda.mp3",
@@ -15691,12 +15552,15 @@
       "text": "سحابة بيضاء",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v1"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_c0251a8004db33b2.mp3",
@@ -15808,12 +15672,15 @@
       "text": "أرنب أبيض",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v2"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_c27287c3eb855249.mp3",
@@ -15831,12 +15698,15 @@
       "text": "زهرة وردية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v1"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_c369e9b6cd1545eb.mp3",
@@ -16151,29 +16021,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_c99475017b6c1a09",
-      "legacyCacheKey": "c99475017b6c1a09b91fdf198197",
-      "text": "تيشيرت أبيض",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_c99475017b6c1a09.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_c99475017b6c1a09.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_c9c4ac78c8c24212",
       "legacyCacheKey": "c9c4ac78c8c242129c93e5383b0e",
       "text": "دائرة",
@@ -16189,12 +16036,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_c9c4ac78c8c24212.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_c9c4ac78c8c24212.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 18285,
+      "durationSeconds": 2.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:04:43.503Z"
     },
     {
       "assetId": "ar_c9d36596561d627d",
@@ -16352,7 +16200,10 @@
         "NM05"
       ],
       "activityOrStageIds": [
+        "quiz-NM05-Q01",
         "quiz-NM05-Q02",
+        "quiz-NM05-Q04",
+        "quiz-NM05-Q05",
         "stage5-listen-select",
         "vocab-NM05-qty",
         "vocab-NM05-u1"
@@ -16509,29 +16360,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_cc56a54d08c5fe02.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_cc56a54d08c5fe02.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_cca36f5cc66e663b",
-      "legacyCacheKey": "cca36f5cc66e663b6818ce9e9e29",
-      "text": "قلم تلوين برتقالي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_cca36f5cc66e663b.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_cca36f5cc66e663b.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -16736,7 +16564,10 @@
         "NM03"
       ],
       "activityOrStageIds": [
+        "quiz-NM03-Q01",
         "quiz-NM03-Q02",
+        "quiz-NM03-Q04",
+        "quiz-NM03-Q05",
         "stage5-listen-select",
         "vocab-NM03-qty",
         "vocab-NM03-u1"
@@ -17339,12 +17170,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_d41e9709e9ea2e5b.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_d41e9709e9ea2e5b.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 22701,
+      "durationSeconds": 2.8,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T09:58:55.062Z"
     },
     {
       "assetId": "ar_d451586b8dd3256c",
@@ -17431,12 +17263,15 @@
       "text": "كرة برتقالية",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v5"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_d59a1dd89064c1dd.mp3",
@@ -17546,29 +17381,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_d704be8e26a0c0cf.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_d704be8e26a0c0cf.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_d715ceb5b0291632",
-      "legacyCacheKey": "d715ceb5b0291632f4d465783140",
-      "text": "هدية بنفسجي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_d715ceb5b0291632.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_d715ceb5b0291632.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -18000,7 +17812,10 @@
         "NM04"
       ],
       "activityOrStageIds": [
+        "quiz-NM04-Q01",
         "quiz-NM04-Q02",
+        "quiz-NM04-Q04",
+        "quiz-NM04-Q05",
         "stage5-listen-select",
         "vocab-NM04-qty",
         "vocab-NM04-u1"
@@ -18323,12 +18138,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_dec137f158a4626c.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_dec137f158a4626c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 18477,
+      "durationSeconds": 2.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.287Z"
     },
     {
       "assetId": "ar_df4c7018fb0c8374",
@@ -18415,29 +18231,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_dfe3d476a4c720dd.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_dfe3d476a4c720dd.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "ar_e0a719b8e0207cf4",
-      "legacyCacheKey": "e0a719b8e0207cf47a4133446cad",
-      "text": "قلم تلوين بنفسجي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_e0a719b8e0207cf4.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_e0a719b8e0207cf4.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -18601,16 +18394,13 @@
       "text": "1",
       "language": "ar",
       "screens": [
-        "AcademyScreen:numbers",
-        "Level1LessonRunner:stage10"
+        "AcademyScreen:numbers"
       ],
       "lessonIds": [
-        "NM02",
         "num-1"
       ],
       "activityOrStageIds": [
-        "number-tap",
-        "quiz-NM02-Q01"
+        "number-tap"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_e25237a6a1f1f17e.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_e25237a6a1f1f17e.mp3",
@@ -18717,12 +18507,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_e518582df760e064.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_e518582df760e064.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 100461,
+      "durationSeconds": 12.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:03:01.496Z"
     },
     {
       "assetId": "ar_e55d984f525bfddd",
@@ -19282,12 +19073,15 @@
       "text": "عنب بنفسجي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v1"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_ea3c0deb53ba3da8.mp3",
@@ -19506,12 +19300,15 @@
       "text": "حمامة بيضاء",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v4"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_ec131413e9c3a01f.mp3",
@@ -19875,29 +19672,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_ee85bf70395a1b93",
-      "legacyCacheKey": "ee85bf70395a1b93cfe0fd2e7e87",
-      "text": "برتقالي — مثال ١",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_ee85bf70395a1b93.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_ee85bf70395a1b93.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_eed144974a57d1bc",
       "legacyCacheKey": "eed144974a57d1bc50a25238eeac",
       "text": "اكتشف اللون أخضر",
@@ -19926,12 +19700,15 @@
       "text": "يقطين برتقالي",
       "language": "ar",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v4"
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_ef6a69454c22094f.mp3",
@@ -20132,12 +19909,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_f143e6381a18ff6b.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_f143e6381a18ff6b.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 51693,
+      "durationSeconds": 6.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:36:51.988Z"
     },
     {
       "assetId": "ar_f1863e47f4b3bde4",
@@ -20345,7 +20123,10 @@
         "NM08"
       ],
       "activityOrStageIds": [
+        "quiz-NM08-Q01",
         "quiz-NM08-Q02",
+        "quiz-NM08-Q04",
+        "quiz-NM08-Q05",
         "stage5-listen-select",
         "vocab-NM08-qty",
         "vocab-NM08-u1"
@@ -20857,29 +20638,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "ar_fcd4219e3c0b4eec",
-      "legacyCacheKey": "fcd4219e3c0b4eec3b950f7aa6c0",
-      "text": "تيشيرت برتقالي",
-      "language": "ar",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/ar/ar_fcd4219e3c0b4eec.mp3",
-      "audioUrl": "/assets/audio/academy/ar/ar_fcd4219e3c0b4eec.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "ar_fce2552a700ba9b5",
       "legacyCacheKey": "fce2552a700ba9b511d11bb57071",
       "text": "مِيم",
@@ -21109,29 +20867,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_0216903743ec2457.mp3",
       "audioUrl": "/assets/audio/academy/en/en_0216903743ec2457.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_02465fdc8fd9e00d",
-      "legacyCacheKey": "02465fdc8fd9e00de1aaa95d43d4",
-      "text": "Purple Item 1",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_02465fdc8fd9e00d.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_02465fdc8fd9e00d.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -21964,12 +21699,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_0faa9b3d03d16211.mp3",
       "audioUrl": "/assets/audio/academy/en/en_0faa9b3d03d16211.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 9069,
+      "durationSeconds": 1.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:32:58.666Z"
     },
     {
       "assetId": "en_10de2de4e1e783c0",
@@ -22138,37 +21874,13 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_128ea0882e070537",
-      "legacyCacheKey": "128ea0882e0705370f5af03bb688",
-      "text": "Purple Shirt",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_128ea0882e070537.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_128ea0882e070537.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_12c175859ab7fef0",
       "legacyCacheKey": "12c175859ab7fef08d9d6ebffea1",
       "text": "1",
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM02",
@@ -22176,8 +21888,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM02-Q04",
-        "quiz-NM02-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_12c175859ab7fef0.mp3",
@@ -22520,6 +22230,30 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "en_187fc10a79362230",
+      "legacyCacheKey": "187fc10a79362230e298b285d823",
+      "text": "Lolo planted a tiny flower seed in the soil, watered it every morning , and placed it near a sunny window . A week later, a bright yellow sunflower bloomed !",
+      "language": "en",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage8"
+      ],
+      "activityOrStageIds": [
+        "mini-story"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_187fc10a79362230.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_187fc10a79362230.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 106029,
+      "durationSeconds": 13.2,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:35:52.842Z"
+    },
+    {
       "assetId": "en_18aec7fda56a7225",
       "legacyCacheKey": "18aec7fda56a722587bdff7ece6d",
       "text": "Kitchen Color & Quantity Sorting. Sort fruits or cups by color, then compare which group has more or fewer.",
@@ -22535,12 +22269,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_18aec7fda56a7225.mp3",
       "audioUrl": "/assets/audio/academy/en/en_18aec7fda56a7225.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 86061,
+      "durationSeconds": 10.7,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:03:44.224Z"
     },
     {
       "assetId": "en_18b914513214ffba",
@@ -22717,12 +22452,15 @@
       "text": "Pink Donut",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v4"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_1c6481103b21485b.mp3",
@@ -22750,29 +22488,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_1ccb09cf252f4c03.mp3",
       "audioUrl": "/assets/audio/academy/en/en_1ccb09cf252f4c03.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_1ccd02409e643e6c",
-      "legacyCacheKey": "1ccd02409e643e6c43f7ad06602b",
-      "text": "Pink Shirt",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_1ccd02409e643e6c.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_1ccd02409e643e6c.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -23387,6 +23102,30 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "en_23fe603b9d2304c0",
+      "legacyCacheKey": "23fe603b9d2304c0e22cd63c7df0",
+      "text": "Buh, Buh, Ball",
+      "language": "en",
+      "screens": [
+        "SmartAdaptiveAssessmentPanel"
+      ],
+      "lessonIds": [
+        "sa-listen-en-b"
+      ],
+      "activityOrStageIds": [
+        "phonics-cue"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_23fe603b9d2304c0.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_23fe603b9d2304c0.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 27117,
+      "durationSeconds": 3.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:36:08.536Z"
+    },
+    {
       "assetId": "en_24a42d21d24d38d2",
       "legacyCacheKey": "24a42d21d24d38d2e576425e489b",
       "text": "Monkey",
@@ -23461,12 +23200,15 @@
       "text": "White Bunny",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v2"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_283ee75612ae6916.mp3",
@@ -23715,29 +23457,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_2d73d7c13ec7be37.mp3",
       "audioUrl": "/assets/audio/academy/en/en_2d73d7c13ec7be37.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_2e09a8ff7b74482c",
-      "legacyCacheKey": "2e09a8ff7b74482c604293e8b2e0",
-      "text": "Pink Item 2",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_2e09a8ff7b74482c.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_2e09a8ff7b74482c.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -23997,12 +23716,15 @@
       "text": "White Cloud",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v1"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_322355790d724937.mp3",
@@ -24362,12 +24084,15 @@
       "text": "Orange Carrot",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v2"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_37b40810f5a662c2.mp3",
@@ -24458,29 +24183,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_390d55c718430fdb",
-      "legacyCacheKey": "390d55c718430fdbb1700c1a6c10",
-      "text": "Pink Crayon",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_390d55c718430fdb.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_390d55c718430fdb.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_39130bedf42bae61",
       "legacyCacheKey": "39130bedf42bae6182ed91189701",
       "text": "Hello friend! Today Nono and you are learning the color Brown!",
@@ -24542,12 +24244,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_3948e34fedf1f445.mp3",
       "audioUrl": "/assets/audio/academy/en/en_3948e34fedf1f445.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 16365,
+      "durationSeconds": 2,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.738Z"
     },
     {
       "assetId": "en_394978dc9885cc89",
@@ -25015,12 +24718,15 @@
       "text": "Pink Blossom",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v1"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_3f2625c48d441e1c.mp3",
@@ -25288,29 +24994,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_43926cf8c7eebc7e",
-      "legacyCacheKey": "43926cf8c7eebc7e71c75f3796b1",
-      "text": "White Shirt",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_43926cf8c7eebc7e.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_43926cf8c7eebc7e.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_43c0a9f26b8027b8",
       "legacyCacheKey": "43c0a9f26b8027b8ac462225d823",
       "text": "i",
@@ -25411,37 +25094,13 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_4588d226c2d204f4",
-      "legacyCacheKey": "4588d226c2d204f4198347f8aa63",
-      "text": "Orange Gift",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_4588d226c2d204f4.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_4588d226c2d204f4.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_45c6906114672dbe",
       "legacyCacheKey": "45c6906114672dbe57f50e7a7bd3",
       "text": "6",
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM07",
@@ -25449,8 +25108,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM07-Q04",
-        "quiz-NM07-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_45c6906114672dbe.mp3",
@@ -25687,12 +25344,15 @@
       "text": "Purple Grapes",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v1"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_48afeea44c82b0f1.mp3",
@@ -26180,12 +25840,15 @@
       "text": "Purple Blossom",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v3"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_5034b9336f81f087.mp3",
@@ -26323,8 +25986,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM08",
@@ -26332,8 +25994,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM08-Q04",
-        "quiz-NM08-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_53023074974c00e2.mp3",
@@ -26509,12 +26169,15 @@
       "text": "White Dove",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v4"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_570a88acb29eefa7.mp3",
@@ -27032,12 +26695,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_5d544881a6ae35a6.mp3",
       "audioUrl": "/assets/audio/academy/en/en_5d544881a6ae35a6.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 13101,
+      "durationSeconds": 1.6,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.381Z"
     },
     {
       "assetId": "en_5d88303644b8f6ae",
@@ -27233,29 +26897,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_61264a0b799c081e",
-      "legacyCacheKey": "61264a0b799c081e71037af10978",
-      "text": "Purple Item 2",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_61264a0b799c081e.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_61264a0b799c081e.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_612ff52bae6c317e",
       "legacyCacheKey": "612ff52bae6c317ed49aefb2d9a5",
       "text": "Green",
@@ -27341,12 +26982,15 @@
       "text": "Orange Pumpkin",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v4"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_61ebf85b4df38df9.mp3",
@@ -27448,29 +27092,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_648e270a9127739d.mp3",
       "audioUrl": "/assets/audio/academy/en/en_648e270a9127739d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_64a51b5b45bdb91f",
-      "legacyCacheKey": "64a51b5b45bdb91fb5e23c57c9f7",
-      "text": "Purple Crayon",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_64a51b5b45bdb91f.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_64a51b5b45bdb91f.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -27724,6 +27345,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "en_6a44dbcf94d36c02",
+      "legacyCacheKey": "6a44dbcf94d36c022ce9b450c975",
+      "text": "Buh, Book",
+      "language": "en",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage2"
+      ],
+      "activityOrStageIds": [
+        "r2-3"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_6a44dbcf94d36c02.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_6a44dbcf94d36c02.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 18477,
+      "durationSeconds": 2.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:35:04.985Z"
     },
     {
       "assetId": "en_6a7ad302538f4525",
@@ -28132,29 +27777,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_72715c60b0440ad1",
-      "legacyCacheKey": "72715c60b0440ad12e17c9058de8",
-      "text": "White Gift",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_72715c60b0440ad1.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_72715c60b0440ad1.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_72e996182095fb33",
       "legacyCacheKey": "72e996182095fb33a7d01c51788b",
       "text": "A number is not just a symbol! Number 3 means three real objects we can count one by one.",
@@ -28410,12 +28032,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_75b0d42e78c8cb4d.mp3",
       "audioUrl": "/assets/audio/academy/en/en_75b0d42e78c8cb4d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 14829,
+      "durationSeconds": 1.8,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.468Z"
     },
     {
       "assetId": "en_75fabbdb1c61d891",
@@ -28767,12 +28390,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_7e41b94d23428e69.mp3",
       "audioUrl": "/assets/audio/academy/en/en_7e41b94d23428e69.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 12525,
+      "durationSeconds": 1.5,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:31:55.634Z"
     },
     {
       "assetId": "en_7f148c6a002b3d91",
@@ -28829,8 +28453,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM03",
@@ -28838,8 +28461,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM03-Q04",
-        "quiz-NM03-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_800c5916e0a891ea.mp3",
@@ -29010,12 +28631,15 @@
       "text": "Pink Ribbon",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v3"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_815988a84a850a10.mp3",
@@ -29361,29 +28985,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_88a34003cc6772e0",
-      "legacyCacheKey": "88a34003cc6772e03f66e3a350fd",
-      "text": "Orange Crayon",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_88a34003cc6772e0.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_88a34003cc6772e0.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_88f323106c4a722d",
       "legacyCacheKey": "88f323106c4a722d1ff1a9cae4aa",
       "text": "Discover Letter D d",
@@ -29600,12 +29201,15 @@
       "text": "Orange Ball",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v5"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_8c6f404b60e92f3b.mp3",
@@ -29697,12 +29301,15 @@
       "text": "Pink Flamingo",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL07"
+        "CL07",
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL07-v2"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_8e87c7137f118d13.mp3",
@@ -29720,12 +29327,15 @@
       "text": "Purple Heart",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v5"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_8f31caeeb903c493.mp3",
@@ -29839,8 +29449,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM04",
@@ -29848,8 +29457,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM04-Q04",
-        "quiz-NM04-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_8fe85d83690dc81a.mp3",
@@ -29962,8 +29569,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM05",
@@ -29971,8 +29577,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM05-Q04",
-        "quiz-NM05-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_918eabe7c4fd0dbe.mp3",
@@ -30063,8 +29667,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM09",
@@ -30072,8 +29675,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM09-Q04",
-        "quiz-NM09-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_93aa942aa324e24e.mp3",
@@ -30349,12 +29950,15 @@
       "text": "White Snow",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v3"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_95f41ca10e5c2f53.mp3",
@@ -30449,29 +30053,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_9714908c6f586383",
-      "legacyCacheKey": "9714908c6f5863831db72931d755",
-      "text": "Orange Item 2",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_9714908c6f586383.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_9714908c6f586383.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_9791f909864107f2",
       "legacyCacheKey": "9791f909864107f2ab48b82459de",
       "text": "K. Kite",
@@ -30509,8 +30090,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM11",
@@ -30518,8 +30098,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM11-Q04",
-        "quiz-NM11-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_97a9254f41c1a0d0.mp3",
@@ -30602,29 +30180,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_9931bda216372a8d.mp3",
       "audioUrl": "/assets/audio/academy/en/en_9931bda216372a8d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_99a75c5409bf65df",
-      "legacyCacheKey": "99a75c5409bf65df62db39e24465",
-      "text": "Pink Item 1",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_99a75c5409bf65df.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_99a75c5409bf65df.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -31319,12 +30874,15 @@
       "text": "Purple Eggplant",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v2"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_a4727348251eff43.mp3",
@@ -31684,8 +31242,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM01",
@@ -31693,8 +31250,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM01-Q04",
-        "quiz-NM01-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_ab0fa9303f5a9ef3.mp3",
@@ -31852,29 +31407,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_ae0228895ff481dc",
-      "legacyCacheKey": "ae0228895ff481dca370deb682e8",
-      "text": "White Crayon",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_ae0228895ff481dc.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_ae0228895ff481dc.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_ae880db14ed1a346",
       "legacyCacheKey": "ae880db14ed1a3464aa470c2a109",
       "text": "W. Whale",
@@ -32023,12 +31555,15 @@
       "text": "Orange Fruit",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v1"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_b2861d8e4dcf306c.mp3",
@@ -32056,12 +31591,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_b2ed580280df0a38.mp3",
       "audioUrl": "/assets/audio/academy/en/en_b2ed580280df0a38.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 14829,
+      "durationSeconds": 1.8,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.653Z"
     },
     {
       "assetId": "en_b4d107db4a88e33d",
@@ -32255,21 +31791,21 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_b7d342d17b5d544f",
-      "legacyCacheKey": "b7d342d17b5d544fecdecadd7241",
-      "text": "Orange Item 1",
+      "assetId": "en_b89f44855c685577",
+      "legacyCacheKey": "b89f44855c685577a8c50250a1d9",
+      "text": "Pink Ballet Dress",
       "language": "en",
       "screens": [
         "DeepLessonEngine:color"
       ],
       "lessonIds": [
-        "deep-color-orange"
+        "deep-color-pink"
       ],
       "activityOrStageIds": [
         "stage2-examples"
       ],
-      "mp3Path": "public/assets/audio/academy/en/en_b7d342d17b5d544f.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_b7d342d17b5d544f.mp3",
+      "mp3Path": "public/assets/audio/academy/en/en_b89f44855c685577.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_b89f44855c685577.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -32424,29 +31960,6 @@
       "maxVolumeDb": null
     },
     {
-      "assetId": "en_b9ebacafe3bc4c7a",
-      "legacyCacheKey": "b9ebacafe3bc4c7a9c762d88c337",
-      "text": "Orange Shirt",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-orange"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_b9ebacafe3bc4c7a.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_b9ebacafe3bc4c7a.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
       "assetId": "en_b9fdc84cb7917201",
       "legacyCacheKey": "b9fdc84cb7917201d2b1ecdb9938",
       "text": "14",
@@ -32571,12 +32084,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_bc3d8bbaf427567c.mp3",
       "audioUrl": "/assets/audio/academy/en/en_bc3d8bbaf427567c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 13485,
+      "durationSeconds": 1.7,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:15:03.553Z"
     },
     {
       "assetId": "en_bc7c5991c8b753b5",
@@ -33142,12 +32656,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_c1e6433b40075f88.mp3",
       "audioUrl": "/assets/audio/academy/en/en_c1e6433b40075f88.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 81261,
+      "durationSeconds": 10.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:04:07.923Z"
     },
     {
       "assetId": "en_c238b0509ac0d812",
@@ -33176,29 +32691,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_c238b0509ac0d812.mp3",
       "audioUrl": "/assets/audio/academy/en/en_c238b0509ac0d812.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_c241e987b860c180",
-      "legacyCacheKey": "c241e987b860c180f307e1fe5a3f",
-      "text": "Pink Gift",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-pink"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_c241e987b860c180.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_c241e987b860c180.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -33824,12 +33316,15 @@
       "text": "White Milk",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL09"
+        "CL09",
+        "deep-color-white"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL09-v5"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_cc416a4654e85db2.mp3",
@@ -33848,8 +33343,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM10",
@@ -33857,8 +33351,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM10-Q04",
-        "quiz-NM10-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_cc4eb33d81d0650c.mp3",
@@ -34032,6 +33524,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "en_ce4903af27f44f50",
+      "legacyCacheKey": "ce4903af27f44f501fc140fe07a8",
+      "text": "On a sunny morning , Nono carried a red basket with 3 apples to the garden to share them with his friend Leo the Lion .",
+      "language": "en",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage7"
+      ],
+      "activityOrStageIds": [
+        "mini-story"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_ce4903af27f44f50.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_ce4903af27f44f50.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 80877,
+      "durationSeconds": 10.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:35:30.090Z"
     },
     {
       "assetId": "en_cee5e474276c40b3",
@@ -34339,8 +33855,7 @@
       "language": "en",
       "screens": [
         "AcademyScreen:numbers",
-        "Level1LessonRunner",
-        "Level1LessonRunner:stage10"
+        "Level1LessonRunner"
       ],
       "lessonIds": [
         "NM06",
@@ -34348,8 +33863,6 @@
       ],
       "activityOrStageIds": [
         "number-tap",
-        "quiz-NM06-Q04",
-        "quiz-NM06-Q05",
         "stage5-listen-select"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_d1e2caac1ad84f86.mp3",
@@ -34377,29 +33890,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_d1e8cdcae3f6ae68.mp3",
       "audioUrl": "/assets/audio/academy/en/en_d1e8cdcae3f6ae68.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_d1e9879959c908c3",
-      "legacyCacheKey": "d1e9879959c908c38fb54d1fdcb9",
-      "text": "White Item 1",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_d1e9879959c908c3.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_d1e9879959c908c3.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -34594,29 +34084,6 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_d6785bb055589fbd.mp3",
       "audioUrl": "/assets/audio/academy/en/en_d6785bb055589fbd.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_d6ad4037e02c948e",
-      "legacyCacheKey": "d6ad4037e02c948e14c418a3aa7a",
-      "text": "White Item 2",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-white"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_d6ad4037e02c948e.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_d6ad4037e02c948e.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -35051,6 +34518,30 @@
       "maxVolumeDb": null
     },
     {
+      "assetId": "en_dce4835363b0fd1a",
+      "legacyCacheKey": "dce4835363b0fd1aebdda834eb32",
+      "text": "Cuh, Cuh, Cat",
+      "language": "en",
+      "screens": [
+        "SmartAdaptiveAssessmentPanel"
+      ],
+      "lessonIds": [
+        "sa-phonics-cat"
+      ],
+      "activityOrStageIds": [
+        "phonics-cue"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_dce4835363b0fd1a.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_dce4835363b0fd1a.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 26349,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:36:29.438Z"
+    },
+    {
       "assetId": "en_dd6241a42f2e9562",
       "legacyCacheKey": "dd6241a42f2e9562664d0f61eae9",
       "text": "Hi friend! Leo is excited to explore uppercase J and lowercase j with you!",
@@ -35275,12 +34766,15 @@
       "text": "Orange Fox",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL05"
+        "CL05",
+        "deep-color-orange"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL05-v3"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_e1427302ed67fd24.mp3",
@@ -35486,12 +34980,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_e4abbe542796f582.mp3",
       "audioUrl": "/assets/audio/academy/en/en_e4abbe542796f582.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 9261,
+      "durationSeconds": 1.1,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:32:37.980Z"
     },
     {
       "assetId": "en_e634c4af0f5bf66d",
@@ -36168,39 +35663,19 @@
       "text": "Purple Umbrella",
       "language": "en",
       "screens": [
+        "DeepLessonEngine:color",
         "Level1LessonRunner"
       ],
       "lessonIds": [
-        "CL06"
+        "CL06",
+        "deep-color-purple"
       ],
       "activityOrStageIds": [
+        "stage2-examples",
         "vocab-CL06-v4"
       ],
       "mp3Path": "public/assets/audio/academy/en/en_edc43f0e5b3feb91.mp3",
       "audioUrl": "/assets/audio/academy/en/en_edc43f0e5b3feb91.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
-      "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
-    },
-    {
-      "assetId": "en_edefdf39b45195f1",
-      "legacyCacheKey": "edefdf39b45195f13abf5c3f02fa",
-      "text": "Purple Gift",
-      "language": "en",
-      "screens": [
-        "DeepLessonEngine:color"
-      ],
-      "lessonIds": [
-        "deep-color-purple"
-      ],
-      "activityOrStageIds": [
-        "stage2-examples"
-      ],
-      "mp3Path": "public/assets/audio/academy/en/en_edefdf39b45195f1.mp3",
-      "audioUrl": "/assets/audio/academy/en/en_edefdf39b45195f1.mp3",
       "generationStatus": "pending",
       "validationStatus": "missing",
       "pronunciationReviewStatus": "not-applicable",
@@ -36269,6 +35744,30 @@
       "bytes": 0,
       "durationSeconds": null,
       "maxVolumeDb": null
+    },
+    {
+      "assetId": "en_eeb8fb9ced7d0366",
+      "legacyCacheKey": "eeb8fb9ced7d03666c224241d5e5",
+      "text": "Sss, Sun",
+      "language": "en",
+      "screens": [
+        "ReadingAdventureScreen"
+      ],
+      "lessonIds": [
+        "ra-stage2"
+      ],
+      "activityOrStageIds": [
+        "r2-1"
+      ],
+      "mp3Path": "public/assets/audio/academy/en/en_eeb8fb9ced7d0366.mp3",
+      "audioUrl": "/assets/audio/academy/en/en_eeb8fb9ced7d0366.mp3",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
+      "pronunciationReviewStatus": "not-applicable",
+      "bytes": 21357,
+      "durationSeconds": 2.6,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:34:43.827Z"
     },
     {
       "assetId": "en_eeee4f47428ab9f8",
@@ -36616,12 +36115,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_f4c83c5c4fc92e50.mp3",
       "audioUrl": "/assets/audio/academy/en/en_f4c83c5c4fc92e50.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 11565,
+      "durationSeconds": 1.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:32:17.093Z"
     },
     {
       "assetId": "en_f599e95e9326d22b",
@@ -36953,12 +36453,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_fa570e925daf8744.mp3",
       "audioUrl": "/assets/audio/academy/en/en_fa570e925daf8744.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 78957,
+      "durationSeconds": 9.8,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:03:21.718Z"
     },
     {
       "assetId": "en_fab30426c368b8bd",

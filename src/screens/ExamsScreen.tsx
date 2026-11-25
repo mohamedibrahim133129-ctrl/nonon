@@ -471,12 +471,21 @@ export const ExamsScreen: React.FC = () => {
             <div className="text-4xl sm:text-5xl py-2 tracking-wider">{q.visualCue}</div>
           )}
 
-          {q.audioText && (
+          {(q.audioText || q.audioUrl) && (
             <div className="space-y-3">
               <button
                 type="button"
                 onClick={() => {
                   const label = language === 'ar' ? 'استمع للسؤال بوضوح' : 'Listen to Question';
+                  const qLang = q.audioLang || language;
+                  if (q.audioUrl) {
+                    void academyAudio.speak(q.audioText || '', qLang, {
+                      slow: true,
+                      audioUrl: q.audioUrl,
+                      label,
+                    });
+                    return;
+                  }
                   if (q.id.startsWith('q-col-') && language === 'en') {
                     const colorId = q.id.slice('q-col-'.length);
                     const colorEntry = ACADEMY_COLORS.find((c) => c.id === colorId);
@@ -500,7 +509,6 @@ export const ExamsScreen: React.FC = () => {
                       return;
                     }
                   }
-                  const qLang = q.audioLang || language;
                   void academyAudio.speak(q.audioText!, qLang, {
                     slow: true,
                     itemId: findFoundationsItemId(q.audioText!, qLang) ?? undefined,

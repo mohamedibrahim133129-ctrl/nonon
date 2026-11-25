@@ -1,4 +1,5 @@
 import { Language, ParentSettings } from '../types/nonoland';
+import { resolveAcademyPlaybackUrls } from './academyAudioController';
 
 class NonoSoundEngine {
   private ctx: AudioContext | null = null;
@@ -109,9 +110,29 @@ class NonoSoundEngine {
 
   private activeTimers: number[] = [];
   private activePlaybackId = 0;
+  private speechAudioEl: HTMLAudioElement | null = null;
+  private speechPlaybackToken = 0;
+
+  private teardownSpeechAudioElement() {
+    this.speechPlaybackToken += 1;
+    if (this.speechAudioEl) {
+      try {
+        this.speechAudioEl.pause();
+        this.speechAudioEl.currentTime = 0;
+        this.speechAudioEl.onended = null;
+        this.speechAudioEl.onerror = null;
+        this.speechAudioEl.removeAttribute('src');
+        this.speechAudioEl.load();
+      } catch {
+        // ignore headless cleanup errors
+      }
+      this.speechAudioEl = null;
+    }
+  }
 
   stopAllAudio() {
     this.activePlaybackId += 1;
+    this.teardownSpeechAudioElement();
     if (typeof window !== 'undefined') {
       for (const timer of this.activeTimers) {
         window.clearTimeout(timer);
@@ -205,11 +226,74 @@ class NonoSoundEngine {
     }
   }
 
-  speak(text: string, lang: Language, options?: { slow?: boolean }) {
+  speak(
+    text: string,
+    lang: Language,
+    options?: { slow?: boolean; allowDynamicSpeech?: boolean },
+  ) {
     if (this.settings.muted || !this.settings.voiceNarration) return;
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    if (typeof window === 'undefined') return;
+
+    this.teardownSpeechAudioElement();
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
+    }
+
+    const preRecordedUrls = resolveAcademyPlaybackUrls(text, lang);
+    if (preRecordedUrls.length > 0 && typeof Audio !== 'undefined') {
+      const token = this.speechPlaybackToken;
+      const rate = options?.slow ? 0.78 : 1.0;
+      const volume = Math.min(1, Math.max(0.2, this.settings.sfxVolume));
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', 'true');
+      audio.setAttribute('webkit-playsinline', 'true');
+      audio.volume = volume;
+      this.speechAudioEl = audio;
+
+      let seqIdx = 0;
+      const playNext = () => {
+        if (this.speechPlaybackToken !== token) return;
+        const url = preRecordedUrls[seqIdx];
+        if (!url) return;
+        audio.src = url;
+        audio.defaultPlaybackRate = rate;
+        audio.playbackRate = rate;
+        void audio.play().catch(() => {
+          if (this.speechPlaybackToken === token) {
+            this.teardownSpeechAudioElement();
+          }
+        });
+      };
+
+      audio.onended = () => {
+        if (this.speechPlaybackToken !== token) return;
+        seqIdx += 1;
+        if (seqIdx < preRecordedUrls.length) {
+          playNext();
+        } else {
+          this.teardownSpeechAudioElement();
+        }
+      };
+      audio.onerror = () => {
+        if (this.speechPlaybackToken === token) {
+          this.teardownSpeechAudioElement();
+        }
+      };
+
+      playNext();
+      return;
+    }
+
+    // Strict fail-closed policy: NEVER fall back to runtime TTS for static curriculum/UI items.
+    // Only explicitly flagged dynamic/user-authored callers may use browser speechSynthesis.
+    if (!options?.allowDynamicSpeech) return;
+    if (!('speechSynthesis' in window)) return;
     try {
-      window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = lang === 'ar' ? 'ar-SA' : 'en-US';
       utter.rate = options?.slow ? 0.62 : 0.92;

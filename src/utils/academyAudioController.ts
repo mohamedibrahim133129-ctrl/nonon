@@ -10,6 +10,7 @@ import {
   findFoundationsItemId,
   resolveFoundationsAudioUrl,
 } from './foundationsAudioResolver';
+import { resolveEnglishAlphabetAnchorSequence } from './englishAlphabetAudioMap';
 
 export type AcademyAudioStatus =
   | 'idle'
@@ -88,14 +89,21 @@ export function resolveAcademyRecordingUrl(
 
   const standaloneNum = parseStandaloneNumberValue(clean);
   if (standaloneNum !== null && standaloneNum >= 0 && standaloneNum <= 20) {
+    const asciiKey = String(standaloneNum);
     if (lang === 'en') {
-      const asciiKey = String(standaloneNum);
       const enLookupId = langMap?.[asciiKey];
       if (enLookupId) {
         return getAcademyAudioUrlFromAssetId(enLookupId, 'en');
       }
       const enFoundationsId = findFoundationsItemId(asciiKey, 'en');
       return enFoundationsId ? resolveFoundationsAudioUrl(enFoundationsId) : null;
+    }
+    if (standaloneNum >= 11) {
+      const arLookupId = langMap?.[asciiKey];
+      if (arLookupId) {
+        return getAcademyAudioUrlFromAssetId(arLookupId, 'ar');
+      }
+      return null;
     }
     const arFoundationsId = findFoundationsItemId(clean, 'ar');
     return arFoundationsId ? resolveFoundationsAudioUrl(arFoundationsId) : null;
@@ -112,11 +120,48 @@ export function resolveAcademyRecordingUrl(
   return null;
 }
 
+export function resolveAcademyPlaybackUrls(
+  text: string,
+  lang: AcademyAudioLang,
+  explicitAudioUrl?: string,
+  explicitItemId?: string,
+): string[] {
+  if (isSafeAcademyAudioUrl(explicitAudioUrl)) {
+    return [explicitAudioUrl.trim()];
+  }
+  const clean = normalizeAcademyAudioText(text);
+
+  if (typeof explicitItemId === 'string') {
+    const exactUrl = resolveAcademyRecordingUrl(clean, lang, undefined, explicitItemId);
+    return exactUrl ? [exactUrl] : [];
+  }
+
+  if (!clean) return [];
+
+  const singleUrl = resolveAcademyRecordingUrl(clean, lang);
+  if (singleUrl) {
+    return [singleUrl];
+  }
+
+  const anchorSequence = resolveEnglishAlphabetAnchorSequence(clean, lang);
+  if (anchorSequence) {
+    return [anchorSequence[0], anchorSequence[1]];
+  }
+
+  return [];
+}
+
 function isSafeAcademyAudioUrl(raw: unknown): raw is string {
   if (typeof raw !== 'string') return false;
   const trimmed = raw.trim();
-  if (!trimmed) return false;
-  if ((trimmed.startsWith('/assets/') || trimmed.startsWith('/api/')) && !trimmed.startsWith('//')) {
+  if (!trimmed || trimmed.length > 500) return false;
+  if (
+    (trimmed.startsWith('/assets/') || trimmed.startsWith('/api/')) &&
+    !trimmed.startsWith('//') &&
+    !trimmed.includes('..') &&
+    !trimmed.includes('\\') &&
+    !/[\s\u0000-\u001F\u007F]/.test(trimmed)
+  ) {
     return true;
   }
   try {
@@ -164,7 +209,7 @@ export class AcademyAudioController {
   private lastRequest: LastPlayRequest | null = null;
   private listeners = new Set<(snap: AcademyAudioSnapshot) => void>();
   private uiLang: 'ar' | 'en' = 'ar';
-  private playbackUrlCache = new Map<string, string>();
+  private playbackUrlCache = new Map<string, string[]>();
 
   private snapshot: AcademyAudioSnapshot = {
     status: 'idle',
@@ -241,12 +286,13 @@ export class AcademyAudioController {
     this.lastRequest = { text: cleanText, lang, options: { ...options } };
 
     const cacheKey = `${lang}|${explicitUrl ?? ''}|${explicitItemId ?? ''}|${cleanText}`;
-    const resolvedUrl =
-      explicitUrl ||
-      this.playbackUrlCache.get(cacheKey) ||
-      resolveAcademyRecordingUrl(cleanText, lang, explicitUrl, explicitItemId);
+    const cachedUrls = explicitUrl ? [explicitUrl] : this.playbackUrlCache.get(cacheKey);
+    const resolvedUrls =
+      cachedUrls && cachedUrls.length > 0
+        ? cachedUrls
+        : resolveAcademyPlaybackUrls(cleanText, lang, explicitUrl, explicitItemId);
 
-    if (!resolvedUrl) {
+    if (resolvedUrls.length === 0) {
       this.emit({
         status: 'error',
         label,
@@ -262,7 +308,9 @@ export class AcademyAudioController {
       return false;
     }
 
-    this.playbackUrlCache.set(cacheKey, resolvedUrl);
+    this.playbackUrlCache.set(cacheKey, resolvedUrls);
+    let sequenceIndex = 0;
+    const firstUrl = resolvedUrls[0];
 
     if (typeof window === 'undefined' || typeof Audio === 'undefined') {
       this.emit({
@@ -270,7 +318,7 @@ export class AcademyAudioController {
         label,
         lang,
         slow,
-        currentUrl: resolvedUrl,
+        currentUrl: firstUrl,
         currentTime: 0,
         duration: 0,
         errorCode: 'UNAVAILABLE',
@@ -292,7 +340,7 @@ export class AcademyAudioController {
       label,
       lang,
       slow,
-      currentUrl: resolvedUrl,
+      currentUrl: firstUrl,
       currentTime: 0,
       duration: 0,
       errorCode: undefined,
@@ -324,6 +372,41 @@ export class AcademyAudioController {
     };
     const handleEnded = () => {
       if (this.token !== myToken) return;
+      if (sequenceIndex + 1 < resolvedUrls.length) {
+        sequenceIndex += 1;
+        const nextUrl = resolvedUrls[sequenceIndex];
+        this.emit({
+          status: 'loading',
+          currentUrl: nextUrl,
+          currentTime: 0,
+          duration: 0,
+        });
+        audio.src = nextUrl;
+        audio.defaultPlaybackRate = rate;
+        audio.playbackRate = rate;
+        void audio
+          .play()
+          .then(() => {
+            if (this.token !== myToken) {
+              audio.pause();
+              return;
+            }
+            audio.playbackRate = rate;
+            this.emit({ status: 'playing', errorCode: undefined, errorMessage: undefined, canRetry: false });
+          })
+          .catch((playErr) => {
+            if (this.token !== myToken || hadElementError) return;
+            const errName = playErr instanceof DOMException ? playErr.name : (playErr as { name?: string })?.name;
+            const code: AcademyAudioErrorCode = errName === 'NotAllowedError' ? 'NOT_ALLOWED' : 'INVALID_AUDIO';
+            this.emit({
+              status: 'error',
+              errorCode: code,
+              errorMessage: localizedError(this.uiLang, code),
+              canRetry: true,
+            });
+          });
+        return;
+      }
       this.emit({
         status: 'ended',
         currentTime: Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : this.snapshot.duration,
@@ -354,7 +437,7 @@ export class AcademyAudioController {
       audio.removeEventListener('error', handleError);
     };
 
-    audio.src = resolvedUrl;
+    audio.src = firstUrl;
     audio.defaultPlaybackRate = rate;
     audio.playbackRate = rate;
 

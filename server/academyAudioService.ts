@@ -364,6 +364,30 @@ export function saveManifestAndClientLookup(doc: AcademyAudioManifestDocument): 
     }
   }
 
+  // Also register any generated & verified Package 3 (P1+P2+P3+P5 + Deep Colors) MP3s on disk
+  const pkg3Path = path.resolve(process.cwd(), 'data', 'approved-package3-batch.json');
+  if (fs.existsSync(pkg3Path)) {
+    try {
+      const pkg3 = JSON.parse(fs.readFileSync(pkg3Path, 'utf8')) as {
+        items?: Array<{ language: 'ar' | 'en'; text: string; assetId: string; mp3Path: string }>;
+      };
+      for (const item of pkg3.items || []) {
+        const abs = path.resolve(process.cwd(), item.mp3Path);
+        if (!fs.existsSync(abs)) continue;
+        const stat = fs.statSync(abs);
+        if (!stat.isFile() || stat.size < 1024) continue;
+        const key = normalizeAcademyAudioText(item.text);
+        if (item.language === 'ar') {
+          if (!arMap[key]) arMap[key] = item.assetId;
+        } else {
+          if (!enMap[key]) enMap[key] = item.assetId;
+        }
+      }
+    } catch {
+      // ignore invalid package3 file
+    }
+  }
+
   fs.mkdirSync(path.dirname(ACADEMY_LOOKUP_FILE), { recursive: true });
   const tmpLookup = `${ACADEMY_LOOKUP_FILE}.tmp`;
   fs.writeFileSync(tmpLookup, JSON.stringify({ ar: arMap, en: enMap }, null, 2));

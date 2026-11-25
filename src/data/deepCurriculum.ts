@@ -120,6 +120,82 @@ const COLOR_EXTRA_EXAMPLES: Record<
     ],
     shape: 'flower',
   },
+  orange: {
+    examples: [
+      { emoji: '🍊', label: { ar: 'برتقالة', en: 'Orange Fruit' } },
+      { emoji: '🥕', label: { ar: 'جزرة برتقالية', en: 'Orange Carrot' } },
+      { emoji: '🦊', label: { ar: 'ثعلب برتقالي', en: 'Orange Fox' } },
+      { emoji: '🎃', label: { ar: 'يقطين برتقالي', en: 'Orange Pumpkin' } },
+      { emoji: '🏀', label: { ar: 'كرة برتقالية', en: 'Orange Ball' } },
+    ],
+    unseen: [
+      { emoji: '🎃', label: { ar: 'يقطين برتقالي', en: 'Orange Pumpkin' } },
+      { emoji: '🦊', label: { ar: 'ثعلب برتقالي', en: 'Orange Fox' } },
+    ],
+    distractors: [
+      { emoji: '🍎', label: { ar: 'تفاحة حمراء', en: 'Red Apple' }, basketId: 'red' },
+      { emoji: '🍌', label: { ar: 'موزة صفراء', en: 'Yellow Banana' }, basketId: 'yellow' },
+      { emoji: '🥦', label: { ar: 'بروكلي أخضر', en: 'Green Broccoli' }, basketId: 'green' },
+    ],
+    shape: 'apple',
+  },
+  purple: {
+    examples: [
+      { emoji: '🍇', label: { ar: 'عنب بنفسجي', en: 'Purple Grapes' } },
+      { emoji: '🍆', label: { ar: 'باذنجان بنفسجي', en: 'Purple Eggplant' } },
+      { emoji: '🪻', label: { ar: 'زهرة بنفسجية', en: 'Purple Blossom' } },
+      { emoji: '☂️', label: { ar: 'مظلة بنفسجية', en: 'Purple Umbrella' } },
+      { emoji: '💜', label: { ar: 'قلب بنفسجي', en: 'Purple Heart' } },
+    ],
+    unseen: [
+      { emoji: '🪻', label: { ar: 'زهرة بنفسجية', en: 'Purple Blossom' } },
+      { emoji: '☂️', label: { ar: 'مظلة بنفسجية', en: 'Purple Umbrella' } },
+    ],
+    distractors: [
+      { emoji: '🍎', label: { ar: 'تفاحة حمراء', en: 'Red Apple' }, basketId: 'red' },
+      { emoji: '🍋', label: { ar: 'ليمونة صفراء', en: 'Yellow Lemon' }, basketId: 'yellow' },
+      { emoji: '🐸', label: { ar: 'ضفدع أخضر', en: 'Green Frog' }, basketId: 'green' },
+    ],
+    shape: 'flower',
+  },
+  pink: {
+    examples: [
+      { emoji: '🌸', label: { ar: 'زهرة وردية', en: 'Pink Blossom' } },
+      { emoji: '🦩', label: { ar: 'فلامنجو وردي', en: 'Pink Flamingo' } },
+      { emoji: '🎀', label: { ar: 'شريط وردي', en: 'Pink Ribbon' } },
+      { emoji: '🍩', label: { ar: 'دونات وردية', en: 'Pink Donut' } },
+      { emoji: '🩰', label: { ar: 'فستان باليه وردي', en: 'Pink Ballet Dress' } },
+    ],
+    unseen: [
+      { emoji: '🎀', label: { ar: 'شريط وردي', en: 'Pink Ribbon' } },
+      { emoji: '🩰', label: { ar: 'فستان باليه وردي', en: 'Pink Ballet Dress' } },
+    ],
+    distractors: [
+      { emoji: '🍎', label: { ar: 'تفاحة حمراء', en: 'Red Apple' }, basketId: 'red' },
+      { emoji: '🍌', label: { ar: 'موزة صفراء', en: 'Yellow Banana' }, basketId: 'yellow' },
+      { emoji: '🐋', label: { ar: 'حوت أزرق', en: 'Blue Whale' }, basketId: 'blue' },
+    ],
+    shape: 'flower',
+  },
+  white: {
+    examples: [
+      { emoji: '☁️', label: { ar: 'سحابة بيضاء', en: 'White Cloud' } },
+      { emoji: '🐇', label: { ar: 'أرنب أبيض', en: 'White Bunny' } },
+      { emoji: '❄️', label: { ar: 'ثلج أبيض', en: 'White Snow' } },
+      { emoji: '🕊️', label: { ar: 'حمامة بيضاء', en: 'White Dove' } },
+      { emoji: '🥛', label: { ar: 'كوب حليب أبيض', en: 'White Milk' } },
+    ],
+    unseen: [
+      { emoji: '🕊️', label: { ar: 'حمامة بيضاء', en: 'White Dove' } },
+      { emoji: '🥛', label: { ar: 'كوب حليب أبيض', en: 'White Milk' } },
+    ],
+    distractors: [
+      { emoji: '🍓', label: { ar: 'فراولة حمراء', en: 'Red Strawberry' }, basketId: 'red' },
+      { emoji: '🍌', label: { ar: 'موزة صفراء', en: 'Yellow Banana' }, basketId: 'yellow' },
+      { emoji: '🌳', label: { ar: 'شجرة خضراء', en: 'Green Tree' }, basketId: 'green' },
+    ],
+    shape: 'star',
+  },
 };
 
 export function buildColorDeepJourney(colorId: string): ColorDeepJourneyData {

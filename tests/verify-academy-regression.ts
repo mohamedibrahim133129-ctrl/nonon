@@ -199,15 +199,28 @@ async function run() {
         `Arabic number ${n} MP3 bytes must differ from English number ${n}`,
       );
     } else {
-      // 11..20 Arabic must fail closed to null (never speak English)
+      // 11..20 Arabic must never reuse quarantined bare-digit Foundations files; must resolve strictly to new /academy/ar MP3s
       assert.strictEqual(resolveAuthoritativeNumberSpokenText(western, 'ar'), null);
       assert.strictEqual(findFoundationsItemId(western, 'ar'), null);
       assert.strictEqual(findFoundationsItemId(arabicIndic, 'ar'), null);
-      assert.strictEqual(resolveAcademyRecordingUrl(western, 'ar'), null);
-      assert.strictEqual(resolveAcademyRecordingUrl(arabicIndic, 'ar'), null);
+      const arUrlW = resolveAcademyRecordingUrl(western, 'ar');
+      const arUrlA = resolveAcademyRecordingUrl(arabicIndic, 'ar');
+      assert(arUrlW && arUrlW.startsWith('/assets/audio/academy/ar/ar_'), `Arabic number ${n} must resolve to /academy/ar/ar_*.mp3, got ${arUrlW}`);
+      assert.strictEqual(arUrlW, arUrlA, `Arabic number ${n} Western vs Arabic-Indic mismatch`);
+      assert(!arUrlW.includes('/foundations/'), `Arabic number ${n} must never resolve to Foundations`);
+      assert(!arUrlW.includes('/en_'), `Arabic number ${n} must never resolve to English`);
+      const arDisk = urlToPublicPath(root, arUrlW);
+      assert(fs.existsSync(arDisk), `Missing Arabic 11..20 MP3 on disk: ${arDisk}`);
+      const check11 = await validateAcademyMp3File(arDisk, false);
+      assert(check11.valid, `Invalid Arabic 11..20 MP3 ${arDisk}`);
+      assert.notStrictEqual(
+        sha256File(arDisk),
+        sha256File(enDisk),
+        `Arabic number ${n} MP3 bytes must differ from English number ${n}`,
+      );
     }
   }
-  console.log('   ✓ Verified strict language resolution for 0-20 (Western & Arabic-Indic), 0 cross-lang mixing, 11-20 AR fail-closed.');
+  console.log('   ✓ Verified strict language resolution for 0-20 (Western & Arabic-Indic), 0 cross-lang mixing, 11-20 AR fixed via academy/ar MP3s.');
 
   console.log('[4/7] Verifying Level 1 Numbers (NM01-NM11) Curriculum & Stage 10 Quiz Fix...');
   assert.strictEqual(LEVEL1_NUMBER_LESSONS.length, 11);
@@ -260,12 +273,14 @@ async function run() {
     }
   }
 
-  // Shapes: only star exists in AR & EN; the remaining 5 must fail closed to null (UNAVAILABLE)
-  assert(resolveAcademyRecordingUrl(ACADEMY_SHAPES.find((s) => s.id === 'star')!.name.ar, 'ar'));
-  assert(resolveAcademyRecordingUrl(ACADEMY_SHAPES.find((s) => s.id === 'star')!.name.en, 'en'));
-  for (const s of ACADEMY_SHAPES.filter((x) => x.id !== 'star')) {
-    assert.strictEqual(resolveAcademyRecordingUrl(s.name.ar, 'ar'), null, `Unexpected AR shape recording for ${s.id}`);
-    assert.strictEqual(resolveAcademyRecordingUrl(s.name.en, 'en'), null, `Unexpected EN shape recording for ${s.id}`);
+  // Shapes: all 6 shapes (star in Foundations + 5 shapes in academy/{ar,en}) must resolve to existing MP3s
+  for (const s of ACADEMY_SHAPES) {
+    const sAr = resolveAcademyRecordingUrl(s.name.ar, 'ar');
+    const sEn = resolveAcademyRecordingUrl(s.name.en, 'en');
+    assert(sAr && sAr.includes('/ar_'), `Missing AR shape recording for ${s.id}`);
+    assert(sEn && sEn.includes('/en_'), `Missing EN shape recording for ${s.id}`);
+    assert(fs.existsSync(urlToPublicPath(root, sAr)), `Missing AR shape MP3 on disk for ${s.id}`);
+    assert(fs.existsSync(urlToPublicPath(root, sEn)), `Missing EN shape MP3 on disk for ${s.id}`);
   }
 
   // Exam bank checks for q-col-* & q-ar-rec-*
@@ -288,13 +303,13 @@ async function run() {
 
   console.log('[6/7] Verifying Controller Cache Isolation & Error Semantics...');
   const ctrl = new AcademyAudioController();
-  const res11Ar = await ctrl.playText('11', 'ar');
-  assert.strictEqual(res11Ar, false);
+  const resUnrecorded = await ctrl.playText('unrecorded-regression-check-xyz', 'ar');
+  assert.strictEqual(resUnrecorded, false);
   assert.strictEqual(ctrl.getSnapshot().errorCode, 'UNAVAILABLE');
   const lookup = academyAudioLookup as { ar: Record<string, string>; en: Record<string, string> };
   const existingTotal = new Set([...Object.values(lookup.ar), ...Object.values(lookup.en)]).size;
-  assert.strictEqual(existingTotal, 26);
-  console.log('   ✓ Controller fail-closed behavior and 26 existing Academy recordings verified.');
+  assert(existingTotal >= 54, `Expected >= 54 Academy lookup recordings, got ${existingTotal}`);
+  console.log(`   ✓ Controller fail-closed behavior and ${existingTotal} registered Academy recordings verified.`);
 
   console.log('[7/7] Verifying Zero Runtime TTS & Quran Story Assets Untouched...');
   let storyCount = 0;

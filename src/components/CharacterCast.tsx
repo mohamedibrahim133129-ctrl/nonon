@@ -117,7 +117,7 @@ export const CharacterActor: React.FC<CharacterActorProps> = ({
     setTapBurst(true);
     setTimeout(() => setTapBurst(false), 620);
     if (speechBubble) {
-      soundEngine.speak(speechBubble, language);
+      soundEngine.speak(speechBubble, language, { allowDynamicSpeech: true });
     }
     onTap?.();
   };

@@ -39,7 +39,7 @@ export const EmotionalFeedbackBanner: React.FC<EmotionalFeedbackBannerProps> = (
     ]
       .filter(Boolean)
       .join('. ');
-    soundEngine.speak(parts, language);
+    soundEngine.speak(parts, language, { allowDynamicSpeech: true });
   };
 
   return (

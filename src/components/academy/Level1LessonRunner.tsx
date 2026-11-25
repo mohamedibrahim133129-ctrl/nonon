@@ -22,6 +22,7 @@ import {
 } from '../../types/nonoland';
 import { useAcademyAudio } from '../../utils/academyAudioController';
 import { resolveLevel1VocabSpokenText } from '../../utils/academyAudioText';
+import { resolveArabicLetterNameAudioUrl } from '../../utils/arabicLetterAudioMap';
 import { findFoundationsItemId } from '../../utils/foundationsAudioResolver';
 import { soundEngine } from '../../utils/soundEngine';
 
@@ -148,7 +149,10 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
   }, [lesson, distractors]);
 
   const speakCue = (text: string, slow = false, audioUrl?: string, itemId?: string) => {
-    const resolvedItemId = itemId ?? (findFoundationsItemId(text, cueLang) ?? undefined);
+    const resolvedItemId =
+      audioUrl !== undefined
+        ? itemId
+        : (itemId ?? (findFoundationsItemId(text, cueLang) ?? undefined));
     void academyAudio.speak(text, cueLang, {
       slow,
       audioUrl,
@@ -608,7 +612,14 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
             </h3>
             <button
               type="button"
-              onClick={() => speakCue(resolveTargetSpokenCue(), true)}
+              onClick={() => {
+                const targetCue = resolveTargetSpokenCue();
+                const letterUrl =
+                  lesson.subject === 'arabic'
+                    ? (resolveArabicLetterNameAudioUrl({ char: lesson.targetSymbol }) ?? undefined)
+                    : undefined;
+                speakCue(targetCue, true, letterUrl);
+              }}
               className="h-14 px-6 rounded-2xl bg-[#FFD84D] text-[#27345C] font-extrabold inline-flex items-center gap-2 cursor-pointer"
             >
               <Volume2 className="w-5 h-5" />
@@ -1091,8 +1102,25 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
               (() => {
                 const q = quizQuestions[quizIdx];
                 const picked = quizAnswers[q.id];
-                const stage10Audio: { text: string; lang: 'ar' | 'en'; label: string } | null = (() => {
+                const stage10Audio: {
+                  text: string;
+                  lang: 'ar' | 'en';
+                  label: string;
+                  audioUrl?: string;
+                } | null = (() => {
                   if (!q.audioText) return null;
+                  if (lesson.subject === 'arabic' && q.qType === 'independent') {
+                    const letterUrl =
+                      resolveArabicLetterNameAudioUrl({
+                        char: q.audioText || lesson.targetSymbol,
+                      }) ?? undefined;
+                    return {
+                      text: q.audioText,
+                      lang: 'ar',
+                      label: q.audioText,
+                      audioUrl: letterUrl,
+                    };
+                  }
                   if (lesson.subject === 'numbers') {
                     if (cueLang === 'en') {
                       if (
@@ -1162,7 +1190,10 @@ export const Level1LessonRunner: React.FC<Level1LessonRunnerProps> = ({
                         onClick={() => {
                           void academyAudio.speak(stage10Audio.text, stage10Audio.lang, {
                             slow: true,
-                            itemId: findFoundationsItemId(stage10Audio.text, stage10Audio.lang) ?? undefined,
+                            audioUrl: stage10Audio.audioUrl,
+                            itemId: stage10Audio.audioUrl
+                              ? undefined
+                              : (findFoundationsItemId(stage10Audio.text, stage10Audio.lang) ?? undefined),
                             label: stage10Audio.label,
                           });
                         }}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   AlertTriangle,
   BookOpen,
@@ -22,7 +22,9 @@ import type {
   LocalizedText,
   TeacherQuestion,
 } from '../types/nonoland';
+import { resolveAcademyPlaybackUrls } from '../utils/academyAudioController';
 import { soundEngine } from '../utils/soundEngine';
+import { isValidSafeUrl } from '../utils/validation';
 
 interface StudentHomeworkCard {
   submissionId: string;
@@ -105,6 +107,112 @@ export const StudentHomeworkSection: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [audioErrorMsg, setAudioErrorMsg] = useState('');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const stopQuestionAudio = useCallback(() => {
+    const active = audioRef.current;
+    if (active) {
+      try {
+        active.pause();
+        active.currentTime = 0;
+        active.removeAttribute('src');
+        active.load();
+      } catch {
+        // ignore cleanup errors
+      }
+      audioRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    setAudioErrorMsg('');
+    stopQuestionAudio();
+    return () => {
+      stopQuestionAudio();
+    };
+  }, [activeCard?.assignmentId, stopQuestionAudio]);
+
+  const playHomeworkAudioUrls = useCallback(
+    (urls: string[]) => {
+      if (urls.length === 0) return;
+      if (typeof window === 'undefined' || typeof Audio === 'undefined') {
+        setAudioErrorMsg(
+          language === 'ar'
+            ? 'تعذر تشغيل الملف الصوتي على هذا المتصفح.'
+            : 'Audio playback is unavailable in this environment.',
+        );
+        return;
+      }
+
+      stopQuestionAudio();
+      let idx = 0;
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', 'true');
+      audio.setAttribute('webkit-playsinline', 'true');
+      audioRef.current = audio;
+
+      const onError = () => {
+        if (audioRef.current !== audio) return;
+        setAudioErrorMsg(
+          language === 'ar'
+            ? 'تعذر تشغيل الملف الصوتي للسؤال.'
+            : 'Unable to play the question audio recording.',
+        );
+      };
+
+      const onEnded = () => {
+        if (audioRef.current !== audio) return;
+        if (idx + 1 < urls.length) {
+          idx += 1;
+          audio.src = urls[idx];
+          void audio.play().catch(() => {
+            if (audioRef.current !== audio) return;
+            onError();
+          });
+        }
+      };
+
+      audio.addEventListener('error', onError);
+      audio.addEventListener('ended', onEnded);
+      audio.src = urls[0];
+      void audio.play().catch(() => {
+        if (audioRef.current !== audio) return;
+        onError();
+      });
+    },
+    [language, stopQuestionAudio],
+  );
+
+  const playHomeworkQuestionAudio = useCallback(
+    (q: StudentHomeworkCard['questions'][number]) => {
+      setAudioErrorMsg('');
+      stopQuestionAudio();
+      const rawUrl = typeof q.audioUrl === 'string' ? q.audioUrl.trim() : '';
+      if (rawUrl) {
+        if (!isValidSafeUrl(rawUrl)) {
+          setAudioErrorMsg(
+            language === 'ar'
+              ? 'تعذر تشغيل الملف الصوتي: رابط الصوت غير صالح.'
+              : 'Unable to play question audio: invalid audio URL.',
+          );
+          return;
+        }
+        playHomeworkAudioUrls([rawUrl]);
+        return;
+      }
+      if (q.audioText) {
+        const preRecordedUrls = resolveAcademyPlaybackUrls(q.audioText, language);
+        if (preRecordedUrls.length > 0) {
+          playHomeworkAudioUrls(preRecordedUrls);
+          return;
+        }
+        soundEngine.speak(q.audioText, language, { allowDynamicSpeech: true });
+      }
+    },
+    [language, playHomeworkAudioUrls, stopQuestionAudio],
+  );
 
   const loadHomework = useCallback(async () => {
     if (!authSession.authenticated || !featureFlags.teacherHomeworkEnabled || !activeChild) return;
@@ -304,6 +412,7 @@ export const StudentHomeworkSection: React.FC = () => {
                 soundEngine.speak(
                   activeCard.instructions[language] || activeCard.title[language],
                   language,
+                  { allowDynamicSpeech: true },
                 )
               }
               className="min-h-[44px] px-4 rounded-xl bg-[#39BDF2]/15 text-[#27345C] font-extrabold text-xs flex items-center gap-1.5 cursor-pointer"
@@ -378,11 +487,9 @@ export const StudentHomeworkSection: React.FC = () => {
                     {(q.audioText || q.audioUrl) && (
                       <button
                         type="button"
-                        onClick={() =>
-                          q.audioText && soundEngine.speak(q.audioText, language)
-                        }
+                        onClick={() => playHomeworkQuestionAudio(q)}
                         className="min-h-[44px] min-w-[44px] rounded-xl bg-[#39BDF2]/15 flex items-center justify-center cursor-pointer"
-                        aria-label="Replay audio"
+                        aria-label={language === 'ar' ? 'تشغيل صوت السؤال' : 'Replay question audio'}
                       >
                         <Volume2 className="w-4 h-4 text-[#39BDF2]" />
                       </button>
@@ -466,6 +573,11 @@ export const StudentHomeworkSection: React.FC = () => {
             </div>
           )}
 
+          {audioErrorMsg && (
+            <p role="alert" className="p-3 rounded-xl bg-[#FF6B6B]/12 text-[#B91C1C] text-xs font-extrabold">
+              {audioErrorMsg}
+            </p>
+          )}
           {errorMsg && (
             <p className="p-3 rounded-xl bg-[#FF6B6B]/12 text-[#B91C1C] text-xs font-extrabold">
               {errorMsg}

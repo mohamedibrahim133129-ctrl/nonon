@@ -283,9 +283,16 @@ export function isValidSafeUrl(raw: unknown): boolean {
   if (!raw) return true;
   if (typeof raw !== 'string') return false;
   const trimmed = raw.trim();
+  if (!trimmed) return true;
   if (trimmed.length > 500) return false;
   if (trimmed.startsWith('/assets/') || trimmed.startsWith('/uploads/')) {
-    return !trimmed.includes('..');
+    const prefixLen = trimmed.startsWith('/assets/') ? '/assets/'.length : '/uploads/'.length;
+    return (
+      trimmed.length > prefixLen &&
+      !trimmed.includes('..') &&
+      !trimmed.includes('\\') &&
+      !/[\s\u0000-\u001F\u007F]/.test(trimmed)
+    );
   }
   try {
     const u = new URL(trimmed);

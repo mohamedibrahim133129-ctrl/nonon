@@ -13,6 +13,12 @@ import {
 } from './academyAudioService';
 import type { AcademyAudioManifestDocument } from './academyAudioManifestBuilder';
 import type { AuthenticatedRequest } from './dbTypes';
+import {
+  loadPackage3Checkpoint,
+  probeAndExecuteBatchApiChunk,
+  runApprovedPackage3Generation,
+  syncApprovedPackage3Registrations,
+} from './package3AudioBatch';
 import { isAdminRole } from './security';
 import { FALLBACK_TTS_MODEL, PRIMARY_TTS_MODEL } from './ttsService';
 
@@ -216,5 +222,61 @@ export function registerAcademyAudioRoutes({ app }: AcademyAudioRouteDeps) {
       code: 'ACADEMY_PREGENERATED_ONLY',
       retryable: false,
     });
+  });
+
+  app.get('/api/academy/audio/package3-status', async (req: AuthenticatedRequest, res) => {
+    if (!isAuthorizedBatchOperator(req)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    const cp = loadPackage3Checkpoint();
+    const reg = await syncApprovedPackage3Registrations();
+    return res.json({
+      ...cp,
+      generatedCount: reg.generatedCount,
+      registeredCount: reg.registeredCount,
+      remainingCount: reg.totalApprovedCount - reg.generatedCount,
+      nextPendingAssetId: reg.nextPendingAssetId,
+    });
+  });
+
+  app.post('/api/academy/audio/package3-probe-batch', async (req: AuthenticatedRequest, res) => {
+    if (!isAuthorizedBatchOperator(req)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    const body = (req.body || {}) as { model?: string; chunkSize?: number; pollTimeoutMs?: number };
+    const result = await probeAndExecuteBatchApiChunk({
+      model: typeof body.model === 'string' ? body.model : undefined,
+      chunkSize: typeof body.chunkSize === 'number' ? body.chunkSize : 2,
+      pollTimeoutMs: typeof body.pollTimeoutMs === 'number' ? body.pollTimeoutMs : 90_000,
+    });
+    return res.json(result);
+  });
+
+  app.post('/api/academy/audio/package3-run', async (req: AuthenticatedRequest, res) => {
+    if (!isAuthorizedBatchOperator(req)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    const body = (req.body || {}) as {
+      limit?: number;
+      delayMs?: number;
+      tryBatchApiFirst?: boolean;
+      batchChunkSize?: number;
+      awaitCompletion?: boolean;
+      models?: string[];
+      groupAOnly?: boolean;
+    };
+    const promise = runApprovedPackage3Generation({
+      limit: typeof body.limit === 'number' ? body.limit : undefined,
+      delayMs: typeof body.delayMs === 'number' ? body.delayMs : undefined,
+      tryBatchApiFirst: Boolean(body.tryBatchApiFirst),
+      batchChunkSize: typeof body.batchChunkSize === 'number' ? body.batchChunkSize : undefined,
+      models: Array.isArray(body.models) ? body.models : undefined,
+      groupAOnly: Boolean(body.groupAOnly),
+    });
+    if (body.awaitCompletion) {
+      const result = await promise;
+      return res.json(result);
+    }
+    return res.status(202).json({ accepted: true, status: loadPackage3Checkpoint() });
   });
 }

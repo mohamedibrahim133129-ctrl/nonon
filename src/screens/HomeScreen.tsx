@@ -179,7 +179,7 @@ export const HomeScreen: React.FC = () => {
   const handleNonoTap = () => {
     const moods: NonoMood[] = ['excited', 'jumping', 'dancing', 'waving'];
     setNonoMood(moods[Math.floor(Math.random() * moods.length)]);
-    soundEngine.speak(nonoGreeting, language);
+    soundEngine.speak(nonoGreeting, language, { allowDynamicSpeech: true });
   };
 
   return (
@@ -250,7 +250,7 @@ export const HomeScreen: React.FC = () => {
 
               <button
                 type="button"
-                onClick={() => soundEngine.speak(nonoGreeting, language)}
+                onClick={() => soundEngine.speak(nonoGreeting, language, { allowDynamicSpeech: true })}
                 className="h-14 px-4 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/25 text-white font-bold flex items-center gap-2 cursor-pointer transition-colors"
               >
                 <Volume2 className="w-5 h-5" />

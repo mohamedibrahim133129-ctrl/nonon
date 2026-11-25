@@ -724,7 +724,7 @@ const CustomStoryViewer: React.FC<{
       <div className="flex items-center justify-between gap-3">
         <button
           type="button"
-          onClick={() => soundEngine.speak(page.text, language)}
+          onClick={() => soundEngine.speak(page.text, language, { allowDynamicSpeech: true })}
           className="min-h-[44px] px-4 rounded-xl bg-[#FFF8E9] border border-[#27345C]/15 text-xs font-extrabold flex items-center gap-1.5 cursor-pointer"
         >
           <Volume2 className="w-4 h-4 text-[#8054D9]" />

@@ -10,6 +10,7 @@ import { getLevel1LessonById } from './src/data/level1Curriculum';
 import { getQuestionsForLevel1Lesson, LEVEL1_QUESTION_BANK } from './src/data/level1QuestionBank';
 import { createInitialSkillProgress } from './src/data/rewardsAndRoom';
 import {
+  isValidSafeUrl,
   normalizeEmail,
   POLICY_VERSION,
   sanitizeRecommendedAgeRange,
@@ -2421,6 +2422,14 @@ async function startServer() {
     if (!body?.title?.ar || !body?.title?.en) {
       return res.status(400).json({ error: 'Lesson title (ar and en) is required' });
     }
+    const imageUrl = typeof body.imageUrl === 'string' ? body.imageUrl.trim() : '';
+    const audioUrl = typeof body.audioUrl === 'string' ? body.audioUrl.trim() : '';
+    if (!isValidSafeUrl(imageUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe lesson imageUrl' });
+    }
+    if (!isValidSafeUrl(audioUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe lesson audioUrl' });
+    }
     const lesson: CmsLessonRecord = {
       ...body,
       ageGroups: ['1-4'],
@@ -2433,6 +2442,8 @@ async function startServer() {
         ar: sanitizeShortText(body.summary?.ar || body.title.ar, 500),
         en: sanitizeShortText(body.summary?.en || body.title.en, 500),
       },
+      imageUrl: imageUrl || undefined,
+      audioUrl: audioUrl || undefined,
       id: `cms-lesson-${crypto.randomBytes(4).toString('hex')}`,
       updatedAt: new Date().toISOString(),
     };
@@ -2445,12 +2456,24 @@ async function startServer() {
     const db = getDb();
     const idx = db.customLessons.findIndex((l) => l.id === req.params.id);
     if (idx === -1) return res.status(404).json({ error: 'Lesson not found' });
+    if (req.body?.imageUrl !== undefined && !isValidSafeUrl(req.body.imageUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe lesson imageUrl' });
+    }
+    if (req.body?.audioUrl !== undefined && !isValidSafeUrl(req.body.audioUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe lesson audioUrl' });
+    }
     const nextRecRange = req.body?.recommendedAgeRange
       ? sanitizeRecommendedAgeRange(req.body.recommendedAgeRange)
       : db.customLessons[idx].recommendedAgeRange || '1-4';
     db.customLessons[idx] = {
       ...db.customLessons[idx],
       ...req.body,
+      ...(req.body?.imageUrl !== undefined
+        ? { imageUrl: String(req.body.imageUrl).trim() || undefined }
+        : {}),
+      ...(req.body?.audioUrl !== undefined
+        ? { audioUrl: String(req.body.audioUrl).trim() || undefined }
+        : {}),
       ageGroups: ['1-4'],
       recommendedAgeRange: nextRecRange,
       updatedAt: new Date().toISOString(),
@@ -2472,10 +2495,19 @@ async function startServer() {
     if (!body?.prompt?.ar || !Array.isArray(body.options) || body.options.length < 2) {
       return res.status(400).json({ error: 'Question prompt and at least 2 options are required' });
     }
+    const audioUrl = typeof body.audioUrl === 'string' ? body.audioUrl.trim() : '';
+    if (!isValidSafeUrl(audioUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe question audioUrl' });
+    }
+    const audioText = sanitizeShortText(body.audioText, 300);
+    const audioLang = body.audioLang === 'ar' || body.audioLang === 'en' ? body.audioLang : undefined;
     const question: ExamQuestionItem = {
       ...body,
       ageGroups: ['1-4'],
       recommendedAgeRange: sanitizeRecommendedAgeRange(body.recommendedAgeRange),
+      audioUrl: audioUrl || undefined,
+      audioText: audioText || undefined,
+      audioLang,
       id: `cms-q-${crypto.randomBytes(4).toString('hex')}`,
       published: body.published ?? true,
     };
@@ -2488,12 +2520,24 @@ async function startServer() {
     const db = getDb();
     const idx = db.customQuestions.findIndex((q) => q.id === req.params.id);
     if (idx === -1) return res.status(404).json({ error: 'Question not found' });
+    if (req.body?.audioUrl !== undefined && !isValidSafeUrl(req.body.audioUrl)) {
+      return res.status(400).json({ error: 'Invalid or unsafe question audioUrl' });
+    }
     const nextRecRange = req.body?.recommendedAgeRange
       ? sanitizeRecommendedAgeRange(req.body.recommendedAgeRange)
       : db.customQuestions[idx].recommendedAgeRange || '1-4';
     db.customQuestions[idx] = {
       ...db.customQuestions[idx],
       ...req.body,
+      ...(req.body?.audioUrl !== undefined
+        ? { audioUrl: String(req.body.audioUrl).trim() || undefined }
+        : {}),
+      ...(req.body?.audioText !== undefined
+        ? { audioText: sanitizeShortText(req.body.audioText, 300) || undefined }
+        : {}),
+      ...(req.body?.audioLang !== undefined
+        ? { audioLang: req.body.audioLang === 'ar' || req.body.audioLang === 'en' ? req.body.audioLang : undefined }
+        : {}),
       ageGroups: ['1-4'],
       recommendedAgeRange: nextRecRange,
     };

@@ -97,6 +97,8 @@ async function run() {
     'DeepLessonEngine:english',
     'DeepLessonEngine:math',
     'ExamsScreen',
+    'ReadingAdventureScreen',
+    'SmartAdaptiveAssessmentPanel',
   ]) {
     assert(screenSet.has(requiredScreen), `Manifest missing screen coverage: ${requiredScreen}`);
   }
@@ -147,7 +149,7 @@ async function run() {
     }
   }
   assert.strictEqual(lookupValidEntries, validItems.length);
-  assert.strictEqual(manifest.validCount, 26, `Expected 26 valid existing assets preserved, got ${manifest.validCount}`);
+  assert(manifest.validCount >= 54, `Expected at least 54 valid Academy recordings (26 baseline + 28 pre-session), got ${manifest.validCount}`);
 
   // Verify the 4 questionable existing isolated letter assets are flagged for review & NOT verified-correct
   const flaggedIds = [
@@ -399,7 +401,7 @@ async function run() {
     assert.strictEqual(statusJson.academyAudioMode, 'pregenerated-mp3');
     assert.strictEqual(statusJson.runtimeTtsDisabledForAcademy, true);
     assert.strictEqual(statusJson.manifestSummary.totalAssets, manifest.totalAssets);
-    assert.strictEqual(statusJson.manifestSummary.validCount, 26);
+    assert.strictEqual(statusJson.manifestSummary.validCount, manifest.validCount);
     assert.strictEqual(statusJson.manifestSummary.needsReviewCount, 4);
     assert.strictEqual(statusJson.manifestSummary.nextResumeAssetId, 'ar_0a3e5cafc71b1872');
 
@@ -428,7 +430,7 @@ async function run() {
       flaggedAssets: Array<{ assetId: string; pronunciationReviewStatus: string }>;
       nextResumeAsset: { assetId: string; text: string; ttsPromptText: string } | null;
     };
-    assert.strictEqual(manifestJson.validCount, 26);
+    assert.strictEqual(manifestJson.validCount, manifest.validCount);
     assert.strictEqual(manifestJson.needsReviewCount, 4);
     assert.strictEqual(manifestJson.verifiedCorrectCount, 0);
     assert.strictEqual(manifestJson.flaggedAssets.length, 4);

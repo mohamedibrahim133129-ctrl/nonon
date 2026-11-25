@@ -149,6 +149,7 @@ export interface ExamQuestionItem {
   lessonRefId: string;
   lessonTitle: LocalizedText;
   prompt: LocalizedText;
+  audioUrl?: string;
   audioText?: string;
   audioLang?: Language;
   visualCue?: string;

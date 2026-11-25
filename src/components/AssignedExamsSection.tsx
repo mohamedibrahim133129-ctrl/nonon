@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUp,
@@ -26,7 +26,9 @@ import type {
   TeacherQuestionType,
   TeacherSubject,
 } from '../types/nonoland';
+import { resolveAcademyPlaybackUrls } from '../utils/academyAudioController';
 import { soundEngine } from '../utils/soundEngine';
+import { isValidSafeUrl } from '../utils/validation';
 
 export interface AssignedExamCard {
   assignmentId: string;
@@ -127,9 +129,120 @@ export const AssignedExamsSection: React.FC<{
   const [lastSavedQId, setLastSavedQId] = useState<string | null>(null);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [audioErrorMsg, setAudioErrorMsg] = useState('');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Result View State
   const [resultView, setResultView] = useState<AssignedExamResultPayload | null>(null);
+
+  const stopQuestionAudio = useCallback(() => {
+    const active = audioRef.current;
+    if (active) {
+      try {
+        active.pause();
+        active.currentTime = 0;
+        active.removeAttribute('src');
+        active.load();
+      } catch {
+        // ignore cleanup errors
+      }
+      audioRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    setAudioErrorMsg('');
+    stopQuestionAudio();
+    return () => {
+      stopQuestionAudio();
+    };
+  }, [activeAttemptId, currentIdx, stopQuestionAudio]);
+
+  const playAssignedAudioUrls = useCallback(
+    (urls: string[], slow = false) => {
+      if (urls.length === 0) return;
+      if (typeof window === 'undefined' || typeof Audio === 'undefined') {
+        setAudioErrorMsg(
+          language === 'ar'
+            ? 'تعذر تشغيل الملف الصوتي على هذا المتصفح.'
+            : 'Audio playback is unavailable in this environment.',
+        );
+        return;
+      }
+
+      stopQuestionAudio();
+      let idx = 0;
+      const rate = slow ? 0.78 : 1.0;
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', 'true');
+      audio.setAttribute('webkit-playsinline', 'true');
+      audioRef.current = audio;
+
+      const onError = () => {
+        if (audioRef.current !== audio) return;
+        setAudioErrorMsg(
+          language === 'ar'
+            ? 'تعذر تشغيل الملف الصوتي للسؤال.'
+            : 'Unable to play the question audio recording.',
+        );
+      };
+
+      const onEnded = () => {
+        if (audioRef.current !== audio) return;
+        if (idx + 1 < urls.length) {
+          idx += 1;
+          audio.src = urls[idx];
+          audio.defaultPlaybackRate = rate;
+          audio.playbackRate = rate;
+          void audio.play().catch(() => {
+            if (audioRef.current !== audio) return;
+            onError();
+          });
+        }
+      };
+
+      audio.addEventListener('error', onError);
+      audio.addEventListener('ended', onEnded);
+      audio.src = urls[0];
+      audio.defaultPlaybackRate = rate;
+      audio.playbackRate = rate;
+      void audio.play().catch(() => {
+        if (audioRef.current !== audio) return;
+        onError();
+      });
+    },
+    [language, stopQuestionAudio],
+  );
+
+  const playQuestionAudio = useCallback(
+    (q: SanitizedTeacherQuestion) => {
+      setAudioErrorMsg('');
+      stopQuestionAudio();
+      const rawUrl = typeof q.audioUrl === 'string' ? q.audioUrl.trim() : '';
+      if (rawUrl) {
+        if (!isValidSafeUrl(rawUrl)) {
+          setAudioErrorMsg(
+            language === 'ar'
+              ? 'تعذر تشغيل الملف الصوتي: رابط الصوت غير صالح.'
+              : 'Unable to play question audio: invalid audio URL.',
+          );
+          return;
+        }
+        playAssignedAudioUrls([rawUrl], false);
+        return;
+      }
+      if (q.audioText) {
+        const preRecordedUrls = resolveAcademyPlaybackUrls(q.audioText, language);
+        if (preRecordedUrls.length > 0) {
+          playAssignedAudioUrls(preRecordedUrls, true);
+          return;
+        }
+        soundEngine.speak(q.audioText, language, { slow: true, allowDynamicSpeech: true });
+      }
+    },
+    [language, playAssignedAudioUrls, stopQuestionAudio],
+  );
 
   const canFetchStudentExams =
     authSession.authenticated &&
@@ -516,22 +629,22 @@ export const AssignedExamsSection: React.FC<{
             )}
 
             {(q.audioText || q.audioUrl) && (
-              <div className="flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (q.audioUrl) {
-                      const audio = new Audio(q.audioUrl);
-                      void audio.play().catch(() => {});
-                    } else if (q.audioText) {
-                      soundEngine.speak(q.audioText, language, { slow: true });
-                    }
-                  }}
-                  className="px-5 py-2.5 rounded-2xl bg-[#FFD84D]/55 text-[#27345C] text-xs sm:text-sm font-extrabold inline-flex items-center gap-2 cursor-pointer"
-                >
-                  <Volume2 className="w-4 h-4" />
-                  <span>{language === 'ar' ? 'استمع للسؤال' : 'Play Audio'}</span>
-                </button>
+              <div className="space-y-2">
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => playQuestionAudio(q)}
+                    className="px-5 py-2.5 rounded-2xl bg-[#FFD84D]/55 text-[#27345C] text-xs sm:text-sm font-extrabold inline-flex items-center gap-2 cursor-pointer"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'استمع للسؤال' : 'Play Audio'}</span>
+                  </button>
+                </div>
+                {audioErrorMsg && (
+                  <p role="alert" className="text-xs font-bold text-[#B91C1C]">
+                    {audioErrorMsg}
+                  </p>
+                )}
               </div>
             )}
           </div>

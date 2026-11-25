@@ -28,6 +28,7 @@ import {
 } from '../types/nonoland';
 import { getRecommendedAgeLabel, getSafeStageDisplay } from '../utils/ageAdaptation';
 import { soundEngine } from '../utils/soundEngine';
+import { isValidSafeUrl } from '../utils/validation';
 import { CertificateModal } from './CertificateModal';
 
 import { useNonoLand } from '../context/NonoLandContext';
@@ -51,6 +52,7 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
   const [subTab, setSubTab] = useState<'config' | 'lessons' | 'questions' | 'certificates'>('config');
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
   const [statusBanner, setStatusBanner] = useState('');
+  const [cmsFormError, setCmsFormError] = useState('');
 
   // Exam Config Form
   const [priceEgp, setPriceEgp] = useState(50);
@@ -79,6 +81,9 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
   const [qCorrect, setQCorrect] = useState<'a' | 'b' | 'c'>('a');
   const [qLessonAr, setQLessonAr] = useState('');
   const [qLessonEn, setQLessonEn] = useState('');
+  const [qAudioText, setQAudioText] = useState('');
+  const [qAudioLang, setQAudioLang] = useState<Language>('ar');
+  const [qAudioUrl, setQAudioUrl] = useState('');
   const [qRecommendedAge, setQRecommendedAge] = useState<RecommendedAgeRange>('1-4');
 
   const adminHeaders = (pinVal: string, json = false): Record<string, string> => {
@@ -161,6 +166,25 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
   const handleCreateLesson = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!unlockedPin || !lsTitleAr.trim() || !lsTitleEn.trim()) return;
+    setCmsFormError('');
+    const trimmedImage = lsImageUrl.trim();
+    const trimmedAudio = lsAudioUrl.trim();
+    if (trimmedImage && !isValidSafeUrl(trimmedImage)) {
+      setCmsFormError(
+        language === 'ar'
+          ? 'رابط الصورة غير صالح. استخدم /assets/... أو https://...'
+          : 'Invalid image URL. Use /assets/... or https://...',
+      );
+      return;
+    }
+    if (trimmedAudio && !isValidSafeUrl(trimmedAudio)) {
+      setCmsFormError(
+        language === 'ar'
+          ? 'رابط الصوت غير صالح. استخدم /assets/... أو https://...'
+          : 'Invalid audio URL. Use /assets/... or https://...',
+      );
+      return;
+    }
     const payload: Omit<CmsLessonRecord, 'id' | 'updatedAt'> = {
       title: { ar: lsTitleAr.trim(), en: lsTitleEn.trim() },
       summary: { ar: lsExplAr.trim() || lsTitleAr.trim(), en: lsExplEn.trim() || lsTitleEn.trim() },
@@ -168,8 +192,8 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
       ageGroups: ['1-4'] as AgeGroupId[],
       recommendedAgeRange: lsRecommendedAge,
       targetSymbol: lsSymbol.trim() || '✨',
-      imageUrl: lsImageUrl.trim() || undefined,
-      audioUrl: lsAudioUrl.trim() || undefined,
+      imageUrl: trimmedImage || undefined,
+      audioUrl: trimmedAudio || undefined,
       examples: lsExamples
         .split(',')
         .map((s) => s.trim())
@@ -186,19 +210,22 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
       headers: adminHeaders(unlockedPin, true),
       body: JSON.stringify(payload),
     });
-    if (res.ok) {
-      soundEngine.playSuccess();
-      setLsTitleAr('');
-      setLsTitleEn('');
-      setLsExplAr('');
-      setLsExplEn('');
-      setLsSymbol('');
-      setLsImageUrl('');
-      setLsAudioUrl('');
-      setLsExamples('');
-      await fetchOverview(unlockedPin);
-      notify(language === 'ar' ? 'تم إضافة ونشر الدرس في الأكاديمية!' : 'Lesson created & published!');
+    if (!res.ok) {
+      const errData = (await res.json().catch(() => null)) as { error?: string } | null;
+      setCmsFormError(errData?.error || (language === 'ar' ? 'تعذر حفظ الدرس' : 'Failed to create lesson'));
+      return;
     }
+    soundEngine.playSuccess();
+    setLsTitleAr('');
+    setLsTitleEn('');
+    setLsExplAr('');
+    setLsExplEn('');
+    setLsSymbol('');
+    setLsImageUrl('');
+    setLsAudioUrl('');
+    setLsExamples('');
+    await fetchOverview(unlockedPin);
+    notify(language === 'ar' ? 'تم إضافة ونشر الدرس في الأكاديمية!' : 'Lesson created & published!');
   };
 
   const handleToggleLessonPublish = async (ls: CmsLessonRecord) => {
@@ -225,6 +252,17 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
   const handleCreateQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!unlockedPin || !qPromptAr.trim() || !qOptA.trim() || !qOptB.trim()) return;
+    setCmsFormError('');
+    const trimmedAudioUrl = qAudioUrl.trim();
+    const trimmedAudioText = qAudioText.trim();
+    if (trimmedAudioUrl && !isValidSafeUrl(trimmedAudioUrl)) {
+      setCmsFormError(
+        language === 'ar'
+          ? 'رابط صوت السؤال غير صالح. استخدم /assets/... أو https://...'
+          : 'Invalid question audio URL. Use /assets/... or https://...',
+      );
+      return;
+    }
     const payload = {
       subject: qSubject === 'comprehensive' ? 'arabic' : qSubject,
       ageGroups: ['1-4'] as AgeGroupId[],
@@ -240,6 +278,9 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
         ar: qPromptAr.trim(),
         en: qPromptEn.trim() || qPromptAr.trim(),
       },
+      audioUrl: trimmedAudioUrl || undefined,
+      audioText: trimmedAudioText || undefined,
+      audioLang: trimmedAudioText || trimmedAudioUrl ? qAudioLang : undefined,
       options: [
         { id: 'a', label: { ar: qOptA.trim(), en: qOptA.trim() }, visual: qOptA.trim() },
         { id: 'b', label: { ar: qOptB.trim(), en: qOptB.trim() }, visual: qOptB.trim() },
@@ -258,18 +299,23 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
       headers: adminHeaders(unlockedPin, true),
       body: JSON.stringify(payload),
     });
-    if (res.ok) {
-      soundEngine.playSuccess();
-      setQPromptAr('');
-      setQPromptEn('');
-      setQOptA('');
-      setQOptB('');
-      setQOptC('');
-      setQLessonAr('');
-      setQLessonEn('');
-      await fetchOverview(unlockedPin);
-      notify(language === 'ar' ? 'تمت إضافة السؤال إلى بنك الامتحانات!' : 'Question added to exam bank!');
+    if (!res.ok) {
+      const errData = (await res.json().catch(() => null)) as { error?: string } | null;
+      setCmsFormError(errData?.error || (language === 'ar' ? 'تعذر حفظ السؤال' : 'Failed to create question'));
+      return;
     }
+    soundEngine.playSuccess();
+    setQPromptAr('');
+    setQPromptEn('');
+    setQOptA('');
+    setQOptB('');
+    setQOptC('');
+    setQLessonAr('');
+    setQLessonEn('');
+    setQAudioText('');
+    setQAudioUrl('');
+    await fetchOverview(unlockedPin);
+    notify(language === 'ar' ? 'تمت إضافة السؤال إلى بنك الامتحانات!' : 'Question added to exam bank!');
   };
 
   const handleToggleQuestionPublish = async (q: ExamQuestionItem) => {
@@ -408,7 +454,10 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
             <button
               key={item.id}
               type="button"
-              onClick={() => setSubTab(item.id)}
+              onClick={() => {
+                setCmsFormError('');
+                setSubTab(item.id);
+              }}
               className={`px-3.5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 ${
                 subTab === item.id ? 'bg-[#8054D9] text-white' : 'text-[#27345C]/75 hover:bg-slate-50'
               }`}
@@ -540,17 +589,25 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
               className="w-full p-3 rounded-xl bg-white border border-[#27345C]/15 text-sm min-h-[70px]"
             />
             <input
-              type="url"
+              type="text"
               value={lsImageUrl}
               onChange={(e) => setLsImageUrl(e.target.value)}
-              placeholder={language === 'ar' ? 'رابط صورة (اختياري)' : 'Image URL (optional)'}
+              placeholder={
+                language === 'ar'
+                  ? 'رابط صورة (اختياري: /assets/... أو https://...)'
+                  : 'Image URL (optional: /assets/... or https://...)'
+              }
               className="w-full h-10 px-3 rounded-xl bg-white border border-[#27345C]/15 text-xs"
             />
             <input
-              type="url"
+              type="text"
               value={lsAudioUrl}
               onChange={(e) => setLsAudioUrl(e.target.value)}
-              placeholder={language === 'ar' ? 'رابط صوت (اختياري)' : 'Audio URL (optional)'}
+              placeholder={
+                language === 'ar'
+                  ? 'رابط صوت (اختياري: /assets/audio/... أو https://...)'
+                  : 'Audio URL (optional: /assets/audio/... or https://...)'
+              }
               className="w-full h-10 px-3 rounded-xl bg-white border border-[#27345C]/15 text-xs"
             />
             <input
@@ -581,6 +638,11 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
                 ))}
               </div>
             </div>
+            {cmsFormError && (
+              <p role="alert" className="text-xs font-bold text-[#B91C1C]">
+                {cmsFormError}
+              </p>
+            )}
             <button
               type="submit"
               className="w-full nono-btn-tactile h-11 rounded-xl bg-[#55D98B] text-[#27345C] font-extrabold text-sm flex items-center justify-center gap-1.5 cursor-pointer"
@@ -729,6 +791,35 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
                 className="h-10 px-2.5 rounded-xl bg-white border border-[#27345C]/15 text-xs"
               />
             </div>
+            <div className="grid grid-cols-3 gap-2">
+              <input
+                type="text"
+                value={qAudioText}
+                onChange={(e) => setQAudioText(e.target.value)}
+                placeholder={language === 'ar' ? 'نص الصوت (اختياري)' : 'Audio Text (optional)'}
+                className="col-span-2 h-10 px-2.5 rounded-xl bg-white border border-[#27345C]/15 text-xs"
+              />
+              <select
+                value={qAudioLang}
+                onChange={(e) => setQAudioLang(e.target.value === 'en' ? 'en' : 'ar')}
+                aria-label={language === 'ar' ? 'لغة الصوت' : 'Audio Language'}
+                className="h-10 px-2 rounded-xl bg-white border border-[#27345C]/15 text-xs font-bold"
+              >
+                <option value="ar">AR</option>
+                <option value="en">EN</option>
+              </select>
+            </div>
+            <input
+              type="text"
+              value={qAudioUrl}
+              onChange={(e) => setQAudioUrl(e.target.value)}
+              placeholder={
+                language === 'ar'
+                  ? 'رابط ملف الصوت (اختياري: /assets/audio/... أو https://...)'
+                  : 'Audio URL (optional: /assets/audio/... or https://...)'
+              }
+              className="w-full h-10 px-3 rounded-xl bg-white border border-[#27345C]/15 text-xs"
+            />
             <div className="space-y-1.5">
               <div className="text-[11px] font-bold text-[#27345C]/75">
                 {language === 'ar'
@@ -750,6 +841,11 @@ export const AdminCmsPanel: React.FC<{ language: Language }> = ({ language }) =>
                 ))}
               </div>
             </div>
+            {cmsFormError && (
+              <p role="alert" className="text-xs font-bold text-[#B91C1C]">
+                {cmsFormError}
+              </p>
+            )}
             <button
               type="submit"
               className="w-full nono-btn-tactile h-11 rounded-xl bg-[#8054D9] text-white font-extrabold text-sm flex items-center justify-center gap-1.5 cursor-pointer"
