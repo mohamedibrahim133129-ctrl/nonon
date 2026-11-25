@@ -2,16 +2,16 @@
   "version": 1,
   "packageName": "Package 3 (P1 + P2 + P3 + P5) + Reconciled P4 Deep Colors",
   "startedAt": "2026-11-25T09:58:52.185Z",
-  "updatedAt": "2026-11-25T10:36:08.593Z",
-  "finishedAt": null,
-  "running": true,
-  "state": "running",
+  "updatedAt": "2026-11-25T10:54:17.122Z",
+  "finishedAt": "2026-11-25T10:54:17.122Z",
+  "running": false,
+  "state": "partial",
   "totalApprovedCount": 793,
-  "generatedCount": 37,
-  "registeredCount": 37,
-  "remainingCount": 756,
-  "attemptedThisRun": 13,
-  "succeededThisRun": 13,
+  "generatedCount": 45,
+  "registeredCount": 45,
+  "remainingCount": 748,
+  "attemptedThisRun": 4,
+  "succeededThisRun": 3,
   "completedIds": [
     "ar_d41e9709e9ea2e5b",
     "ar_8f9b0ba72633938d",
@@ -41,6 +41,13 @@
     "en_3948e34fedf1f445",
     "ar_18d87bc9fe20bbde",
     "ar_240faf3d808ea53e",
+    "ar_d1ae105fff477efc",
+    "ar_5ce638df43ce7dbd",
+    "ar_7e481c05b10efdf8",
+    "ar_cbaa3b5459835e55",
+    "ar_2cb89b55f55e1d0c",
+    "ar_f143e6381a18ff6b",
+    "ar_6fc8bfae56f7519b",
     "ar_b4c46367e54fa49f",
     "ar_7e01a36dabc78c26",
     "en_187fc10a79362230",
@@ -49,7 +56,8 @@
     "ar_2bab4c7120dabffc",
     "en_6a44dbcf94d36c02",
     "en_eeb8fb9ced7d0366",
-    "en_23fe603b9d2304c0"
+    "en_23fe603b9d2304c0",
+    "en_dce4835363b0fd1a"
   ],
   "completedMasterIds": [
     "NLA-0001",
@@ -80,6 +88,13 @@
     "NLA-0026",
     "P4-PINK-EX3-AR",
     "P4-PINK-EX5-AR",
+    "NLA-0142",
+    "NLA-0144",
+    "NLA-0145",
+    "NLA-0146",
+    "NLA-0154",
+    "NLA-0159",
+    "NLA-0161",
     "NLA-0496",
     "NLA-0497",
     "NLA-0498",
@@ -88,18 +103,31 @@
     "NLA-0501",
     "NLA-0502",
     "NLA-0503",
-    "NLA-0568"
+    "NLA-0568",
+    "NLA-0569"
   ],
-  "failedItems": [],
+  "failedItems": [
+    {
+      "masterId": "GRP-A-P2-ar_64433f4aadf0b4d4",
+      "assetId": "ar_64433f4aadf0b4d4",
+      "language": "ar",
+      "text": "سيارة أجرة صفراء",
+      "model": "gemini-2.5-pro-preview-tts",
+      "error": "[gemini-2.5-pro-preview-tts] {\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativ",
+      "at": "2026-11-25T10:54:16.942Z"
+    }
+  ],
   "exhaustedModels": {
-    "gemini-3.8-flash-lite-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.8-flash-lite-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h56m20.623605876s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-3.8-flash-lite-tts\",\"location\":\"gl",
-    "gemini-3.8-flash-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.8-flash-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h27m45.790306249s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-3.8-flash-tts\",\"location\":\"global\"},\"qu",
-    "gemini-3.1-flash-tts-preview": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.1-flash-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h26m0.7069157s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-3.1-flash-tts\",\"location\":\"global\"},\"quota"
+    "gemini-3.8-flash-lite-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.8-flash-lite-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h6m46.536194864s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-3.8-flash-lite-",
+    "gemini-3.8-flash-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.8-flash-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h6m4.336684658s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-3.8-flash-tts\",\"location\":\"global\"},\"quot",
+    "gemini-3.1-flash-tts-preview": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-3.1-flash-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h5m43.220154866s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-3.1-flash-tts\"},\"quo",
+    "gemini-2.5-flash-preview-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 10, model: gemini-2.5-flash-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h5m43.134354507s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash-tts\",\"location\":\"global\"},\"quo",
+    "gemini-2.5-pro-preview-tts": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro-tts, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-pro-tts, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-pro-tts, description: Generate content input tokens per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 21h5m43.067233727s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.H"
   },
   "succeededByModel": {
     "gemini-3.8-flash-lite-tts": 14,
-    "gemini-3.8-flash-tts": 2,
-    "gemini-3.1-flash-tts-preview": 5,
+    "gemini-3.8-flash-tts": 4,
+    "gemini-3.1-flash-tts-preview": 6,
     "gemini-2.5-flash-preview-tts": 7
   },
   "batchApiSupport": {
@@ -109,5 +137,5 @@
     "detail": null
   },
   "nextPendingAssetId": "en_b89f44855c685577",
-  "lastError": null
+  "lastError": "All candidate TTS models exhausted daily/permanent quota (5/5)."
 }

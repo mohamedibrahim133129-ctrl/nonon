@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-25T10:38:23.026Z",
+  "generatedAt": "2026-11-25T10:54:25.803Z",
   "totalAssets": 1500,
   "arabicAssets": 845,
   "englishAssets": 655,
-  "readyCount": 72,
-  "validCount": 72,
-  "missingCount": 1428,
+  "readyCount": 75,
+  "validCount": 75,
+  "missingCount": 1425,
   "invalidCount": 0,
   "needsReviewCount": 4,
   "verifiedCorrectCount": 0,
@@ -9362,12 +9362,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_6fc8bfae56f7519b.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_6fc8bfae56f7519b.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 66093,
+      "durationSeconds": 8.2,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:53:38.447Z"
     },
     {
       "assetId": "ar_70181887929542f5",
@@ -16314,12 +16315,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_cbaa3b5459835e55.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_cbaa3b5459835e55.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 19437,
+      "durationSeconds": 2.4,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:53:16.343Z"
     },
     {
       "assetId": "ar_cbbfbe73d028b245",
@@ -16815,12 +16817,13 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_d1ae105fff477efc.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_d1ae105fff477efc.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 26541,
+      "durationSeconds": 3.3,
+      "maxVolumeDb": null,
+      "updatedAt": "2026-11-25T10:53:58.895Z"
     },
     {
       "assetId": "ar_d1cc57be83f8567a",
