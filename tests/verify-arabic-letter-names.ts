@@ -377,7 +377,7 @@ async function run() {
     validCount: number;
     items: Array<{ assetId: string; bytes: number | null; validationStatus: string }>;
   };
-  assert.strictEqual(manifestDoc.validCount, 246, `Expected 246 valid items in academy-audio-manifest.json, got ${manifestDoc.validCount}`);
+  assert.strictEqual(manifestDoc.validCount, 291, `Expected 291 valid items in academy-audio-manifest.json, got ${manifestDoc.validCount}`);
   const manifestById = new Map(manifestDoc.items.map((i) => [i.assetId, i]));
   let sheet2MatchedCount = 0;
   let preExistingPreservedCount = 0;
@@ -415,7 +415,7 @@ async function run() {
     ...Object.values(academyLookupTyped.ar),
     ...Object.values(academyLookupTyped.en),
   ]);
-  assert.strictEqual(totalLookupIds.size, 246, `Expected 246 registered Academy lookup IDs, got ${totalLookupIds.size}`);
+  assert.strictEqual(totalLookupIds.size, 291, `Expected 291 registered Academy lookup IDs, got ${totalLookupIds.size}`);
 
   // Confirm 28 legacy baseline files remain untouched in public/assets/audio/arabic-letters/
   const legacyMp3s = fs
@@ -424,7 +424,7 @@ async function run() {
     .map((e) => e.name)
     .sort();
   assert.strictEqual(legacyMp3s.length, 28, `Expected 28 legacy baseline files in arabic-letters/, got ${legacyMp3s.length}`);
-  console.log('   ✓ Verified 219/219 sheet2 Academy MP3s intact (216 exact SHA-256 + 3 baseline preserved), 246 lookup IDs intact, and 28/28 legacy files preserved.');
+  console.log('   ✓ Verified 219/219 sheet2 Academy MP3s intact (216 exact SHA-256 + 3 baseline preserved), 291 lookup IDs intact, and 28/28 legacy files preserved.');
 
   console.log('[5/6] Verifying Live HTTP Static Serving (GET/HEAD/Range) & Read-Only Routes...');
   const port = 3198;

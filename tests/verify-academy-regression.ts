@@ -308,8 +308,44 @@ async function run() {
   assert.strictEqual(ctrl.getSnapshot().errorCode, 'UNAVAILABLE');
   const lookup = academyAudioLookup as { ar: Record<string, string>; en: Record<string, string> };
   const existingTotal = new Set([...Object.values(lookup.ar), ...Object.values(lookup.en)]).size;
-  assert(existingTotal >= 54, `Expected >= 54 Academy lookup recordings, got ${existingTotal}`);
-  console.log(`   ✓ Controller fail-closed behavior and ${existingTotal} registered Academy recordings verified.`);
+  assert.strictEqual(existingTotal, 291, `Expected 291 Academy lookup recordings, got ${existingTotal}`);
+
+  // Verify CVC (BAT/MAP/PEN/CUP), Daily Offline (3 AR + 3 EN), Deep Color AR (5), P3 cues (10), and Pink Ballet Dress EN fail-closed
+  const requiredNewClips: Array<{ lang: 'ar' | 'en'; text: string; expectedAssetId: string }> = [
+    { lang: 'en', text: 'BAT', expectedAssetId: 'en_7e41b94d23428e69' },
+    { lang: 'en', text: 'MAP', expectedAssetId: 'en_f4c83c5c4fc92e50' },
+    { lang: 'en', text: 'PEN', expectedAssetId: 'en_e4abbe542796f582' },
+    { lang: 'en', text: 'CUP', expectedAssetId: 'en_0faa9b3d03d16211' },
+    { lang: 'ar', text: 'شريط وردي', expectedAssetId: 'ar_18d87bc9fe20bbde' },
+    { lang: 'ar', text: 'فستان باليه وردي', expectedAssetId: 'ar_240faf3d808ea53e' },
+    { lang: 'ar', text: 'قميص أحمر', expectedAssetId: 'ar_5ce638df43ce7dbd' },
+    { lang: 'ar', text: 'لعبة إطفاء حمراء', expectedAssetId: 'ar_7e481c05b10efdf8' },
+    { lang: 'ar', text: 'Blue — أزرق! تعال لنكتشف معاً سر هذا اللون الرائع في عالمنا!', expectedAssetId: 'ar_2cb89b55f55e1d0c' },
+    { lang: 'en', text: 'Buh, Buh, Ball', expectedAssetId: 'en_23fe603b9d2304c0' },
+    { lang: 'en', text: 'Cuh, Cuh, Cat', expectedAssetId: 'en_dce4835363b0fd1a' },
+    { lang: 'en', text: 'Sss, Sun', expectedAssetId: 'en_eeb8fb9ced7d0366' },
+    { lang: 'en', text: 'Buh, Book', expectedAssetId: 'en_6a44dbcf94d36c02' },
+    { lang: 'ar', text: 'تَ.. تفاحة', expectedAssetId: 'ar_b3ba5acb3c9175d6' },
+    { lang: 'ar', text: 'قَ.. قمر', expectedAssetId: 'ar_2bab4c7120dabffc' },
+    { lang: 'ar', text: 'في صباح مشمس ، حمل نونو سلة فواكه حمراء فيها ٣ تفاحات ، وذهب إلى الحديقة ليتقاسمها مع صديقه ليو الأسد .', expectedAssetId: 'ar_7e01a36dabc78c26' },
+    { lang: 'ar', text: 'زرعت لولو بذرة زهرة صغيرة في التربة، ثم سقتها بالماء كل صباح ووضعتها قرب نافذة مشمسة . وبعد أسبوع، تفتّحت زهرة صفراء جميلة !', expectedAssetId: 'ar_b4c46367e54fa49f' },
+    { lang: 'en', text: 'On a sunny morning , Nono carried a red basket with 3 apples to the garden to share them with his friend Leo the Lion .', expectedAssetId: 'en_ce4903af27f44f50' },
+    { lang: 'en', text: 'Lolo planted a tiny flower seed in the soil, watered it every morning , and placed it near a sunny window . A week later, a bright yellow sunflower bloomed !', expectedAssetId: 'en_187fc10a79362230' },
+    { lang: 'ar', text: 'رحلة البحث عن الأشكال في المنزل. اطلب من طفلك إيجاد ٣ أشياء دائرية و٣ أشياء مربعة في الغرفة وعدّها معاً.', expectedAssetId: 'ar_467f3e1bf1eb09c8' },
+    { lang: 'ar', text: 'فرز الفواكه والألوان في المطبخ. رتّبا الفواكه حسب اللون ثم احسبا أيهما أكثر وأيهما أقل.', expectedAssetId: 'ar_e518582df760e064' },
+    { lang: 'ar', text: 'تشكيل الحروف بالصلصال أو الرمل. شكّلا حرف اليوم بالصلصال أو بإصبع اليد في صينية رمل لتثبيت الاتجاه الحركي.', expectedAssetId: 'ar_4fdee518dca2ab66' },
+    { lang: 'en', text: 'Living Room Shape Hunt. Ask your child to find 3 circles and 3 squares around the room and count them together.', expectedAssetId: 'en_c1e6433b40075f88' },
+    { lang: 'en', text: 'Kitchen Color & Quantity Sorting. Sort fruits or cups by color, then compare which group has more or fewer.', expectedAssetId: 'en_18aec7fda56a7225' },
+    { lang: 'en', text: 'Clay or Sand Letter Tracing. Shape today’s letter using playdough or finger-trace in a tray of sand for tactile memory.', expectedAssetId: 'en_fa570e925daf8744' },
+  ];
+  for (const clip of requiredNewClips) {
+    const resolved = resolveAcademyRecordingUrl(clip.text, clip.lang);
+    assert.strictEqual(resolved, `/assets/audio/academy/${clip.lang}/${clip.expectedAssetId}.mp3`);
+    assert(fs.existsSync(urlToPublicPath(root, resolved)));
+  }
+  assert.strictEqual(resolveAcademyRecordingUrl('Pink Ballet Dress', 'en'), null);
+  assert(!fs.existsSync(path.resolve(root, 'public/assets/audio/academy/en/en_b89f44855c685577.mp3')));
+  console.log(`   ✓ Controller fail-closed behavior and ${existingTotal} registered Academy recordings verified (including all new 45-batch clips & Pink Ballet Dress EN unmapped).`);
 
   console.log('[7/7] Verifying Zero Runtime TTS & Quran Story Assets Untouched...');
   let storyCount = 0;

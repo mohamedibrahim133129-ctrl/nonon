@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T11:19:29.675Z",
+  "generatedAt": "2026-11-26T21:46:52.967Z",
   "totalAssets": 1500,
   "arabicAssets": 845,
   "englishAssets": 655,
-  "readyCount": 246,
-  "validCount": 246,
-  "missingCount": 1254,
+  "readyCount": 291,
+  "validCount": 291,
+  "missingCount": 1209,
   "invalidCount": 0,
   "needsReviewCount": 4,
   "verifiedCorrectCount": 0,
@@ -105,7 +105,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 45504,
       "durationSeconds": 7.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.1
     },
     {
       "assetId": "ar_020288924d39ff67",
@@ -151,7 +151,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35856,
       "durationSeconds": 6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_029d10674ab0b9aa",
@@ -220,7 +220,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28080,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_0371e15bea925ceb",
@@ -243,7 +243,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11808,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4
     },
     {
       "assetId": "ar_03881e8babb1c849",
@@ -314,7 +314,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12096,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_040d561d79137bc0",
@@ -413,7 +413,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13392,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_06a6253b8c83b340",
@@ -542,7 +542,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_07ce00127ccadae9",
@@ -608,12 +608,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_0837a804c0b540f4.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_0837a804c0b540f4.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 12816,
+      "durationSeconds": 2.1,
+      "maxVolumeDb": -4.8,
       "updatedAt": "2026-11-25T09:59:56.057Z"
     },
     {
@@ -1052,7 +1052,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33840,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6
     },
     {
       "assetId": "ar_0e4a68f565aca932",
@@ -1093,12 +1093,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_0ec0d2daa4914678.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_0ec0d2daa4914678.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.2,
       "updatedAt": "2026-11-25T10:15:03.205Z"
     },
     {
@@ -1145,7 +1145,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33984,
       "durationSeconds": 5.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_113430550615c649",
@@ -1358,7 +1358,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_138cfbd7dbfa73e6",
@@ -1502,7 +1502,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_14ae8b8997ab2b7a",
@@ -1620,7 +1620,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13392,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "ar_15c074aa4edd3859",
@@ -1847,12 +1847,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_1826639d324d6df0.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_1826639d324d6df0.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 13392,
+      "durationSeconds": 2.2,
+      "maxVolumeDb": -5.5,
       "updatedAt": "2026-11-25T10:01:17.914Z"
     },
     {
@@ -1947,12 +1947,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_18d87bc9fe20bbde.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_18d87bc9fe20bbde.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 12672,
+      "durationSeconds": 2.1,
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "ar_191aabfa56bb2eaf",
@@ -2053,7 +2053,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34128,
       "durationSeconds": 5.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.1
     },
     {
       "assetId": "ar_1b16f256bd2470c5",
@@ -2341,7 +2341,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 25200,
       "durationSeconds": 4.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5
     },
     {
       "assetId": "ar_1f3924dd972589f6",
@@ -2640,7 +2640,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13392,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_22a696f48af6890f",
@@ -2686,7 +2686,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 42480,
       "durationSeconds": 7.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "ar_2361a2d9542832c5",
@@ -2780,12 +2780,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_240faf3d808ea53e.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_240faf3d808ea53e.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null
+      "bytes": 16272,
+      "durationSeconds": 2.7,
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_246281f0f52704ad",
@@ -2890,7 +2890,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28368,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_251f88102cd4a3ae",
@@ -3140,12 +3140,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_26f5fe7f813c4efe.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_26f5fe7f813c4efe.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11664,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5,
       "updatedAt": "2026-11-25T10:00:57.490Z"
     },
     {
@@ -3217,7 +3217,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26784,
       "durationSeconds": 4.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.7
     },
     {
       "assetId": "ar_275f4f98ddc13cd9",
@@ -3407,7 +3407,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.1
     },
     {
       "assetId": "ar_2a33d7e0f2789748",
@@ -3430,7 +3430,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_2aa35ac6adeb30a2",
@@ -3453,7 +3453,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "ar_2ab31560a45e989d",
@@ -3476,7 +3476,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_2b1b6e3275dfb364",
@@ -3499,7 +3499,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.7
     },
     {
       "assetId": "ar_2b2219a448ab0ce9",
@@ -3543,12 +3543,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_2bab4c7120dabffc.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_2bab4c7120dabffc.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 17712,
+      "durationSeconds": 3,
+      "maxVolumeDb": -5.1,
       "updatedAt": "2026-11-25T10:33:41.388Z"
     },
     {
@@ -3599,12 +3599,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_2cb89b55f55e1d0c.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_2cb89b55f55e1d0c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 42768,
+      "durationSeconds": 7.1,
+      "maxVolumeDb": -4.3,
       "updatedAt": "2026-11-25T10:37:55.051Z"
     },
     {
@@ -3628,7 +3628,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33552,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_2ccb02659d237b63",
@@ -4362,7 +4362,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 42048,
       "durationSeconds": 7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "ar_36316df064f13e73",
@@ -4454,7 +4454,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34560,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_36c2fc4d5be1f282",
@@ -4684,7 +4684,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_3a0083995d2ea6ee",
@@ -4805,7 +4805,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 32544,
       "durationSeconds": 5.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_3b182cfe2508c8bb",
@@ -4853,7 +4853,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 32400,
       "durationSeconds": 5.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_3c3c5e94d836b9d6",
@@ -4901,7 +4901,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12960,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_3d2d45e7876fe761",
@@ -4919,12 +4919,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_3d2d45e7876fe761.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_3d2d45e7876fe761.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11376,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -4.9,
       "updatedAt": "2026-11-25T10:00:37.162Z"
     },
     {
@@ -5026,7 +5026,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 42480,
       "durationSeconds": 7.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "ar_3f5a2788eb7bc317",
@@ -5072,7 +5072,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13392,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_3f8ae77f05cc9a91",
@@ -5212,7 +5212,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 58176,
       "durationSeconds": 9.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.6
     },
     {
       "assetId": "ar_42f9bf089dc3e0e5",
@@ -5268,7 +5268,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 45648,
       "durationSeconds": 7.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_43c701566525a9bd",
@@ -5600,7 +5600,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 45072,
       "durationSeconds": 7.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "ar_467f3e1bf1eb09c8",
@@ -5618,12 +5618,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_467f3e1bf1eb09c8.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_467f3e1bf1eb09c8.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 64656,
+      "durationSeconds": 10.8,
+      "maxVolumeDb": -4,
       "updatedAt": "2026-11-25T10:02:41.102Z"
     },
     {
@@ -5799,7 +5799,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_4814baf02f00669b",
@@ -5822,7 +5822,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "ar_481e348a73181c46",
@@ -5845,7 +5845,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.7
     },
     {
       "assetId": "ar_4877e85579adf5e6",
@@ -6038,7 +6038,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "ar_49f5b4678d579215",
@@ -6159,7 +6159,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 31680,
       "durationSeconds": 5.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_4cd616d02cd8e4c3",
@@ -6182,7 +6182,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27072,
       "durationSeconds": 4.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_4ce8701dab63aa9d",
@@ -6317,12 +6317,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_4ea604ce7c5164ec.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_4ea604ce7c5164ec.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 13104,
+      "durationSeconds": 2.2,
+      "maxVolumeDb": -4,
       "updatedAt": "2026-11-25T09:59:35.526Z"
     },
     {
@@ -6392,7 +6392,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34848,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6
     },
     {
       "assetId": "ar_4ef77283f2e0ef11",
@@ -6456,12 +6456,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_4fdee518dca2ab66.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_4fdee518dca2ab66.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 60048,
+      "durationSeconds": 10,
+      "maxVolumeDb": -5.3,
       "updatedAt": "2026-11-25T10:02:20.439Z"
     },
     {
@@ -6537,7 +6537,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26784,
       "durationSeconds": 4.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_50636809f34cda7a",
@@ -7253,7 +7253,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13680,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_58455de58aa86b39",
@@ -7546,12 +7546,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5ce638df43ce7dbd.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5ce638df43ce7dbd.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 12816,
+      "durationSeconds": 2.1,
+      "maxVolumeDb": -6.1,
       "updatedAt": "2026-11-25T10:37:10.895Z"
     },
     {
@@ -7623,12 +7623,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5ddf71193434bb33.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5ddf71193434bb33.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -4.3,
       "updatedAt": "2026-11-25T10:01:58.963Z"
     },
     {
@@ -7647,12 +7647,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_5e126da4cd96c4e9.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_5e126da4cd96c4e9.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11520,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5,
       "updatedAt": "2026-11-25T10:01:38.617Z"
     },
     {
@@ -7950,7 +7950,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_60d023e32789c659",
@@ -8300,7 +8300,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33408,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.1
     },
     {
       "assetId": "ar_638875b7fa3f251a",
@@ -8394,7 +8394,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 16704,
       "durationSeconds": 2.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_649547725a6e1a19",
@@ -8472,7 +8472,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 25776,
       "durationSeconds": 4.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_65c65bdf08a2cce8",
@@ -8495,7 +8495,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34560,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_67055cb3f1518c2b",
@@ -8541,7 +8541,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 36000,
       "durationSeconds": 6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_67e1995553dfffd5",
@@ -8776,7 +8776,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "ar_6a5810714174399d",
@@ -8920,7 +8920,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34128,
       "durationSeconds": 5.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_6aede2b2393fea0a",
@@ -9037,7 +9037,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 32688,
       "durationSeconds": 5.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_6c5bac093daf35fa",
@@ -9282,7 +9282,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4
     },
     {
       "assetId": "ar_6f8981209124f9f3",
@@ -9367,7 +9367,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 66093,
       "durationSeconds": 8.2,
-      "maxVolumeDb": null,
+      "maxVolumeDb": -1.6,
       "updatedAt": "2026-11-25T10:53:38.447Z"
     },
     {
@@ -9409,12 +9409,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_705f41f44976a0d3.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_705f41f44976a0d3.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.1,
       "updatedAt": "2026-11-25T10:04:23.086Z"
     },
     {
@@ -9461,7 +9461,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11952,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.2
     },
     {
       "assetId": "ar_72883ac4b02abad1",
@@ -9484,7 +9484,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26064,
       "durationSeconds": 4.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "ar_72b6c24a15bef47b",
@@ -9507,7 +9507,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27936,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_72cfaa794aea4dcd",
@@ -9553,7 +9553,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28080,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_73283d3cc032ada9",
@@ -9693,7 +9693,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33840,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_74e944438a0a38a5",
@@ -9957,7 +9957,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_7843f751421e84eb",
@@ -10026,7 +10026,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26928,
       "durationSeconds": 4.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_78b15bfdbea75034",
@@ -10049,7 +10049,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13680,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_7969d1e9b16f1e8d",
@@ -10215,7 +10215,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11376,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_7b58378bc4183cd1",
@@ -10388,7 +10388,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35136,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_7d9fdc246f63e4df",
@@ -10411,7 +10411,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.5
     },
     {
       "assetId": "ar_7ddcd948c7ffd9d5",
@@ -10477,12 +10477,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_7e01a36dabc78c26.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_7e01a36dabc78c26.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 65376,
+      "durationSeconds": 10.9,
+      "maxVolumeDb": -4.7,
       "updatedAt": "2026-11-25T10:34:09.786Z"
     },
     {
@@ -10524,12 +10524,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_7e481c05b10efdf8.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_7e481c05b10efdf8.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 16416,
+      "durationSeconds": 2.7,
+      "maxVolumeDb": -6.2,
       "updatedAt": "2026-11-25T10:37:32.225Z"
     },
     {
@@ -10606,7 +10606,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 31536,
       "durationSeconds": 5.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_8094493cb938bdfb",
@@ -10629,7 +10629,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 37440,
       "durationSeconds": 6.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.9
     },
     {
       "assetId": "ar_80c7c5bfbd7b4ee2",
@@ -11150,7 +11150,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_87c8063e3fa3ab79",
@@ -11219,7 +11219,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33552,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_8916f2735ba0d27b",
@@ -11341,7 +11341,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26352,
       "durationSeconds": 4.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.1
     },
     {
       "assetId": "ar_8b1bf1631c077ef8",
@@ -11460,7 +11460,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26064,
       "durationSeconds": 4.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.1
     },
     {
       "assetId": "ar_8cc713631e9c6585",
@@ -11794,12 +11794,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_8f9b0ba72633938d.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_8f9b0ba72633938d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11808,
+      "durationSeconds": 2,
+      "maxVolumeDb": -5.3,
       "updatedAt": "2026-11-25T09:59:15.083Z"
     },
     {
@@ -12014,7 +12014,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11952,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.1
     },
     {
       "assetId": "ar_913516003e1825c0",
@@ -12225,7 +12225,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13536,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5
     },
     {
       "assetId": "ar_94ec5f65e6e0cf6a",
@@ -12271,7 +12271,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27936,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "ar_95aa58c199ebce0c",
@@ -12516,7 +12516,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 50400,
       "durationSeconds": 8.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4
     },
     {
       "assetId": "ar_982858035571811e",
@@ -12539,7 +12539,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 25632,
       "durationSeconds": 4.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "ar_9871f5ea8d37347f",
@@ -12704,7 +12704,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6
     },
     {
       "assetId": "ar_9a4f6f6f2e1282b7",
@@ -12752,7 +12752,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34992,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.2
     },
     {
       "assetId": "ar_9b03686031c530c0",
@@ -13178,7 +13178,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34560,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_9efc726bc2f4c8f2",
@@ -13224,7 +13224,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_9f2cec1c88af9229",
@@ -13468,12 +13468,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_a28c1cca11de16f2.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_a28c1cca11de16f2.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -4.3,
       "updatedAt": "2026-11-25T10:15:03.110Z"
     },
     {
@@ -13543,7 +13543,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 14112,
       "durationSeconds": 2.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.9
     },
     {
       "assetId": "ar_a4767153a8ab95c8",
@@ -13566,7 +13566,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 31968,
       "durationSeconds": 5.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_a6338d7cc6915fd1",
@@ -13639,7 +13639,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 32400,
       "durationSeconds": 5.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_a7450522f1fc0ce7",
@@ -13920,7 +13920,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28512,
       "durationSeconds": 4.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.5
     },
     {
       "assetId": "ar_aa221c5962692a10",
@@ -13943,7 +13943,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27792,
       "durationSeconds": 4.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_aa85f86fdb818b5a",
@@ -14144,7 +14144,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 39312,
       "durationSeconds": 6.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.5
     },
     {
       "assetId": "ar_ae68b77563ebd92d",
@@ -14371,7 +14371,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_b1ae65dd508469d9",
@@ -14389,12 +14389,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b1ae65dd508469d9.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b1ae65dd508469d9.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11808,
+      "durationSeconds": 2,
+      "maxVolumeDb": -5.4,
       "updatedAt": "2026-11-25T10:00:16.611Z"
     },
     {
@@ -14467,7 +14467,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 45648,
       "durationSeconds": 7.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.9
     },
     {
       "assetId": "ar_b2c57d83d1e90b4a",
@@ -14600,12 +14600,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b3ba5acb3c9175d6.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b3ba5acb3c9175d6.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 17856,
+      "durationSeconds": 3,
+      "maxVolumeDb": -3.8,
       "updatedAt": "2026-11-25T10:33:20.341Z"
     },
     {
@@ -14718,12 +14718,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_b4c46367e54fa49f.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_b4c46367e54fa49f.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 80496,
+      "durationSeconds": 13.4,
+      "maxVolumeDb": -4.6,
       "updatedAt": "2026-11-25T10:34:30.609Z"
     },
     {
@@ -14747,7 +14747,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.1
     },
     {
       "assetId": "ar_b500cc567ad3b8c3",
@@ -15106,7 +15106,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28224,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_baf3b357ef4a4018",
@@ -15129,7 +15129,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_bb12c7e97efec5e6",
@@ -15330,7 +15330,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13536,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_bd77edb436d1a030",
@@ -15619,7 +15619,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_c219a91f6a33f65f",
@@ -15786,7 +15786,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33552,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_c544c6ec26cdad3b",
@@ -15878,7 +15878,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34848,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_c5c0d8494c9cbced",
@@ -15950,7 +15950,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33984,
       "durationSeconds": 5.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_c819703284e8cc97",
@@ -16037,12 +16037,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_c9c4ac78c8c24212.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_c9c4ac78c8c24212.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -4.3,
       "updatedAt": "2026-11-25T10:04:43.503Z"
     },
     {
@@ -16138,7 +16138,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33120,
       "durationSeconds": 5.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_cb2c7a5a5a1621a3",
@@ -16161,7 +16161,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 25344,
       "durationSeconds": 4.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_cb5a143c2cb012bb",
@@ -16320,7 +16320,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 19437,
       "durationSeconds": 2.4,
-      "maxVolumeDb": null,
+      "maxVolumeDb": -1.7,
       "updatedAt": "2026-11-25T10:53:16.343Z"
     },
     {
@@ -16390,7 +16390,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33120,
       "durationSeconds": 5.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.6
     },
     {
       "assetId": "ar_ccc67015f42865e2",
@@ -16459,7 +16459,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "ar_cd1c1bd2baadc736",
@@ -16528,7 +16528,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13392,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_ceed3b31ae7ef08b",
@@ -16676,7 +16676,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "ar_d0b8bf940d4822fa",
@@ -16822,7 +16822,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26541,
       "durationSeconds": 3.3,
-      "maxVolumeDb": null,
+      "maxVolumeDb": -5.3,
       "updatedAt": "2026-11-25T10:53:58.895Z"
     },
     {
@@ -16892,7 +16892,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13680,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.8
     },
     {
       "assetId": "ar_d22edb93c50ec551",
@@ -16915,7 +16915,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28080,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_d243c468ff156cf1",
@@ -17082,7 +17082,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11520,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.9
     },
     {
       "assetId": "ar_d3b92e7fcf68bbb5",
@@ -17155,7 +17155,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.8
     },
     {
       "assetId": "ar_d41e9709e9ea2e5b",
@@ -17173,12 +17173,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_d41e9709e9ea2e5b.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_d41e9709e9ea2e5b.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11664,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.6,
       "updatedAt": "2026-11-25T09:58:55.062Z"
     },
     {
@@ -17412,7 +17412,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -7.3
     },
     {
       "assetId": "ar_d72747f649a0959f",
@@ -17435,7 +17435,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13824,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.5
     },
     {
       "assetId": "ar_d73cbe5885111a8c",
@@ -17485,7 +17485,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_d7e7c91b7c6e4431",
@@ -17672,7 +17672,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11664,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "ar_da5c71ac6f183043",
@@ -17695,7 +17695,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27936,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "ar_da9b5ea3396c47af",
@@ -17741,7 +17741,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "ar_db794f7d7fbba2b3",
@@ -18100,7 +18100,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.5
     },
     {
       "assetId": "ar_ddfe0819cf9521a8",
@@ -18141,12 +18141,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_dec137f158a4626c.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_dec137f158a4626c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.4,
       "updatedAt": "2026-11-25T10:15:03.287Z"
     },
     {
@@ -18366,7 +18366,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13824,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.2
     },
     {
       "assetId": "ar_e250e87117e15921",
@@ -18389,7 +18389,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28512,
       "durationSeconds": 4.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "ar_e25237a6a1f1f17e",
@@ -18510,12 +18510,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/ar/ar_e518582df760e064.mp3",
       "audioUrl": "/assets/audio/academy/ar/ar_e518582df760e064.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 57312,
+      "durationSeconds": 9.6,
+      "maxVolumeDb": -5.5,
       "updatedAt": "2026-11-25T10:03:01.496Z"
     },
     {
@@ -18610,7 +18610,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 26496,
       "durationSeconds": 4.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "ar_e66b9d72867b0db4",
@@ -18728,7 +18728,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_e7b269cad63c7608",
@@ -18930,7 +18930,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28368,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_e8e359582abd0c3b",
@@ -18953,7 +18953,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28368,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "ar_e98c60185df1f125",
@@ -18999,7 +18999,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 15408,
       "durationSeconds": 2.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.6
     },
     {
       "assetId": "ar_e9bf5e38418711f0",
@@ -19022,7 +19022,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 32832,
       "durationSeconds": 5.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.1
     },
     {
       "assetId": "ar_e9f92ff86c4f1565",
@@ -19068,7 +19068,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.4
     },
     {
       "assetId": "ar_ea3c0deb53ba3da8",
@@ -19117,7 +19117,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 34848,
       "durationSeconds": 5.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.5
     },
     {
       "assetId": "ar_ea66e355899e956d",
@@ -19420,7 +19420,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13536,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -7.6
     },
     {
       "assetId": "ar_ecff742aa3c5ab91",
@@ -19524,7 +19524,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28944,
       "durationSeconds": 4.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "ar_edb19338fa15a8b9",
@@ -19649,7 +19649,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27504,
       "durationSeconds": 4.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.5
     },
     {
       "assetId": "ar_ee406260c108bfc8",
@@ -19672,7 +19672,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11808,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.5
     },
     {
       "assetId": "ar_eed144974a57d1bc",
@@ -19744,7 +19744,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 50256,
       "durationSeconds": 8.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.7
     },
     {
       "assetId": "ar_efb0658f4b36685a",
@@ -19917,7 +19917,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 51693,
       "durationSeconds": 6.4,
-      "maxVolumeDb": null,
+      "maxVolumeDb": -3.6,
       "updatedAt": "2026-11-25T10:36:51.988Z"
     },
     {
@@ -20337,7 +20337,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27216,
       "durationSeconds": 4.5,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.1
     },
     {
       "assetId": "ar_faa145de1830b60e",
@@ -20410,7 +20410,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.9
     },
     {
       "assetId": "ar_faf708b47f89ba87",
@@ -20803,7 +20803,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.2
     },
     {
       "assetId": "en_01d591b860210334",
@@ -21088,7 +21088,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.1
     },
     {
       "assetId": "en_05b3d706475fc450",
@@ -21212,7 +21212,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "en_094039dd3de81951",
@@ -21391,7 +21391,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 14256,
       "durationSeconds": 2.4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "en_0b988f4f55dea115",
@@ -21414,7 +21414,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22896,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.3
     },
     {
       "assetId": "en_0cd7602bd6260c7c",
@@ -21437,7 +21437,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11808,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "en_0d0f83f8113837c5",
@@ -21702,12 +21702,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_0faa9b3d03d16211.mp3",
       "audioUrl": "/assets/audio/academy/en/en_0faa9b3d03d16211.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.1,
       "updatedAt": "2026-11-25T10:32:58.666Z"
     },
     {
@@ -22248,12 +22248,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_187fc10a79362230.mp3",
       "audioUrl": "/assets/audio/academy/en/en_187fc10a79362230.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 64080,
+      "durationSeconds": 10.7,
+      "maxVolumeDb": -3.4,
       "updatedAt": "2026-11-25T10:35:52.842Z"
     },
     {
@@ -22272,12 +22272,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_18aec7fda56a7225.mp3",
       "audioUrl": "/assets/audio/academy/en/en_18aec7fda56a7225.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 48384,
+      "durationSeconds": 8.1,
+      "maxVolumeDb": -3.9,
       "updatedAt": "2026-11-25T10:03:44.224Z"
     },
     {
@@ -22422,7 +22422,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "en_1c224a5e7636fe62",
@@ -22447,7 +22447,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 17712,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.6
     },
     {
       "assetId": "en_1c6481103b21485b",
@@ -22651,7 +22651,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 17712,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_1f1dedfe1cba1536",
@@ -22699,7 +22699,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 18144,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.5
     },
     {
       "assetId": "en_1fafc68ee63cf13f",
@@ -22776,7 +22776,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35424,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "en_1febefbb03ddaa01",
@@ -23120,12 +23120,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_23fe603b9d2304c0.mp3",
       "audioUrl": "/assets/audio/academy/en/en_23fe603b9d2304c0.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 13248,
+      "durationSeconds": 2.2,
+      "maxVolumeDb": -5.7,
       "updatedAt": "2026-11-25T10:36:08.536Z"
     },
     {
@@ -23244,7 +23244,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_29227833baad69ac",
@@ -23290,7 +23290,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23328,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_29fe906b8b436e74",
@@ -23338,7 +23338,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 18000,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "en_2b97b865b697b2d1",
@@ -23511,7 +23511,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23040,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.4
     },
     {
       "assetId": "en_2ee1971a061e45eb",
@@ -23608,7 +23608,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23184,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_30e4527b433710fe",
@@ -24128,7 +24128,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.2
     },
     {
       "assetId": "en_385bf08551a6e3a4",
@@ -24151,7 +24151,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "en_3875ea178c9e88e8",
@@ -24229,7 +24229,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 33552,
       "durationSeconds": 5.6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "en_3948e34fedf1f445",
@@ -24247,12 +24247,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_3948e34fedf1f445.mp3",
       "audioUrl": "/assets/audio/academy/en/en_3948e34fedf1f445.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -2,
       "updatedAt": "2026-11-25T10:15:03.738Z"
     },
     {
@@ -24421,7 +24421,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23040,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.4
     },
     {
       "assetId": "en_3baeb487e3f1f149",
@@ -24522,7 +24522,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "en_3de086c9b7a8cf86",
@@ -24621,7 +24621,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23472,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.5
     },
     {
       "assetId": "en_3ea59427402473b0",
@@ -24690,7 +24690,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "en_3f11e1f27b3bac64",
@@ -24948,7 +24948,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23904,
       "durationSeconds": 4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.8
     },
     {
       "assetId": "en_437d2965d579e425",
@@ -25146,7 +25146,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 17856,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_471480337b0b6629",
@@ -25339,7 +25339,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.5
     },
     {
       "assetId": "en_48afeea44c82b0f1",
@@ -25605,7 +25605,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13536,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.3
     },
     {
       "assetId": "en_4beec9148d6116f1",
@@ -25697,7 +25697,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 36000,
       "durationSeconds": 6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.6
     },
     {
       "assetId": "en_4dcda560c4479de0",
@@ -26213,7 +26213,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23040,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_57a42b5ab2d7feb1",
@@ -26409,7 +26409,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12816,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.3
     },
     {
       "assetId": "en_5a9ce7e0f46d1287",
@@ -26465,7 +26465,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 18864,
       "durationSeconds": 3.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.3
     },
     {
       "assetId": "en_5b35ffc8243d85c0",
@@ -26611,7 +26611,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 17856,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.5
     },
     {
       "assetId": "en_5ca6efadb47fda71",
@@ -26698,12 +26698,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_5d544881a6ae35a6.mp3",
       "audioUrl": "/assets/audio/academy/en/en_5d544881a6ae35a6.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.9,
       "updatedAt": "2026-11-25T10:15:03.381Z"
     },
     {
@@ -26750,7 +26750,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "en_5fe16044b15acc82",
@@ -26828,7 +26828,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28944,
       "durationSeconds": 4.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.6
     },
     {
       "assetId": "en_60dc3df16b99549d",
@@ -27026,7 +27026,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35136,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_631b7f34cf5cbfc0",
@@ -27223,7 +27223,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.7
     },
     {
       "assetId": "en_687143d4625c07a3",
@@ -27246,7 +27246,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 24192,
       "durationSeconds": 4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.1
     },
     {
       "assetId": "en_68b8e34446db0a67",
@@ -27347,7 +27347,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 36144,
       "durationSeconds": 6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_6a44dbcf94d36c02",
@@ -27365,12 +27365,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_6a44dbcf94d36c02.mp3",
       "audioUrl": "/assets/audio/academy/en/en_6a44dbcf94d36c02.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11664,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.1,
       "updatedAt": "2026-11-25T10:35:04.985Z"
     },
     {
@@ -27540,7 +27540,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5
     },
     {
       "assetId": "en_6e1c49655eaf4c0f",
@@ -27678,7 +27678,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35136,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.6
     },
     {
       "assetId": "en_71aad93bbf863b2d",
@@ -27800,7 +27800,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 42336,
       "durationSeconds": 7.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.1
     },
     {
       "assetId": "en_73603282b7b231b5",
@@ -27892,7 +27892,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12960,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.2
     },
     {
       "assetId": "en_75269c56bdb4423f",
@@ -28035,12 +28035,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_75b0d42e78c8cb4d.mp3",
       "audioUrl": "/assets/audio/academy/en/en_75b0d42e78c8cb4d.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -5.5,
       "updatedAt": "2026-11-25T10:15:03.468Z"
     },
     {
@@ -28191,7 +28191,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12096,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.7
     },
     {
       "assetId": "en_7943d18197ae315c",
@@ -28393,12 +28393,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_7e41b94d23428e69.mp3",
       "audioUrl": "/assets/audio/academy/en/en_7e41b94d23428e69.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.7,
       "updatedAt": "2026-11-25T10:31:55.634Z"
     },
     {
@@ -28424,7 +28424,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 18144,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.5
     },
     {
       "assetId": "en_7f38e8584249ef19",
@@ -28569,7 +28569,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.6
     },
     {
       "assetId": "en_80ede691510e99fd",
@@ -28707,7 +28707,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22608,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_8394159d257258f1",
@@ -29056,7 +29056,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35856,
       "durationSeconds": 6,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "en_8aba6777530bf53c",
@@ -29079,7 +29079,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.3
     },
     {
       "assetId": "en_8acb9c700c7843bc",
@@ -29102,7 +29102,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.7
     },
     {
       "assetId": "en_8b0f41e4727e97b6",
@@ -29125,7 +29125,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 27936,
       "durationSeconds": 4.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.2
     },
     {
       "assetId": "en_8b3b8814f377a829",
@@ -29443,7 +29443,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 24048,
       "durationSeconds": 4,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3
     },
     {
       "assetId": "en_8fe85d83690dc81a",
@@ -29779,7 +29779,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "en_944187f9fed6e693",
@@ -29833,7 +29833,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.8
     },
     {
       "assetId": "en_95270f8130a8d95f",
@@ -29856,7 +29856,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 28512,
       "durationSeconds": 4.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4
     },
     {
       "assetId": "en_9553ce807eba7b10",
@@ -30410,7 +30410,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23040,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.7
     },
     {
       "assetId": "en_9cccc93396202e04",
@@ -30433,7 +30433,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_9d13905583753e65",
@@ -30502,7 +30502,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12384,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.4
     },
     {
       "assetId": "en_9d64f070944a566c",
@@ -30624,7 +30624,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35136,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.6
     },
     {
       "assetId": "en_9f31762f12f35320",
@@ -30919,7 +30919,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 18000,
       "durationSeconds": 3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "en_a5239b65bde93b39",
@@ -30944,7 +30944,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 17568,
       "durationSeconds": 2.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4
     },
     {
       "assetId": "en_a5b8492ce02d2d88",
@@ -31356,7 +31356,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 37152,
       "durationSeconds": 6.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.1
     },
     {
       "assetId": "en_add2a56163e30a56",
@@ -31594,12 +31594,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_b2ed580280df0a38.mp3",
       "audioUrl": "/assets/audio/academy/en/en_b2ed580280df0a38.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.2,
       "updatedAt": "2026-11-25T10:15:03.653Z"
     },
     {
@@ -32087,12 +32087,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_bc3d8bbaf427567c.mp3",
       "audioUrl": "/assets/audio/academy/en/en_bc3d8bbaf427567c.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.8,
       "updatedAt": "2026-11-25T10:15:03.553Z"
     },
     {
@@ -32367,7 +32367,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_c03d1f28bbc41af2",
@@ -32390,7 +32390,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22896,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_c0b835174a0eab5c",
@@ -32558,7 +32558,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22896,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_c1b4675d624aca08",
@@ -32659,12 +32659,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_c1e6433b40075f88.mp3",
       "audioUrl": "/assets/audio/academy/en/en_c1e6433b40075f88.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 47664,
+      "durationSeconds": 7.9,
+      "maxVolumeDb": -1.4,
       "updatedAt": "2026-11-25T10:04:07.923Z"
     },
     {
@@ -32828,7 +32828,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13104,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.2
     },
     {
       "assetId": "en_c64fc9e81cb1d537",
@@ -32999,7 +32999,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23040,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_c8f5b804fff2f739",
@@ -33228,7 +33228,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12528,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.6
     },
     {
       "assetId": "en_cba96026642c93a2",
@@ -33544,12 +33544,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_ce4903af27f44f50.mp3",
       "audioUrl": "/assets/audio/academy/en/en_ce4903af27f44f50.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 44352,
+      "durationSeconds": 7.4,
+      "maxVolumeDb": -2.7,
       "updatedAt": "2026-11-25T10:35:30.090Z"
     },
     {
@@ -33723,7 +33723,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12240,
       "durationSeconds": 2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -4.8
     },
     {
       "assetId": "en_d022bc2eb0e33749",
@@ -33826,7 +33826,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_d1733065b78abe21",
@@ -33849,7 +33849,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 24480,
       "durationSeconds": 4.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.4
     },
     {
       "assetId": "en_d1e2caac1ad84f86",
@@ -34281,7 +34281,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22608,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_d93676ddaf8f7a30",
@@ -34396,7 +34396,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 37152,
       "durationSeconds": 6.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.1
     },
     {
       "assetId": "en_da592fd59447b72e",
@@ -34491,7 +34491,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_dcb3a622c70bfb4a",
@@ -34536,12 +34536,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_dce4835363b0fd1a.mp3",
       "audioUrl": "/assets/audio/academy/en/en_dce4835363b0fd1a.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 19440,
+      "durationSeconds": 3.2,
+      "maxVolumeDb": -4.6,
       "updatedAt": "2026-11-25T10:36:29.438Z"
     },
     {
@@ -34836,7 +34836,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 11232,
       "durationSeconds": 1.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.9
     },
     {
       "assetId": "en_e239e052fbdc6a23",
@@ -34937,7 +34937,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.3
     },
     {
       "assetId": "en_e4307d2bd3cecfa9",
@@ -34983,12 +34983,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_e4abbe542796f582.mp3",
       "audioUrl": "/assets/audio/academy/en/en_e4abbe542796f582.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -4.2,
       "updatedAt": "2026-11-25T10:32:37.980Z"
     },
     {
@@ -35058,7 +35058,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22896,
       "durationSeconds": 3.8,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "en_e7e561ad83fb8b25",
@@ -35132,7 +35132,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12960,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -2.8
     },
     {
       "assetId": "en_e924995182d8339c",
@@ -35178,7 +35178,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23616,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.4
     },
     {
       "assetId": "en_e99be8a94b760d1a",
@@ -35345,7 +35345,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35136,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.7
     },
     {
       "assetId": "en_eb173d634d0389b0",
@@ -35485,7 +35485,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 12672,
       "durationSeconds": 2.1,
-      "maxVolumeDb": null
+      "maxVolumeDb": -6.3
     },
     {
       "assetId": "en_ec7fde6e0ca256e4",
@@ -35764,12 +35764,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_eeb8fb9ced7d0366.mp3",
       "audioUrl": "/assets/audio/academy/en/en_eeb8fb9ced7d0366.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 13968,
+      "durationSeconds": 2.3,
+      "maxVolumeDb": -3.5,
       "updatedAt": "2026-11-25T10:34:43.827Z"
     },
     {
@@ -36118,12 +36118,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_f4c83c5c4fc92e50.mp3",
       "audioUrl": "/assets/audio/academy/en/en_f4c83c5c4fc92e50.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 11232,
+      "durationSeconds": 1.9,
+      "maxVolumeDb": -3.6,
       "updatedAt": "2026-11-25T10:32:17.093Z"
     },
     {
@@ -36170,7 +36170,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 35424,
       "durationSeconds": 5.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.3
     },
     {
       "assetId": "en_f66d3519591cb710",
@@ -36193,7 +36193,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 25056,
       "durationSeconds": 4.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.8
     },
     {
       "assetId": "en_f758ddb5f0758ec6",
@@ -36216,7 +36216,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13680,
       "durationSeconds": 2.3,
-      "maxVolumeDb": null
+      "maxVolumeDb": -5.6
     },
     {
       "assetId": "en_f80934aec9fee8f3",
@@ -36331,7 +36331,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 22464,
       "durationSeconds": 3.7,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.4
     },
     {
       "assetId": "en_f9d48b9ad2c6350a",
@@ -36456,12 +36456,12 @@
       ],
       "mp3Path": "public/assets/audio/academy/en/en_fa570e925daf8744.mp3",
       "audioUrl": "/assets/audio/academy/en/en_fa570e925daf8744.mp3",
-      "generationStatus": "pending",
-      "validationStatus": "missing",
+      "generationStatus": "ready",
+      "validationStatus": "valid",
       "pronunciationReviewStatus": "not-applicable",
-      "bytes": 0,
-      "durationSeconds": null,
-      "maxVolumeDb": null,
+      "bytes": 50400,
+      "durationSeconds": 8.4,
+      "maxVolumeDb": -4.6,
       "updatedAt": "2026-11-25T10:03:21.718Z"
     },
     {
@@ -36636,7 +36636,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 13248,
       "durationSeconds": 2.2,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.4
     },
     {
       "assetId": "en_fc10be0563dfde53",
@@ -36736,7 +36736,7 @@
       "pronunciationReviewStatus": "not-applicable",
       "bytes": 23328,
       "durationSeconds": 3.9,
-      "maxVolumeDb": null
+      "maxVolumeDb": -3.9
     },
     {
       "assetId": "en_fd79910f875002ff",
