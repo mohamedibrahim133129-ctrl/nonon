@@ -47,6 +47,7 @@ export interface PlayAcademyAudioOptions {
   slow?: boolean;
   label?: string;
   audioUrl?: string;
+  requireExplicitAudioUrl?: boolean;
   itemId?: string;
   csrfToken?: string | null;
 }
@@ -284,6 +285,22 @@ export class AcademyAudioController {
     const label = options.label?.trim() || cleanText;
 
     this.lastRequest = { text: cleanText, lang, options: { ...options } };
+
+    if (options.requireExplicitAudioUrl && !explicitUrl) {
+      this.emit({
+        status: 'error',
+        label,
+        lang,
+        slow,
+        currentUrl: null,
+        currentTime: 0,
+        duration: 0,
+        errorCode: 'UNAVAILABLE',
+        errorMessage: localizedError(this.uiLang, 'UNAVAILABLE'),
+        canRetry: false,
+      });
+      return false;
+    }
 
     const cacheKey = `${lang}|${explicitUrl ?? ''}|${explicitItemId ?? ''}|${cleanText}`;
     const cachedUrls = explicitUrl ? [explicitUrl] : this.playbackUrlCache.get(cacheKey);

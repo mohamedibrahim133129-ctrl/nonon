@@ -138,12 +138,12 @@ async function run() {
     assert.strictEqual(resolvedViaController, urlByAll);
   }
   // Character/diacritic variants & mismatch guard
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'ا' }), '/assets/audio/arabic-letters/01_alif_name.mp3');
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'أ' }), '/assets/audio/arabic-letters/01_alif_name.mp3');
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'إ' }), '/assets/audio/arabic-letters/01_alif_name.mp3');
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'آ' }), '/assets/audio/arabic-letters/01_alif_name.mp3');
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'ه' }), '/assets/audio/arabic-letters/26_haa2_name.mp3');
-  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'هـ' }), '/assets/audio/arabic-letters/26_haa2_name.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'ا' }), '/assets/audio/arabic-letters/names/nonoland_ar_alif.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'أ' }), '/assets/audio/arabic-letters/names/nonoland_ar_alif.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'إ' }), '/assets/audio/arabic-letters/names/nonoland_ar_alif.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'آ' }), '/assets/audio/arabic-letters/names/nonoland_ar_alif.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'ه' }), '/assets/audio/arabic-letters/names/nonoland_ar_ha.mp3');
+  assert.strictEqual(resolveArabicLetterNameAudioUrl({ char: 'هـ' }), '/assets/audio/arabic-letters/names/nonoland_ar_ha.mp3');
   assert.strictEqual(resolveArabicLetterNameAudioUrl({ letterId: 'ar-alif', char: 'ب' }), null);
 
   const academyScreenSrc = fs.readFileSync(path.resolve(root, 'src/screens/AcademyScreen.tsx'), 'utf8');

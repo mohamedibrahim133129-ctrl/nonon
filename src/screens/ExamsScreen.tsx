@@ -500,14 +500,13 @@ export const ExamsScreen: React.FC = () => {
                   if (q.id.startsWith('q-ar-rec-')) {
                     const letterId = q.id.slice('q-ar-rec-'.length);
                     const letterUrl = resolveArabicLetterNameAudioUrl({ letterId });
-                    if (letterUrl) {
-                      void academyAudio.speak(q.audioText!, 'ar', {
-                        slow: true,
-                        audioUrl: letterUrl,
-                        label,
-                      });
-                      return;
-                    }
+                    void academyAudio.speak(q.audioText!, 'ar', {
+                      slow: true,
+                      audioUrl: letterUrl ?? undefined,
+                      requireExplicitAudioUrl: true,
+                      label,
+                    });
+                    return;
                   }
                   void academyAudio.speak(q.audioText!, qLang, {
                     slow: true,

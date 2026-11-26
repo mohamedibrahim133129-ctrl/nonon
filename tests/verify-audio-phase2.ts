@@ -430,8 +430,9 @@ async function run() {
   for (const extraFile of extraFiles) {
     const rel = path.relative(root, extraFile).replace(/\\/g, '/');
     assert(
-      /^public\/assets\/audio\/academy\/(ar|en)\/(ar|en)_[0-9a-f]{16}\.mp3$/.test(rel),
-      `Unexpected extra file outside academy/{ar,en}: ${rel}`,
+      /^public\/assets\/audio\/academy\/(ar|en)\/(ar|en)_[0-9a-f]{16}\.mp3$/.test(rel) ||
+        /^public\/assets\/audio\/arabic-letters\/names\/nonoland_ar_[a-z]+\.mp3$/.test(rel),
+      `Unexpected extra file outside academy/{ar,en} or arabic-letters/names: ${rel}`,
     );
     const val = await validateAcademyMp3File(extraFile, false);
     assert(val.valid, `Newly generated MP3 failed validation (${rel}): ${val.reason}`);
@@ -439,7 +440,7 @@ async function run() {
 
   // Confirm foundationsAudioInventory.json still lists 1004 items
   assert.strictEqual((foundationsAudioInventory as { totalFiles: number }).totalFiles, 1004);
-  console.log(`   ✓ Verified all 1,109/1,109 baseline audio files untouched (24,635,147 bytes, Foundations SHA-256 + 105 SHA-256 checks) + ${extraFiles.length} valid new Academy MP3s.`);
+  console.log(`   ✓ Verified all 1,109/1,109 baseline audio files untouched (24,635,147 bytes, Foundations SHA-256 + 105 SHA-256 checks) + ${extraFiles.length} valid new Academy/Arabic-letter MP3s.`);
 
   console.log('\n✅ Audio Audit Phase 2 Verification Suite PASSED');
 }

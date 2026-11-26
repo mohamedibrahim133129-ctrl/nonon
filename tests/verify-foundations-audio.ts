@@ -341,11 +341,15 @@ async function run() {
   console.log('[5/6] Verifying Existing 28 Arabic Letters, 26 Academy & 41 Quran Stories Intact...');
   assert.strictEqual(ARABIC_LETTER_NAME_RECORDINGS.length, 28);
   for (const spec of ARABIC_LETTER_NAME_RECORDINGS) {
-    const file = path.join(lettersDir, spec.filename);
-    assert(fs.existsSync(file), `Missing Arabic letter audio: ${spec.filename}`);
+    const file = path.resolve(root, 'public', spec.audioUrl.replace(/^\//, ''));
+    assert(fs.existsSync(file), `Missing Arabic letter audio: ${spec.audioUrl}`);
     const res = await validateAcademyMp3File(file, false);
     assert(res.valid, `Invalid Arabic letter MP3 ${spec.filename}: ${res.reason}`);
   }
+  const legacyLetters = fs
+    .readdirSync(lettersDir, { withFileTypes: true })
+    .filter((e) => e.isFile() && e.name.endsWith('.mp3'));
+  assert.strictEqual(legacyLetters.length, 28, 'All 28 legacy baseline arabic-letters/*.mp3 must stay preserved');
 
   let storyCount = 0;
   for (const d of fs.readdirSync(STORY_AUDIO_PUBLIC_DIR)) {

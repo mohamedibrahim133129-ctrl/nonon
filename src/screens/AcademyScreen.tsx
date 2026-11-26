@@ -193,6 +193,7 @@ export const AcademyScreen: React.FC = () => {
     void academyAudio.speak(letter.nameAr, 'ar', {
       slow,
       audioUrl: letterUrl ?? undefined,
+      requireExplicitAudioUrl: true,
       label: `${letter.char} — ${letter.nameAr}`,
     });
   };

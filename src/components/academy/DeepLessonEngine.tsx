@@ -763,11 +763,11 @@ export const DeepLessonEngine: React.FC<DeepLessonEngineProps> = ({ target, onEx
                       char: arabicData.char,
                       nameAr: arabicData.nameAr,
                     });
-                    void academyAudio.speak(
-                      arabicData.nameAr,
-                      'ar',
-                      letterNameAudioUrl ? { audioUrl: letterNameAudioUrl } : undefined,
-                    );
+                    void academyAudio.speak(arabicData.nameAr, 'ar', {
+                      audioUrl: letterNameAudioUrl ?? undefined,
+                      requireExplicitAudioUrl: true,
+                      label: `${arabicData.char} — ${arabicData.nameAr}`,
+                    });
                     setStageDone(true);
                   }}
                   className="px-5 py-3 rounded-2xl bg-[#8054D9] text-white font-bold cursor-pointer"
