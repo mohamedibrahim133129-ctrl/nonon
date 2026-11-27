@@ -42,8 +42,12 @@ import type {
   SmartAssessmentFormat,
   StoredAgeGroupId,
   TeacherExam,
+  TeacherJoinCodeRecord,
   TeacherQuestion,
+  TeacherStudentConnection,
+  TeacherStudentConnectionRequest,
   TrustedDeviceRecord,
+  UserNotification,
 } from '../src/types/nonoland';
 import type { StoredActionToken, StoredSessionRecord, StoredUserRecord } from './security';
 
@@ -272,6 +276,10 @@ export interface ServerDb {
   quranMannerProgress?: Record<string, QuranMannerProgress>;
   quranActivityEvents?: QuranActivityEvent[];
   quranContentVerifications?: Record<string, QuranContentVerificationRecord>;
+  teacherJoinCodes?: Record<string, TeacherJoinCodeRecord>;
+  teacherStudentConnectionRequests?: Record<string, TeacherStudentConnectionRequest>;
+  teacherStudentConnections?: Record<string, TeacherStudentConnection>;
+  notifications?: Record<string, UserNotification>;
   operationalMetrics: OperationalMetrics;
   securityLogs: SecurityEventLog[];
 }

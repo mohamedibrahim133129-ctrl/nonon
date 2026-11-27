@@ -223,20 +223,27 @@ const ScreenRouter: React.FC = () => {
     }
   };
 
-  if (fullBleedScreens.includes(effectiveScreen)) {
+  const isTeacherFullBleed = effectiveScreen === 'teacher-dashboard' && isTeacher;
+
+  if (fullBleedScreens.includes(effectiveScreen) || isTeacherFullBleed) {
     return (
       <MotionConfig reducedMotion={parentSettings.reducedMotion ? 'always' : 'user'}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={effectiveScreen}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {renderScreen()}
-          </motion.div>
-        </AnimatePresence>
+        <ErrorBoundary
+          language={language}
+          onResetHome={() => navigate(isTeacher ? 'teacher-dashboard' : 'parent-auth')}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={effectiveScreen}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {renderScreen()}
+            </motion.div>
+          </AnimatePresence>
+        </ErrorBoundary>
       </MotionConfig>
     );
   }

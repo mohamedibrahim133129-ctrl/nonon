@@ -53,6 +53,12 @@ import {
   verifyPassword,
 } from './security';
 import { checkRateLimitPg, getDbStorageInfo, runWithPgDbLock } from './pgStore';
+import {
+  expireStaleTeacherCodesAndRequests,
+  getTeacherAuthorizedStudentIds,
+  getTeacherClassStudentIds,
+  getTeacherConnectedStudentIds,
+} from './teacherConnectionHelpers';
 
 export interface TeacherRoutesDeps {
   app: express.Application;
@@ -122,17 +128,7 @@ function buildValidLessonRegistry(db: ServerDb): {
   return { validIds, levelSubjectMap };
 }
 
-function getTeacherAssignedStudentIds(db: ServerDb, teacherId: string): Set<string> {
-  const ids = new Set<string>();
-  for (const cls of Object.values(db.classes)) {
-    if (cls.teacherId === teacherId && cls.active) {
-      for (const sid of cls.studentIds) {
-        ids.add(sid);
-      }
-    }
-  }
-  return ids;
-}
+// Unified teacher student authorization now lives in ./teacherConnectionHelpers.ts
 
 function normalizeAnswerForMatch(val: string): string {
   return val
@@ -1194,7 +1190,11 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
   app.get('/api/teacher/dashboard', requireTeacherPermission(), (req: AuthenticatedRequest, res) => {
     const db = getDb();
     const teacher = req.authSession!.user;
-    const assignedStudentIds = getTeacherAssignedStudentIds(db, teacher.id);
+    if (expireStaleTeacherCodesAndRequests(db)) saveDb(db);
+
+    const classStudentIds = getTeacherClassStudentIds(db, teacher.id);
+    const connectedStudentIds = getTeacherConnectedStudentIds(db, teacher.id);
+    const authorizedStudentIds = getTeacherAuthorizedStudentIds(db, teacher.id);
     const myClasses = Object.values(db.classes).filter((c) => c.teacherId === teacher.id);
     const myQuestions = Object.values(db.teacherQuestions).filter((q) => q.teacherId === teacher.id && q.active);
     const myExams = Object.values(db.teacherExams).filter((e) => e.teacherId === teacher.id);
@@ -1202,15 +1202,23 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
     const myAttempts = Object.values(db.assignedExamAttempts).filter(
       (att) => att.teacherId === teacher.id && att.status === 'submitted',
     );
+    const pendingConnectionsCount = Object.values(db.teacherStudentConnectionRequests || {}).filter(
+      (r) => r.teacherId === teacher.id && r.status === 'pending',
+    ).length;
+    const pendingHomeworkReviewsCount = Object.values(db.homeworkSubmissions || {}).filter(
+      (s) => s.teacherId === teacher.id && s.status === 'submitted',
+    ).length;
 
     const avgPct =
       myAttempts.length > 0
         ? Math.round(myAttempts.reduce((acc, a) => acc + (a.percentage ?? 0), 0) / myAttempts.length)
         : 0;
 
-    const recentResults = myAttempts
+    const sortedAttemptsDesc = myAttempts
       .slice()
-      .sort((a, b) => Date.parse(b.submittedAt || b.startedAt) - Date.parse(a.submittedAt || a.startedAt))
+      .sort((a, b) => Date.parse(b.submittedAt || b.startedAt) - Date.parse(a.submittedAt || a.startedAt));
+
+    const recentResults = sortedAttemptsDesc
       .slice(0, 8)
       .map((a) => ({
         attemptId: a.id,
@@ -1223,12 +1231,68 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
         submittedAt: a.submittedAt,
       }));
 
+    const scoreTrendSeries = sortedAttemptsDesc
+      .slice(0, 10)
+      .reverse()
+      .map((a) => ({
+        attemptId: a.id,
+        studentName: db.children[a.studentId]?.displayName || 'Student',
+        examTitle: db.teacherExams[a.examId]?.title || { ar: 'امتحان', en: 'Exam' },
+        percentage: a.percentage ?? 0,
+        passed: Boolean(a.passed),
+        submittedAt: a.submittedAt || a.startedAt,
+      }));
+
+    const subjectKeys = new Set<string>();
+    for (const q of myQuestions) subjectKeys.add(q.subject);
+    for (const ex of myExams) subjectKeys.add(ex.subject);
+    const subjectBreakdown = Array.from(subjectKeys).map((subj) => {
+      const qCount = myQuestions.filter((q) => q.subject === subj).length;
+      const exList = myExams.filter((ex) => ex.subject === subj);
+      const exIdSet = new Set(exList.map((ex) => ex.id));
+      const subjAttempts = myAttempts.filter((a) => exIdSet.has(a.examId));
+      const subjAvg =
+        subjAttempts.length > 0
+          ? Math.round(subjAttempts.reduce((sum, a) => sum + (a.percentage ?? 0), 0) / subjAttempts.length)
+          : null;
+      return {
+        subject: subj,
+        questionsCount: qCount,
+        examsCount: exList.length,
+        attemptsCount: subjAttempts.length,
+        averageScorePercentage: subjAvg,
+      };
+    });
+
+    const connectedStudentsPreview = Object.values(db.teacherStudentConnections || {})
+      .filter((c) => c.teacherId === teacher.id && c.status === 'active')
+      .sort((a, b) => Date.parse(b.approvedAt) - Date.parse(a.approvedAt))
+      .slice(0, 6)
+      .map((c) => {
+        const ch = db.children[c.childId];
+        const parent = db.users[c.parentId];
+        return {
+          connectionId: c.id,
+          childId: c.childId,
+          displayName: ch?.displayName || 'Student',
+          ageGroup: ch?.ageGroup || '1-4',
+          level: ch?.level || 1,
+          stars: ch?.stars || 0,
+          parentDisplayName: parent?.displayName || 'Parent',
+          approvedAt: c.approvedAt,
+        };
+      });
+
     const recentActivity = db.securityLogs.filter((l) => l.actorId === teacher.id).slice(0, 12);
 
     res.json({
       stats: {
         classesCount: myClasses.length,
-        assignedStudentsCount: assignedStudentIds.size,
+        assignedStudentsCount: authorizedStudentIds.size,
+        classStudentsCount: classStudentIds.size,
+        connectedStudentsCount: connectedStudentIds.size,
+        pendingConnectionsCount,
+        pendingHomeworkReviewsCount,
         totalQuestions: myQuestions.length,
         totalExams: myExams.length,
         publishedExamsCount: myExams.filter((e) => e.status === 'published' || e.status === 'active').length,
@@ -1237,6 +1301,9 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
         completedAttemptsCount: myAttempts.length,
         averageScorePercentage: avgPct,
       },
+      connectedStudentsPreview,
+      scoreTrendSeries,
+      subjectBreakdown,
       recentResults,
       recentActivity,
     });
@@ -1267,10 +1334,18 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
   app.get('/api/teacher/students', requireTeacherPermission(), (req: AuthenticatedRequest, res) => {
     const db = getDb();
     const teacher = req.authSession!.user;
-    const assignedIds = getTeacherAssignedStudentIds(db, teacher.id);
+    const classIds = getTeacherClassStudentIds(db, teacher.id);
+    const activeConnsByChild = new Map<string, { id: string; approvedAt: string }>();
+    for (const conn of Object.values(db.teacherStudentConnections || {})) {
+      if (conn.teacherId === teacher.id && conn.status === 'active') {
+        activeConnsByChild.set(conn.childId, { id: conn.id, approvedAt: conn.approvedAt });
+      }
+    }
+    const authorizedIds = getTeacherAuthorizedStudentIds(db, teacher.id);
     const search = String(req.query.search || '').trim().toLowerCase();
     const levelFilter = req.query.level ? Number(req.query.level) : null;
     const ageFilter = req.query.ageGroup ? String(req.query.ageGroup) : null;
+    const sourceFilter = req.query.source ? String(req.query.source) : '';
 
     const classesByStudent = new Map<string, string[]>();
     for (const cls of Object.values(db.classes)) {
@@ -1282,17 +1357,27 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
       }
     }
 
-    const students = Array.from(assignedIds)
+    const students = Array.from(authorizedIds)
       .map((sid) => db.children[sid])
       .filter(Boolean)
-      .filter((ch) => {
+      .map((ch) => {
+        const inClass = classIds.has(ch.id);
+        const connInfo = activeConnsByChild.get(ch.id);
+        const connectionSource: 'class' | 'connected' | 'both' =
+          inClass && connInfo ? 'both' : connInfo ? 'connected' : 'class';
+        return { ch, connInfo, connectionSource };
+      })
+      .filter(({ ch, connectionSource }) => {
         if (search && !ch.displayName.toLowerCase().includes(search)) return false;
         if (ageFilter && ch.ageGroup !== ageFilter) return false;
         if (levelFilter === 1 && ch.level !== 1) return false;
         if (levelFilter === 2 && !ch.level2Progress && ch.level < 2) return false;
+        if (sourceFilter === 'class' && connectionSource !== 'class' && connectionSource !== 'both') return false;
+        if (sourceFilter === 'connected' && connectionSource !== 'connected' && connectionSource !== 'both') return false;
+        if (sourceFilter === 'both' && connectionSource !== 'both') return false;
         return true;
       })
-      .map((ch) => {
+      .map(({ ch, connInfo, connectionSource }) => {
         const l1Done = Object.values(ch.level1Progress || {}).filter(
           (p) => p.status === 'demonstrated',
         ).length;
@@ -1314,6 +1399,9 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
           level: ch.level,
           stars: ch.stars,
           classes: classesByStudent.get(ch.id) || [],
+          connectionSource,
+          connectionId: connInfo?.id,
+          connectedAt: connInfo?.approvedAt,
           level1MasteredCount: l1Done,
           level2MasteredCount: l2Done,
           completedTeacherExams: myAttempts.length,
@@ -1331,17 +1419,19 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
     if (!isValidSafeId(studentId)) {
       return res.status(400).json({ error: 'Invalid student ID format' });
     }
-    const assignedIds = getTeacherAssignedStudentIds(db, teacher.id);
-    if (!assignedIds.has(studentId)) {
+    const authorizedIds = getTeacherAuthorizedStudentIds(db, teacher.id);
+    if (!authorizedIds.has(studentId)) {
       appendSecurityLog(db.securityLogs, {
         eventType: 'ACCESS_DENIED',
         actorId: teacher.id,
         role: teacher.role,
         ip: getClientIp(req),
-        summary: `Blocked teacher ${teacher.id} from viewing unassigned student ${studentId}`,
+        summary: `Blocked teacher ${teacher.id} from viewing unauthorized student ${studentId}`,
       });
       saveDb(db);
-      return res.status(403).json({ error: 'Forbidden: student is not in your assigned classes' });
+      return res.status(403).json({
+        error: 'Forbidden: student is not in your assigned classes or active parent connections',
+      });
     }
 
     const ch = db.children[studentId];
@@ -1365,7 +1455,7 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
       actorId: teacher.id,
       role: teacher.role,
       ip: getClientIp(req),
-      summary: `Teacher viewed progress for assigned student ${studentId}`,
+      summary: `Teacher viewed progress for authorized student ${studentId}`,
     });
     saveDb(db);
 
@@ -2149,7 +2239,7 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
       publishNow?: boolean;
     };
 
-    const assignedSet = getTeacherAssignedStudentIds(db, teacher.id);
+    const assignedSet = getTeacherAuthorizedStudentIds(db, teacher.id);
     const targets = new Map<string, string | undefined>(); // studentId -> classId
 
     for (const cid of Array.isArray(classIds) ? classIds : []) {
@@ -2165,7 +2255,7 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
     for (const sid of Array.isArray(studentIds) ? studentIds : []) {
       if (!assignedSet.has(sid)) {
         return res.status(403).json({
-          error: `Forbidden: student ${sid} does not belong to any of your assigned classes`,
+          error: `Forbidden: student ${sid} is not in your assigned classes or active parent connections`,
         });
       }
       if (!targets.has(sid)) targets.set(sid, undefined);
@@ -3018,6 +3108,19 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
       })
       .filter(Boolean);
 
+    const connectedTeachers = Object.values(db.teacherStudentConnections || {})
+      .filter((c) => c.childId === access.id && c.status === 'active')
+      .map((c) => {
+        const teacherUser = db.users[c.teacherId];
+        return {
+          connectionId: c.id,
+          teacherId: c.teacherId,
+          teacherName: teacherUser?.displayName || 'Teacher',
+          subjects: teacherUser?.teacherProfile?.subjects || [],
+          approvedAt: c.approvedAt,
+        };
+      });
+
     res.json({
       child: {
         id: access.id,
@@ -3036,6 +3139,7 @@ export function registerTeacherAndLevel2Routes(deps: TeacherRoutesDeps): void {
       },
       assignedExams,
       assignedHomeworks,
+      connectedTeachers,
     });
   });
 }

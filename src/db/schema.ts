@@ -22,6 +22,7 @@ import type {
   ChildAvatarConfig,
   CmsLessonRecord,
   ConceptRecord,
+  ConnectionRequestStatus,
   ContentGovernanceStatus,
   ContentPermissionPolicy,
   ContentVersionEntry,
@@ -66,12 +67,15 @@ import type {
   SmartAssessmentFormat,
   StoredAgeGroupId,
   TeacherExam,
+  TeacherJoinCodeStatus,
   TeacherProfile,
   TeacherQuestion,
   TeacherQuestionDifficulty,
   TeacherQuestionOption,
   TeacherQuestionType,
+  TeacherStudentConnectionStatus,
   TeacherSubject,
+  UserNotificationType,
   WorldId,
 } from '../types/nonoland.ts';
 
@@ -1195,5 +1199,122 @@ export const quranContentVerifications = pgTable('quran_content_verifications', 
   updatedByUserId: text('updated_by_user_id').references(() => users.id, { onDelete: 'set null' }),
   updatedAt: text('updated_at').notNull(),
 });
+
+// 26. Teacher Join Codes, Parent-Teacher Connection Requests, Active Connections & Notifications
+export const teacherJoinCodes = pgTable(
+  'teacher_join_codes',
+  {
+    id: text('id').primaryKey(),
+    teacherId: text('teacher_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    codeHash: text('code_hash').notNull().unique(),
+    codeEncrypted: text('code_encrypted').notNull(),
+    codeLast4: text('code_last4').notNull(),
+    status: text('status').$type<TeacherJoinCodeStatus>().notNull(),
+    createdAt: text('created_at').notNull(),
+    expiresAt: text('expires_at').notNull(),
+    revokedAt: text('revoked_at'),
+    updatedAt: text('updated_at').notNull(),
+  },
+  (table) => [
+    index('teacher_join_codes_teacher_idx').on(table.teacherId),
+    index('teacher_join_codes_status_idx').on(table.status),
+    uniqueIndex('teacher_join_codes_one_active_uidx')
+      .on(table.teacherId)
+      .where(sql`${table.status} = 'active'`),
+  ],
+);
+
+export const teacherStudentConnectionRequests = pgTable(
+  'teacher_student_connection_requests',
+  {
+    id: text('id').primaryKey(),
+    teacherId: text('teacher_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    parentId: text('parent_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    childId: text('child_id')
+      .notNull()
+      .references(() => children.id, { onDelete: 'cascade' }),
+    joinCodeId: text('join_code_id')
+      .notNull()
+      .references(() => teacherJoinCodes.id, { onDelete: 'cascade' }),
+    status: text('status').$type<ConnectionRequestStatus>().notNull(),
+    requestedAt: text('requested_at').notNull(),
+    reviewedAt: text('reviewed_at'),
+    reviewedBy: text('reviewed_by').references(() => users.id, { onDelete: 'set null' }),
+    rejectionReason: text('rejection_reason'),
+    cancelledAt: text('cancelled_at'),
+    expiresAt: text('expires_at'),
+    createdAt: text('created_at').notNull(),
+    updatedAt: text('updated_at').notNull(),
+  },
+  (table) => [
+    index('tscr_teacher_status_idx').on(table.teacherId, table.status),
+    index('tscr_parent_status_idx').on(table.parentId, table.status),
+    index('tscr_child_idx').on(table.childId),
+    uniqueIndex('tscr_one_pending_uidx')
+      .on(table.teacherId, table.childId)
+      .where(sql`${table.status} = 'pending'`),
+  ],
+);
+
+export const teacherStudentConnections = pgTable(
+  'teacher_student_connections',
+  {
+    id: text('id').primaryKey(),
+    teacherId: text('teacher_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    parentId: text('parent_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    childId: text('child_id')
+      .notNull()
+      .references(() => children.id, { onDelete: 'cascade' }),
+    requestId: text('request_id').references(() => teacherStudentConnectionRequests.id, {
+      onDelete: 'set null',
+    }),
+    status: text('status').$type<TeacherStudentConnectionStatus>().notNull(),
+    approvedAt: text('approved_at').notNull(),
+    disconnectedAt: text('disconnected_at'),
+    disconnectedBy: text('disconnected_by').$type<'teacher' | 'parent' | 'admin'>(),
+    createdAt: text('created_at').notNull(),
+    updatedAt: text('updated_at').notNull(),
+  },
+  (table) => [
+    index('tsc_teacher_status_idx').on(table.teacherId, table.status),
+    index('tsc_parent_status_idx').on(table.parentId, table.status),
+    index('tsc_child_idx').on(table.childId),
+    uniqueIndex('tsc_one_active_uidx')
+      .on(table.teacherId, table.childId)
+      .where(sql`${table.status} = 'active'`),
+  ],
+);
+
+export const notifications = pgTable(
+  'notifications',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    type: text('type').$type<UserNotificationType>().notNull(),
+    title: jsonb('title').$type<LocalizedText>().notNull(),
+    message: jsonb('message').$type<LocalizedText>().notNull(),
+    relatedType: text('related_type'),
+    relatedId: text('related_id'),
+    readAt: text('read_at'),
+    createdAt: text('created_at').notNull(),
+  },
+  (table) => [
+    index('notifications_user_created_idx').on(table.userId, table.createdAt),
+    index('notifications_user_read_idx').on(table.userId, table.readAt),
+  ],
+);
+
 
 

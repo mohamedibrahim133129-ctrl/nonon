@@ -22,6 +22,13 @@
       "when": 1795272000000,
       "tag": "0002_quran_world",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795775703770,
+      "tag": "0003_shiny_wolverine",
+      "breakpoints": true
     }
   ]
 }

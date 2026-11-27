@@ -38,6 +38,7 @@ import type {
 } from './dbTypes';
 import { appendSecurityLog, getClientIp, hasTeacherPermission } from './security';
 import { replaceAllDbFromRestorePg, runWithPgDbLock } from './pgStore';
+import { getTeacherAuthorizedStudentIds } from './teacherConnectionHelpers';
 
 export interface GovernanceHomeworkDeps {
   app: express.Application;
@@ -109,15 +110,7 @@ function buildLessonRegistry(db: ServerDb) {
   return { validIds, levelSubjectMap };
 }
 
-function getTeacherStudentIds(db: ServerDb, teacherId: string): Set<string> {
-  const ids = new Set<string>();
-  for (const cls of Object.values(db.classes)) {
-    if (cls.teacherId === teacherId && cls.active) {
-      for (const sid of cls.studentIds) ids.add(sid);
-    }
-  }
-  return ids;
-}
+// Unified teacher student authorization imported from ./teacherConnectionHelpers.ts
 
 function resolveStudentChildren(
   req: AuthenticatedRequest,
@@ -679,8 +672,8 @@ export function registerGovernanceAndHomeworkRoutes(deps: GovernanceHomeworkDeps
       attachments.push(meta);
     }
 
-    // Validate target classes & students strictly belong to this teacher
-    const authorizedStudents = getTeacherStudentIds(db, teacher.id);
+    // Validate target classes & students strictly belong to this teacher (classes OR active parent connections)
+    const authorizedStudents = getTeacherAuthorizedStudentIds(db, teacher.id);
     const targetStudents = new Set<string>();
     const assignedClassIds: string[] = [];
 
@@ -695,7 +688,9 @@ export function registerGovernanceAndHomeworkRoutes(deps: GovernanceHomeworkDeps
 
     for (const sid of Array.isArray(body.studentIds) ? body.studentIds.map(String) : []) {
       if (!authorizedStudents.has(sid)) {
-        return res.status(403).json({ error: `Forbidden: student ${sid} is not in your classes` });
+        return res.status(403).json({
+          error: `Forbidden: student ${sid} is not in your assigned classes or active parent connections`,
+        });
       }
       targetStudents.add(sid);
     }
@@ -790,7 +785,7 @@ export function registerGovernanceAndHomeworkRoutes(deps: GovernanceHomeworkDeps
         publishNow?: boolean;
       };
 
-      const authorizedStudents = getTeacherStudentIds(db, teacher.id);
+      const authorizedStudents = getTeacherAuthorizedStudentIds(db, teacher.id);
       const targets = new Set<string>();
       for (const cid of Array.isArray(classIds) ? classIds : []) {
         const cls = db.classes[cid];
@@ -802,7 +797,9 @@ export function registerGovernanceAndHomeworkRoutes(deps: GovernanceHomeworkDeps
       }
       for (const sid of Array.isArray(studentIds) ? studentIds : []) {
         if (!authorizedStudents.has(sid)) {
-          return res.status(403).json({ error: `Forbidden: student ${sid} is not in your classes` });
+          return res.status(403).json({
+            error: `Forbidden: student ${sid} is not in your assigned classes or active parent connections`,
+          });
         }
         targets.add(sid);
       }

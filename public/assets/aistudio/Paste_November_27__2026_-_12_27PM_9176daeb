@@ -1,0 +1,1102 @@
+# NONOLAND – COMPLETE TEACHER PORTAL REDESIGN & TEACHER–STUDENT CONNECTION SYSTEM
+
+## ROLE AND OBJECTIVE
+
+Act as a Senior Full-Stack Software Architect, Senior React Engineer, Node.js/Express Backend Engineer, PostgreSQL Database Architect, UI/UX Designer, and Application Security Engineer.
+
+You are working on the EXISTING NonoLand application.
+
+Your mission is to deliver a COMPLETE, PRODUCTION-READY implementation of:
+
+1. A premium professional redesign of the entire Teacher Portal.
+2. A complete Teacher Join Code system.
+3. A complete Parent-to-Teacher connection workflow.
+4. Backend APIs, database persistence, authorization, validation, and security.
+5. Full integration with existing authentication and application architecture.
+6. Comprehensive testing and build verification.
+
+The final deliverable must be an operational application, not a mockup, prototype, design preview, or documentation-only response.
+
+The user must be able to run the application and immediately test the implemented functionality after your work is complete, subject only to legitimate external configuration requirements.
+
+---
+
+# PART 1 – NON-NEGOTIABLE PROJECT RULES
+
+## 1.1 Work on the Existing Application
+
+Do not create a new application.
+
+Do not replace the existing application architecture.
+
+Do not remove existing functionality.
+
+Do not introduce a separate authentication system.
+
+Do not replace the existing database implementation with another database.
+
+Do not create fake data as a substitute for real backend functionality.
+
+Do not create frontend-only connection relationships.
+
+All new functionality must be integrated into the existing NonoLand architecture.
+
+## 1.2 Existing Project Architecture
+
+The provided project includes:
+
+Frontend:
+- React 19.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- Lucide React.
+- Motion animations.
+- Existing NonoLand components and contexts.
+- Existing Arabic and English translations.
+
+Backend:
+- Node.js.
+- Express.
+- TypeScript.
+- Existing authentication middleware.
+- Existing teacher API routes.
+- Existing security and authorization utilities.
+
+Database:
+- PostgreSQL.
+- Drizzle ORM.
+- Existing database schema and migration infrastructure.
+
+Important existing files include:
+
+- src/screens/TeacherDashboardScreen.tsx
+- src/screens/ParentDashboardScreen.tsx
+- server/teacherRoutes.ts
+- src/db/schema.ts
+- src/types/nonoland.ts
+- src/context/NonoLandContext.tsx
+- server/security.ts
+- server/dbTypes.ts
+
+These files are starting points, not an exhaustive list.
+
+Inspect the actual application entry points, route registration, storage implementation, database initialization, migrations, shared types, and authentication flow before making changes.
+
+The existing application may contain newer or older implementations in different modules. Preserve the existing working architecture and reconcile changes carefully.
+
+## 1.3 Preserve Existing Functionality
+
+The following existing Teacher Portal functionality must continue working:
+
+- Overview.
+- My Classes.
+- My Students.
+- Homework.
+- Create Exam.
+- My Exams.
+- Question Bank.
+- Assign Exams.
+- Exam Results.
+- Draft Exams.
+- Published Exams.
+- Student Performance.
+- Teacher Profile.
+- Existing question creation and editing.
+- Existing question import/export.
+- Existing exam creation and scheduling.
+- Existing grading and results.
+- Existing authentication.
+- Existing logout.
+- Existing teacher permissions.
+
+Do not remove existing features simply to simplify the redesign.
+
+All existing Parent Dashboard features must also remain operational.
+
+Do not redesign unrelated Child Learning screens, educational worlds, audio systems, Admin Dashboard, or other application modules.
+
+Only make the necessary Parent Dashboard changes to introduce teacher connection management.
+
+---
+
+# PART 2 – PROFESSIONAL TEACHER PORTAL REDESIGN
+
+## 2.1 Design Vision
+
+Transform the existing Teacher Portal into a premium, modern educational management dashboard.
+
+Design inspiration:
+- High-end SaaS dashboards.
+- Modern school management systems.
+- Premium education technology platforms.
+- Clean professional administrative interfaces.
+
+The interface must feel carefully designed and production-ready.
+
+Avoid:
+- Basic default HTML styling.
+- Excessive gradients.
+- Overcrowded cards.
+- Oversized navigation.
+- Unnecessary decorative elements.
+- Inconsistent spacing.
+- Excessive animations.
+
+## 2.2 Visual Identity
+
+Maintain the existing NonoLand brand identity.
+
+Use:
+- A refined NonoLand color palette.
+- Professional typography.
+- Elegant card layouts.
+- Consistent border radii.
+- Subtle shadows.
+- Beautiful hover states.
+- Clear visual hierarchy.
+- Consistent iconography.
+- Carefully designed empty states.
+- Loading skeletons.
+- Success, warning, and error notifications.
+
+Create a consistent design system for the Teacher Portal.
+
+## 2.3 Main Dashboard Layout
+
+Create a professional application shell consisting of:
+
+A. Sidebar Navigation
+- NonoLand branding.
+- Teacher profile summary.
+- Navigation sections.
+- Active section indicator.
+- Collapsible sidebar on desktop.
+- Mobile navigation drawer.
+- Clear icons and labels.
+
+B. Top Header
+- Page title.
+- Breadcrumbs where appropriate.
+- Search functionality where useful.
+- Notification indicator.
+- Language selection using the existing language system.
+- Teacher profile menu.
+- Logout action.
+
+C. Main Content
+- Responsive content area.
+- Consistent page widths.
+- Organized information cards.
+- Professional tables.
+- Interactive charts where relevant.
+
+D. Responsive Behavior
+- Desktop.
+- Tablet.
+- Mobile.
+- Arabic RTL.
+- English LTR.
+
+## 2.4 Overview Dashboard
+
+Create a premium overview screen containing:
+
+Welcome section:
+- Personalized teacher greeting.
+- Teacher name.
+- Current date.
+- Short helpful message.
+
+Statistics:
+- Total Students.
+- Total Classes.
+- Active Exams.
+- Pending Homework.
+- Completed Exams.
+- Average Student Performance.
+
+Charts:
+- Student performance overview.
+- Exam performance trends.
+- Learning activity summary.
+
+Recent Activity:
+- Recent exam submissions.
+- Recently connected students.
+- Pending connection requests.
+- Recent homework submissions.
+
+Quick Actions:
+- Create Exam.
+- Create Homework.
+- View Students.
+- Manage Teacher Code.
+
+All statistics must come from real backend data.
+
+Do not fabricate dashboard metrics.
+
+## 2.5 My Students
+
+Create a premium student management interface.
+
+Features:
+- Student cards and table views.
+- Student search.
+- Class filtering.
+- Age group filtering.
+- Performance indicators.
+- Student learning progress.
+- Completed exams.
+- Average exam score.
+- Student details.
+
+Add clear distinctions between:
+
+- Students assigned through existing classes.
+- Students connected through the new Parent Approval system.
+
+Do not create duplicate student records.
+
+Use the existing student and child identifiers.
+
+## 2.6 My Classes
+
+Preserve the existing classroom management implementation.
+
+Improve:
+- Classroom cards.
+- Student counts.
+- Classroom details.
+- Classroom search.
+- Classroom navigation.
+- Student lists.
+
+## 2.7 Exams and Question Bank
+
+Completely preserve the existing business logic.
+
+Improve the user experience for:
+
+- Question creation.
+- Question editing.
+- Question previews.
+- Question filtering.
+- Question bank organization.
+- CSV import.
+- Import validation.
+- Exam creation.
+- Exam publishing.
+- Exam scheduling.
+- Exam assignments.
+- Results and grading.
+
+All existing exam workflows must continue to work.
+
+## 2.8 Homework and Performance
+
+Preserve existing homework APIs and components.
+
+Improve:
+- Assignment presentation.
+- Submission status.
+- Pending work.
+- Teacher feedback.
+- Student performance visualization.
+
+## 2.9 Teacher Profile and Settings
+
+Create a polished profile section.
+
+Include:
+- Teacher name.
+- Email.
+- Biography.
+- Profile information.
+- Password management using existing functionality.
+- Account status.
+- Teacher joining code management.
+
+Do not weaken existing authentication requirements.
+
+---
+
+# PART 3 – COMPLETE TEACHER JOIN CODE SYSTEM
+
+This is a core feature and must be fully functional.
+
+## 3.1 Teacher Code Generation
+
+Every eligible authenticated teacher must have one unique active joining code.
+
+Suggested format:
+
+TEA-XXXXXX
+
+Generate codes securely on the server using cryptographically secure random generation.
+
+Requirements:
+
+- Uniqueness enforced by the database.
+- Collision checking.
+- Server-side validation.
+- No predictable sequential codes.
+- No use of teacher database IDs as codes.
+- Codes must be case-insensitive after normalization.
+- Codes must be revocable.
+- Codes must support expiration where appropriate.
+- Regenerating a code must invalidate the previous code.
+- Only the authenticated teacher can manage their own code.
+
+## 3.2 Teacher Code Management UI
+
+Create a dedicated Teacher Connections section.
+
+Display:
+
+- Current joining code.
+- Code status.
+- Created date.
+- Expiration date, if applicable.
+- Number of pending requests.
+- Number of connected students.
+
+Actions:
+
+1. Generate Code.
+2. Copy Code.
+3. Share Code.
+4. Regenerate Code.
+5. Deactivate Code.
+
+Use a confirmation dialog for destructive actions.
+
+Show meaningful feedback after each action.
+
+## 3.3 Code Security
+
+A joining code must never grant direct access to student information.
+
+Code validation should only return the minimum public teacher information needed for parent confirmation.
+
+Never return:
+- Teacher email unless explicitly required and authorized.
+- Internal teacher IDs.
+- Student records.
+- Private account information.
+- Sensitive profile data.
+
+Implement:
+- Rate limiting.
+- Brute-force protection.
+- Code normalization.
+- Code expiration.
+- Code revocation.
+- Duplicate request prevention.
+
+Store a secure hash of the code where compatible with the existing architecture. Never expose stored code hashes through APIs.
+
+If the teacher needs to view the current code again, design the storage and recovery mechanism securely rather than returning an unrecoverable hash as though it were the original code.
+
+---
+
+# PART 4 – PARENT DASHBOARD INTEGRATION
+
+## 4.1 New Parent Dashboard Section
+
+Add a new section called:
+
+Connect a Teacher
+
+Arabic label:
+
+ربط المعلم
+
+Integrate it into the existing Parent Dashboard navigation without changing unrelated sections.
+
+The design must match the current Parent Dashboard.
+
+## 4.2 Parent Connection Workflow
+
+The authenticated parent should:
+
+1. Open the Parent Dashboard.
+2. Open Connect a Teacher.
+3. Select one child from their existing registered children.
+4. Enter the teacher joining code.
+5. Submit the code for server validation.
+6. See a limited teacher profile preview.
+7. Confirm the selected child and teacher.
+8. Submit a connection request.
+
+The selected child must belong to the authenticated parent.
+
+The frontend must never be trusted to establish child ownership.
+
+The server must independently validate ownership.
+
+## 4.3 Parent Connection Screen
+
+Display:
+
+- Child selector.
+- Teacher code input.
+- Validate Code button.
+- Teacher preview card.
+- Confirmation dialog.
+- Send Request button.
+
+After submitting:
+
+Show a clear status:
+
+- Pending.
+- Approved.
+- Rejected.
+- Cancelled.
+- Expired.
+
+Display a list of:
+
+- Pending connection requests.
+- Connected teachers.
+- Previously rejected requests where appropriate.
+
+Allow the parent to:
+
+- Cancel pending requests.
+- Disconnect an approved teacher.
+- Review connection status.
+
+Require confirmation before disconnecting.
+
+---
+
+# PART 5 – TEACHER APPROVAL WORKFLOW
+
+## 5.1 Pending Requests
+
+Add a dedicated Pending Requests area in the Teacher Portal.
+
+Each request must display only authorized information:
+
+- Child display name.
+- Child age group when appropriate.
+- Parent display name.
+- Request date.
+- Request status.
+
+Do not expose unnecessary personal or sensitive information.
+
+## 5.2 Teacher Actions
+
+For each pending request:
+
+- Approve.
+- Reject.
+
+On approval:
+
+1. Verify the authenticated teacher.
+2. Verify the request belongs to that teacher.
+3. Verify the request is still pending.
+4. Verify the parent still owns the child.
+5. Create the approved connection.
+6. Update request status.
+7. Record the approval timestamp.
+8. Record an audit event.
+9. Return the updated connection state.
+
+Perform related database operations transactionally.
+
+On rejection:
+
+- Update the request status.
+- Record the decision.
+- Do not create a student connection.
+- Notify the parent through the application's available notification mechanism.
+
+## 5.3 Connected Students
+
+After approval, the child should appear in the teacher's My Students section.
+
+The student should have:
+
+- Child display name.
+- Age group.
+- Connection date.
+- Connection status.
+- Authorized learning progress.
+- Authorized exam results.
+
+Do not duplicate existing children.
+
+Integrate approved connections into the existing teacher student queries while retaining the distinction between class-assigned students and parent-connected students.
+
+## 5.4 Multiple Connections
+
+Support:
+
+- One teacher connected to multiple children.
+- One child connected to multiple teachers, subject to parent authorization.
+- Multiple pending requests where appropriate.
+- Prevention of duplicate active relationships.
+
+A parent must be able to revoke an approved connection.
+
+A teacher must be able to disconnect a connected child where appropriate.
+
+Every disconnection must be persisted and audited.
+
+---
+
+# PART 6 – DATABASE IMPLEMENTATION
+
+Inspect the current Drizzle schema and actual persistence architecture.
+
+Implement the minimum required database structures.
+
+Suggested logical entities:
+
+## A. teacher_join_codes
+
+Fields:
+
+- id.
+- teacher_id.
+- code_hash.
+- status.
+- created_at.
+- expires_at.
+- revoked_at.
+- updated_at.
+
+Requirements:
+
+- Foreign key to the existing users table.
+- Unique code hash.
+- Appropriate indexes.
+- One active code per teacher.
+- Database-enforced uniqueness.
+
+## B. teacher_student_connection_requests
+
+Fields:
+
+- id.
+- teacher_id.
+- parent_id.
+- child_id.
+- join_code_id.
+- status.
+- requested_at.
+- reviewed_at.
+- reviewed_by.
+- rejection_reason, if supported and appropriate.
+- cancelled_at.
+- created_at.
+- updated_at.
+
+Requirements:
+
+- Foreign keys to existing users and children.
+- Valid status constraints.
+- Appropriate indexes.
+- Duplicate pending request prevention.
+- Ownership validation.
+
+## C. teacher_student_connections
+
+Fields:
+
+- id.
+- teacher_id.
+- parent_id.
+- child_id.
+- request_id.
+- status.
+- approved_at.
+- disconnected_at.
+- created_at.
+- updated_at.
+
+Requirements:
+
+- Unique active teacher-child relationship.
+- Referential integrity.
+- Appropriate indexes.
+- Auditable state transitions.
+
+IMPORTANT:
+
+These are logical design requirements, not permission to blindly create duplicate tables.
+
+Inspect the existing database schema first.
+
+Reuse existing structures if equivalent entities already exist.
+
+Preserve existing relationships.
+
+## Database Migrations
+
+Generate proper Drizzle migrations.
+
+Do not use destructive database reset commands.
+
+Do not delete existing data.
+
+Do not replace production tables.
+
+Ensure migrations can be applied safely to an existing database.
+
+Provide rollback guidance where feasible.
+
+Test migrations against the actual development database configuration.
+
+---
+
+# PART 7 – BACKEND API IMPLEMENTATION
+
+Implement complete REST APIs using the existing Express architecture.
+
+Suggested endpoints:
+
+## Teacher Code
+
+GET /api/teacher/connections/code
+
+Returns the authenticated teacher's code information.
+
+POST /api/teacher/connections/code
+
+Generates a code if none exists.
+
+POST /api/teacher/connections/code/regenerate
+
+Revokes the previous code and creates a new one.
+
+POST /api/teacher/connections/code/deactivate
+
+Deactivates the current code.
+
+## Parent Code Validation
+
+POST /api/parent/teacher-connections/validate-code
+
+Input:
+- code.
+
+Returns:
+- valid status.
+- limited teacher public information.
+- code expiration status.
+
+Never return sensitive teacher information.
+
+## Parent Requests
+
+GET /api/parent/teacher-connections
+
+Returns the authenticated parent's requests and approved connections.
+
+POST /api/parent/teacher-connections/requests
+
+Input:
+- childId.
+- code.
+
+Validates ownership and creates a pending request.
+
+DELETE /api/parent/teacher-connections/requests/:requestId
+
+Cancels an authorized pending request.
+
+DELETE /api/parent/teacher-connections/:connectionId
+
+Disconnects an authorized active relationship.
+
+## Teacher Requests
+
+GET /api/teacher/connections/requests
+
+Returns pending requests belonging to the authenticated teacher.
+
+POST /api/teacher/connections/requests/:requestId/approve
+
+Approves a pending request.
+
+POST /api/teacher/connections/requests/:requestId/reject
+
+Rejects a pending request.
+
+GET /api/teacher/connections/students
+
+Returns approved connected students.
+
+DELETE /api/teacher/connections/students/:connectionId
+
+Disconnects an authorized relationship where permitted.
+
+Adapt endpoint naming if the existing project uses another consistent convention.
+
+Implement:
+- Request validation.
+- Response validation.
+- Consistent HTTP status codes.
+- Error handling.
+- Authentication middleware.
+- Authorization middleware.
+- Rate limiting.
+- CSRF protection.
+- Audit logging.
+
+All endpoints must use the existing authenticated session and security architecture.
+
+Never trust teacherId or parentId supplied by the frontend.
+
+Derive authenticated identities from the server-side session.
+
+---
+
+# PART 8 – CRITICAL SECURITY REQUIREMENTS
+
+This section is mandatory.
+
+## 8.1 Child Data Isolation
+
+A teacher must only access:
+
+1. Students assigned through their authorized existing classes.
+2. Children with an active approved connection to that teacher.
+
+A teacher must never access unrelated children's records.
+
+Enforce this rule in every relevant backend query and API endpoint.
+
+Do not rely on frontend filtering.
+
+## 8.2 Parent Ownership
+
+A parent may only:
+
+- Select children they own.
+- Create requests for their own children.
+- Cancel their own pending requests.
+- Disconnect their own authorized connections.
+
+## 8.3 Authorization
+
+Verify all permissions server-side.
+
+Reject:
+- Unauthenticated requests.
+- Invalid role requests.
+- Unauthorized teacher requests.
+- Unauthorized parent requests.
+- Expired codes.
+- Revoked codes.
+- Invalid connection states.
+- Duplicate operations.
+
+## 8.4 Privacy
+
+Expose the minimum information required.
+
+Do not disclose private child records during code validation.
+
+Do not disclose unrelated parent or teacher information.
+
+Do not introduce public student profile endpoints.
+
+## 8.5 Audit Trail
+
+Record:
+- Code creation.
+- Code regeneration.
+- Code revocation.
+- Parent connection request.
+- Teacher approval.
+- Teacher rejection.
+- Parent cancellation.
+- Connection disconnection.
+
+Use the existing audit logging infrastructure where possible.
+
+---
+
+# PART 9 – NOTIFICATIONS AND USER FEEDBACK
+
+Integrate with the existing notification system if available.
+
+Required events:
+
+- New connection request received by teacher.
+- Request approved.
+- Request rejected.
+- Request cancelled.
+- Connection disconnected.
+
+If persistent notifications already exist, use them.
+
+If not, implement a minimal persistent notification mechanism consistent with the existing architecture.
+
+Do not introduce a paid external notification dependency.
+
+Provide:
+- Success messages.
+- Error messages.
+- Loading indicators.
+- Empty states.
+- Confirmation dialogs.
+- Appropriate RTL/LTR feedback.
+
+---
+
+# PART 10 – COMPLETE FRONTEND INTEGRATION
+
+Implement real functionality for every new interface.
+
+Do not leave:
+- Dead buttons.
+- Placeholder actions.
+- Fake counters.
+- Hardcoded requests.
+- Mock connection statuses.
+- Static joining codes.
+
+Every action must call the appropriate backend endpoint.
+
+All loading and error states must be handled.
+
+Refresh relevant dashboard data after successful mutations.
+
+Maintain the existing NonoLand context and authentication state.
+
+Do not create a second login system.
+
+---
+
+# PART 11 – TESTING REQUIREMENTS
+
+Create and execute tests covering the following scenarios.
+
+## Scenario 1 – Teacher Code
+
+- Teacher logs in.
+- Teacher opens Connections.
+- Teacher generates a code.
+- Code is saved in the database.
+- Teacher copies and shares the code.
+- Teacher regenerates the code.
+- Previous code becomes invalid.
+
+## Scenario 2 – Parent Request
+
+- Parent logs in.
+- Parent selects Child A.
+- Parent enters a valid teacher code.
+- Teacher preview appears.
+- Parent submits request.
+- Request appears in the database as pending.
+
+## Scenario 3 – Teacher Approval
+
+- Teacher logs in.
+- Teacher opens Pending Requests.
+- Teacher sees the correct child request.
+- Teacher approves.
+- Connection becomes active.
+- Child appears in My Students.
+
+## Scenario 4 – Rejection
+
+- Teacher rejects a request.
+- Request status becomes rejected.
+- Child does not appear as connected.
+
+## Scenario 5 – Multiple Children
+
+- Parent connects Child A.
+- Parent connects Child B.
+- Teacher sees both after approval.
+- No duplicate child records are created.
+
+## Scenario 6 – Security
+
+Test that:
+
+- Teacher A cannot access Teacher B's requests.
+- Teacher A cannot access unrelated children.
+- Parent A cannot request a child belonging to Parent B.
+- Invalid codes are rejected.
+- Revoked codes are rejected.
+- Expired codes are rejected.
+- Duplicate requests are prevented.
+- Unauthorized API calls return appropriate errors.
+
+## Scenario 7 – Existing Functionality
+
+Verify:
+- Teacher login.
+- Parent login.
+- Teacher logout.
+- My Classes.
+- My Students.
+- Homework.
+- Question Bank.
+- CSV import.
+- Exam creation.
+- Exam assignment.
+- Exam results.
+- Student performance.
+- Parent Dashboard.
+- Child Learning screens.
+
+## Scenario 8 – UI
+
+Test:
+- Desktop.
+- Tablet.
+- Mobile.
+- Arabic RTL.
+- English LTR.
+- Long teacher names.
+- Empty student lists.
+- Large student lists.
+- Loading states.
+- Error states.
+
+---
+
+# PART 12 – BUILD AND DEPLOYMENT READINESS
+
+Before completion, execute the project's actual available scripts.
+
+At minimum:
+
+1. npm install, only if dependency installation is required.
+2. npm run lint.
+3. npm run build.
+4. Generate the required Drizzle migration.
+5. Apply migrations against the configured development database.
+6. Start the application.
+7. Test the relevant APIs.
+8. Review browser console errors.
+9. Review server logs.
+
+Fix all errors introduced by your implementation.
+
+Do not claim tests passed unless they were actually executed.
+
+Do not silently skip failed checks.
+
+Do not overwrite environment secrets.
+
+Do not commit passwords, API keys, database credentials, or private tokens.
+
+If an external configuration is genuinely missing, identify the exact variable, its purpose, and the required configuration action.
+
+The application must not depend on an invented or unavailable external service.
+
+---
+
+# PART 13 – FINAL ACCEPTANCE CRITERIA
+
+The task is complete only when all of the following are true:
+
+[ ] Teacher Portal has a complete professional redesign.
+
+[ ] Existing Teacher Portal features still work.
+
+[ ] Teacher can generate a unique joining code.
+
+[ ] Teacher can copy and share the code.
+
+[ ] Teacher can regenerate or deactivate the code.
+
+[ ] Parent can select a child and enter the code.
+
+[ ] Parent can submit a real connection request.
+
+[ ] Teacher can see pending requests.
+
+[ ] Teacher can approve or reject requests.
+
+[ ] Approved children appear in My Students.
+
+[ ] Parent can see connection status.
+
+[ ] Parent can cancel pending requests.
+
+[ ] Parent can disconnect an approved teacher.
+
+[ ] Teacher can disconnect an authorized child.
+
+[ ] All data is persisted in the database.
+
+[ ] Authorization is enforced on the backend.
+
+[ ] Child data is isolated between teachers.
+
+[ ] Existing functionality is preserved.
+
+[ ] Database migrations are successful.
+
+[ ] TypeScript checks pass.
+
+[ ] Production build succeeds.
+
+[ ] Critical connection workflow tests pass.
+
+[ ] No unresolved critical errors remain.
+
+---
+
+# PART 14 – EXECUTION POLICY
+
+You are authorized to implement the complete requested scope in the existing project.
+
+Do not stop after architecture analysis.
+
+Do not stop after showing a design proposal.
+
+Do not stop after creating frontend components.
+
+Do not stop after implementing API routes without connecting the frontend.
+
+Do not stop after implementing database tables without completing the workflows.
+
+Continue through implementation, integration, migrations, testing, and build verification.
+
+Make sensible technical decisions based on the actual project architecture.
+
+If an implementation detail is ambiguous, inspect the existing code and follow established project conventions.
+
+Do not ask the user to manually write code or implement missing pieces that are within your capabilities.
+
+Do not claim completion when any required critical functionality remains unimplemented.
+
+If execution limits prevent completion, clearly identify:
+- What was implemented.
+- What was tested.
+- What remains.
+- Why it remains.
+- The exact files or configuration required.
+
+## FINAL DELIVERABLE
+
+Provide a concise but complete implementation report containing:
+
+1. Teacher Portal redesign summary.
+2. New features implemented.
+3. Database changes and migration status.
+4. Backend APIs implemented.
+5. Security and authorization changes.
+6. Tests executed and their actual results.
+7. Build status.
+8. Any remaining external configuration requirements.
+
+The final objective is a fully integrated, working NonoLand application ready for immediate end-to-end testing.
+
+BEGIN IMPLEMENTATION NOW.

@@ -16,6 +16,7 @@ import {
   Film,
   Fingerprint,
   Flame,
+  GraduationCap,
   History,
   KeyRound,
   Laptop,
@@ -83,6 +84,11 @@ const PasskeysPanel = lazy(() =>
 const ParentQuranSettingsPanel = lazy(() =>
   import('../components/quran/ParentQuranSettingsPanel').then((m) => ({
     default: m.ParentQuranSettingsPanel,
+  })),
+);
+const ConnectTeacherPanel = lazy(() =>
+  import('../components/family/ConnectTeacherPanel').then((m) => ({
+    default: m.ConnectTeacherPanel,
   })),
 );
 import { PARENT_OFFLINE_ACTIVITIES } from '../data/academyData';
@@ -188,6 +194,7 @@ export const ParentDashboardScreen: React.FC = () => {
     | 'weekly-report'
     | 'together-garden'
     | 'quran-world'
+    | 'connect-teacher'
     | 'content-privacy'
     | 'ai-controls'
     | 'guardians'
@@ -248,6 +255,13 @@ export const ParentDashboardScreen: React.FC = () => {
       passed?: boolean;
       teacherFeedback?: string;
       submittedAt?: string;
+    }>;
+    connectedTeachers?: Array<{
+      connectionId: string;
+      teacherId: string;
+      teacherName: string;
+      subjects: string[];
+      approvedAt: string;
     }>;
   } | null>(null);
 
@@ -652,6 +666,7 @@ export const ParentDashboardScreen: React.FC = () => {
           { id: 'weekly-report' as const, label: { ar: 'التقرير الأسبوعي', en: 'Weekly Report' }, icon: <FileBarChart2 className="w-4 h-4" /> },
           { id: 'together-garden' as const, label: { ar: 'وقتنا معاً والحديقة', en: 'Together & Garden' }, icon: <Sprout className="w-4 h-4" /> },
           { id: 'quran-world' as const, label: { ar: 'عالم القرآن والتحفيظ', en: 'Quran World' }, icon: <BookOpen className="w-4 h-4" /> },
+          { id: 'connect-teacher' as const, label: { ar: 'ربط المعلم', en: 'Connect a Teacher' }, icon: <GraduationCap className="w-4 h-4" /> },
           { id: 'content-privacy' as const, label: { ar: 'المحتوى والخصوصية', en: 'Content & Privacy' }, icon: <ShieldCheck className="w-4 h-4" /> },
           { id: 'ai-controls' as const, label: { ar: 'مساعد نونو الصوتي', en: 'Nono AI & Voice' }, icon: <Bot className="w-4 h-4" /> },
           { id: 'guardians' as const, label: { ar: 'أولياء الأمور', en: 'Guardians' }, icon: <Users className="w-4 h-4" /> },
@@ -707,6 +722,7 @@ export const ParentDashboardScreen: React.FC = () => {
             onRequestGateUnlock={() => setTab('parent-gate')}
           />
         )}
+        {tab === 'connect-teacher' && <ConnectTeacherPanel />}
         {tab === 'content-privacy' && (
           <ContentPrivacyPanel
             gateVerified={serverGateVerified}
@@ -1226,6 +1242,49 @@ export const ParentDashboardScreen: React.FC = () => {
                           {language === 'ar' ? 'ملاحظة المعلم:' : 'Teacher feedback:'} {hw.teacherFeedback}
                         </p>
                       )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          {/* Connected Teachers Summary */}
+          {authSession.authenticated &&
+            parentOverview?.connectedTeachers &&
+            parentOverview.connectedTeachers.length > 0 && (
+              <div className="nono-card rounded-3xl p-6 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="text-lg font-extrabold text-[#27345C] flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5 text-[#8054D9]" />
+                    <span>
+                      {language === 'ar'
+                        ? 'المعلمون المرتبطون بهذا الطفل'
+                        : 'Connected Teachers for This Child'}
+                    </span>
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setTab('connect-teacher')}
+                    className="min-h-[38px] px-3 py-1.5 rounded-xl bg-[#8054D9] text-white text-xs font-bold cursor-pointer"
+                  >
+                    {language === 'ar' ? 'إدارة الربط' : 'Manage Connections'}
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {parentOverview.connectedTeachers.map((ct) => (
+                    <div
+                      key={ct.connectionId}
+                      className="p-4 rounded-2xl bg-[#FFF8E9] border border-[#27345C]/10 flex items-center justify-between gap-2 text-xs"
+                    >
+                      <div>
+                        <p className="font-extrabold text-sm text-[#27345C]">{ct.teacherName}</p>
+                        <p className="text-[#27345C]/70 font-semibold">
+                          {ct.subjects.length > 0 ? ct.subjects.join(' · ') : language === 'ar' ? 'معلم معتمد' : 'Verified Educator'}
+                        </p>
+                      </div>
+                      <span className="text-[11px] font-bold text-[#14532D] tabular-nums">
+                        {formatDate(ct.approvedAt, language)}
+                      </span>
                     </div>
                   ))}
                 </div>

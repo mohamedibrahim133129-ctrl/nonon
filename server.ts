@@ -80,6 +80,7 @@ import { registerQuranRoutes } from './server/quranRoutes';
 import { registerLegalRoutes } from './server/legalRoutes';
 import { registerSmartAssessmentRoutes } from './server/smartAssessmentRoutes';
 import { registerTeacherAndLevel2Routes } from './server/teacherRoutes';
+import { registerTeacherConnectionRoutes } from './server/teacherConnectionRoutes';
 import { registerWorldExperienceRoutes } from './server/worldExperienceRoutes';
 import {
   checkPgHealth,
@@ -90,6 +91,7 @@ import {
   getPgContextDb,
   hydrateAllStoryAudioBlobsPg,
   inspectAndApplyQuranMigration0002Pg,
+  inspectAndApplyTeacherConnectionMigration0003Pg,
   inspectLiveStoryCmsAudioSummaryPg,
   isPgConfigured,
   loadServerDbSnapshotPg,
@@ -195,6 +197,11 @@ async function startServer() {
   const quranMigReport = await inspectAndApplyQuranMigration0002Pg();
   console.log(
     `[QuranMigration0002] classification=${quranMigReport.classification} action=${quranMigReport.action} tables=${quranMigReport.tablesPresentCount}/6 indexes=${quranMigReport.indexesPresentCount}/8 constraints=${quranMigReport.constraintsPresentCount}/18 recorded0002=${quranMigReport.migration0002RecordedCount} pending=${quranMigReport.pendingMigrationsCount} coreTablesIntact=${quranMigReport.coreTablesIntact}${quranMigReport.error ? ` note=${quranMigReport.error}` : ''}`,
+  );
+
+  const teacherConnMigReport = await inspectAndApplyTeacherConnectionMigration0003Pg();
+  console.log(
+    `[TeacherConnMigration0003] classification=${teacherConnMigReport.classification} action=${teacherConnMigReport.action} tables=${teacherConnMigReport.tablesPresentCount}/4 indexes=${teacherConnMigReport.indexesPresentCount}/13 recorded0003=${teacherConnMigReport.migration0003RecordedCount} pending=${teacherConnMigReport.pendingMigrationsCount} coreTablesIntact=${teacherConnMigReport.coreTablesIntact}${teacherConnMigReport.error ? ` note=${teacherConnMigReport.error}` : ''}`,
   );
 
   const storyHydration = await hydrateAllStoryAudioBlobsPg(STORY_AUDIO_PUBLIC_DIR);
@@ -355,6 +362,8 @@ async function startServer() {
         schemaReady: health.schemaReady,
         quranSchemaReady: health.quranSchemaReady ?? false,
         ...(health.quranMigration ? { quranMigration: health.quranMigration } : {}),
+        teacherConnSchemaReady: health.teacherConnSchemaReady ?? false,
+        ...(health.teacherConnMigration ? { teacherConnMigration: health.teacherConnMigration } : {}),
       });
     }
     let storyAudioHealth: Record<string, unknown> = {
@@ -434,6 +443,8 @@ async function startServer() {
       schemaReady: health.schemaReady,
       quranSchemaReady: health.quranSchemaReady ?? true,
       ...(health.quranMigration ? { quranMigration: health.quranMigration } : {}),
+      teacherConnSchemaReady: health.teacherConnSchemaReady ?? true,
+      ...(health.teacherConnMigration ? { teacherConnMigration: health.teacherConnMigration } : {}),
       storyAudioHealth,
     });
   });
@@ -2777,6 +2788,13 @@ async function startServer() {
     requireAdminPermission,
   });
 
+  registerTeacherConnectionRoutes({
+    app,
+    getDb,
+    saveDb,
+    requireAuth,
+  });
+
   registerLegalRoutes(app);
 
   app.use('/api', (_req, res) => {
@@ -3004,7 +3022,7 @@ async function startServer() {
     void checkPgHealthDetailed().then((health) => {
       if (health.healthy) {
         console.log(
-          `[Startup DB] backend=${health.database} ssl=${health.sslEnabled} neon=${health.isNeonHost} pooled=${health.isPooledEndpoint} schemaReady=${health.schemaReady} quranSchemaReady=${health.quranSchemaReady ?? true}`,
+          `[Startup DB] backend=${health.database} ssl=${health.sslEnabled} neon=${health.isNeonHost} pooled=${health.isPooledEndpoint} schemaReady=${health.schemaReady} quranSchemaReady=${health.quranSchemaReady ?? true} teacherConnSchemaReady=${health.teacherConnSchemaReady ?? true}`,
         );
         if (
           process.env.ENABLE_STARTUP_STORY_AUDIO_BACKFILL === '1' &&

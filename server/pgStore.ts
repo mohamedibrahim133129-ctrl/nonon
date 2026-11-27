@@ -53,7 +53,11 @@ import type {
   QuranSurahHumanReviewEntry,
   SecurityEventLog,
   TeacherExam,
+  TeacherJoinCodeRecord,
   TeacherQuestion,
+  TeacherStudentConnection,
+  TeacherStudentConnectionRequest,
+  UserNotification,
 } from '../src/types/nonoland.ts';
 
 type PgRunner = Pick<typeof pgDb, 'select' | 'insert' | 'update' | 'delete' | 'execute'>;
@@ -65,6 +69,7 @@ export interface PgRequestContext {
   pendingCommit: Promise<void> | null;
   inTransaction?: boolean;
   quranSchemaReady?: boolean;
+  teacherConnSchemaReady?: boolean;
 }
 
 export function isQuranSchemaReady(): boolean {
@@ -85,6 +90,18 @@ async function checkQuranTablesReady(runner: PgRunner): Promise<boolean> {
   `);
   const row = (res as unknown as { rows?: Array<Record<string, unknown>> })?.rows?.[0];
   return Boolean(row?.s1 && row?.s2 && row?.s3 && row?.s4 && row?.s5 && row?.s6);
+}
+
+async function checkTeacherConnTablesReady(runner: PgRunner): Promise<boolean> {
+  const res = await runner.execute(sql`
+    SELECT
+      to_regclass('public.teacher_join_codes') IS NOT NULL AS t1,
+      to_regclass('public.teacher_student_connection_requests') IS NOT NULL AS t2,
+      to_regclass('public.teacher_student_connections') IS NOT NULL AS t3,
+      to_regclass('public.notifications') IS NOT NULL AS t4
+  `);
+  const row = (res as unknown as { rows?: Array<Record<string, unknown>> })?.rows?.[0];
+  return Boolean(row?.t1 && row?.t2 && row?.t3 && row?.t4);
 }
 
 const pgRequestAls = new AsyncLocalStorage<PgRequestContext>();
@@ -155,6 +172,10 @@ export function getDefaultServerDb(): ServerDb {
     quranMannerProgress: {},
     quranActivityEvents: [],
     quranContentVerifications: {},
+    teacherJoinCodes: {},
+    teacherStudentConnectionRequests: {},
+    teacherStudentConnections: {},
+    notifications: {},
     operationalMetrics: {
       totalApiRequests: 0,
       apiFailures5xx: 0,
@@ -325,6 +346,18 @@ export interface QuranMigrationReport {
   error?: string;
 }
 
+export interface TeacherConnMigrationReport {
+  classification: 'A' | 'B' | 'C' | 'D' | 'in_memory' | 'unavailable';
+  action: 'applied_0003' | 'already_applied' | 'skipped_unsafe' | 'skipped_core_missing' | 'not_applicable';
+  tablesPresentCount: number;
+  indexesPresentCount: number;
+  migration0003RecordedCount: number;
+  pendingMigrationsCount: number;
+  coreTablesIntact: boolean;
+  recordedHistoryBefore: Array<{ id: number; createdAt: string }>;
+  error?: string;
+}
+
 export interface PgHealthDetails {
   healthy: boolean;
   database: 'postgresql' | 'in-memory-dev' | 'unavailable';
@@ -339,6 +372,8 @@ export interface PgHealthDetails {
   schemaReady: boolean;
   quranSchemaReady?: boolean;
   quranMigration?: QuranMigrationReport;
+  teacherConnSchemaReady?: boolean;
+  teacherConnMigration?: TeacherConnMigrationReport;
   errorCode?: string;
   userEqualsDbName?: boolean;
 }
@@ -697,6 +732,313 @@ export async function inspectAndApplyQuranMigration0002Pg(): Promise<QuranMigrat
   }
 }
 
+const EXPECTED_TEACHER_CONN_TABLES = [
+  'teacher_join_codes',
+  'teacher_student_connection_requests',
+  'teacher_student_connections',
+  'notifications',
+] as const;
+
+const EXPECTED_TEACHER_CONN_INDEXES = [
+  'teacher_join_codes_teacher_idx',
+  'teacher_join_codes_status_idx',
+  'teacher_join_codes_one_active_uidx',
+  'tscr_teacher_status_idx',
+  'tscr_parent_status_idx',
+  'tscr_child_idx',
+  'tscr_one_pending_uidx',
+  'tsc_teacher_status_idx',
+  'tsc_parent_status_idx',
+  'tsc_child_idx',
+  'tsc_one_active_uidx',
+  'notifications_user_created_idx',
+  'notifications_user_read_idx',
+] as const;
+
+let cachedTeacherConnMigrationReport: TeacherConnMigrationReport | null = null;
+
+export function getLastTeacherConnMigrationReport(): TeacherConnMigrationReport | null {
+  return cachedTeacherConnMigrationReport;
+}
+
+function parseSafeAdditiveMigration0003(): {
+  ok: boolean;
+  statements: string[];
+  hash: string;
+  folderMillis: number;
+  reason?: string;
+} {
+  const journalPath = path.resolve(process.cwd(), 'drizzle', 'meta', '_journal.json');
+  const sqlPath = path.resolve(process.cwd(), 'drizzle', '0003_shiny_wolverine.sql');
+  if (!fs.existsSync(journalPath) || !fs.existsSync(sqlPath)) {
+    return { ok: false, statements: [], hash: '', folderMillis: 0, reason: 'Missing migration 0003 or journal file' };
+  }
+  const journal = JSON.parse(fs.readFileSync(journalPath, 'utf-8')) as {
+    entries?: Array<{ tag: string; when: number }>;
+  };
+  const entry = (journal.entries || []).find((e) => e.tag === '0003_shiny_wolverine');
+  if (!entry || !Number.isFinite(entry.when)) {
+    return { ok: false, statements: [], hash: '', folderMillis: 0, reason: 'Journal entry 0003_shiny_wolverine missing' };
+  }
+  const rawSql = fs.readFileSync(sqlPath, 'utf-8');
+  const hash = crypto.createHash('sha256').update(rawSql).digest('hex');
+  const rawChunks = rawSql.split('--> statement-breakpoint');
+  const statements: string[] = [];
+  for (const chunk of rawChunks) {
+    const cleaned = chunk
+      .split('\n')
+      .filter((line) => !line.trim().startsWith('--'))
+      .join('\n')
+      .trim();
+    if (!cleaned) continue;
+    const allowedPrefix =
+      /^CREATE\s+TABLE\s+IF\s+NOT\s+EXISTS\s+"(?:teacher_join_codes|teacher_student_connection_requests|teacher_student_connections|notifications)"/i.test(
+        cleaned,
+      ) ||
+      /^CREATE\s+(?:UNIQUE\s+)?INDEX\s+IF\s+NOT\s+EXISTS\s+"(?:teacher_join_codes_|tscr_|tsc_|notifications_)/i.test(
+        cleaned,
+      );
+    const bodyWithoutReferentialClauses = cleaned
+      .replace(/ON\s+DELETE\s+(?:cascade|set\s+null|no\s+action)/gi, '')
+      .replace(/ON\s+UPDATE\s+no\s+action/gi, '')
+      .replace(/;\s*$/, '');
+    if (
+      !allowedPrefix ||
+      bodyWithoutReferentialClauses.includes(';') ||
+      /\b(DROP|TRUNCATE|DELETE|UPDATE|ALTER)\b/i.test(bodyWithoutReferentialClauses)
+    ) {
+      return {
+        ok: false,
+        statements: [],
+        hash,
+        folderMillis: entry.when,
+        reason: `Disallowed or potentially destructive SQL in 0003_shiny_wolverine.sql: ${cleaned.slice(0, 80)}`,
+      };
+    }
+    statements.push(cleaned);
+  }
+  if (statements.length !== 17) {
+    return {
+      ok: false,
+      statements: [],
+      hash,
+      folderMillis: entry.when,
+      reason: `Expected 17 additive DDL statements in 0003_shiny_wolverine.sql, found ${statements.length}`,
+    };
+  }
+  return { ok: true, statements, hash, folderMillis: entry.when };
+}
+
+export async function inspectAndApplyTeacherConnectionMigration0003Pg(): Promise<TeacherConnMigrationReport> {
+  if (allowDevInMemoryFallback()) {
+    const rep: TeacherConnMigrationReport = {
+      classification: 'in_memory',
+      action: 'not_applicable',
+      tablesPresentCount: EXPECTED_TEACHER_CONN_TABLES.length,
+      indexesPresentCount: EXPECTED_TEACHER_CONN_INDEXES.length,
+      migration0003RecordedCount: 1,
+      pendingMigrationsCount: 0,
+      coreTablesIntact: true,
+      recordedHistoryBefore: [],
+    };
+    cachedTeacherConnMigrationReport = rep;
+    return rep;
+  }
+
+  const parsedSql = parseSafeAdditiveMigration0003();
+  if (!parsedSql.ok) {
+    const rep: TeacherConnMigrationReport = {
+      classification: 'D',
+      action: 'skipped_unsafe',
+      tablesPresentCount: 0,
+      indexesPresentCount: 0,
+      migration0003RecordedCount: 0,
+      pendingMigrationsCount: 1,
+      coreTablesIntact: false,
+      recordedHistoryBefore: [],
+      error: parsedSql.reason,
+    };
+    cachedTeacherConnMigrationReport = rep;
+    return rep;
+  }
+
+  const journalPath = path.resolve(process.cwd(), 'drizzle', 'meta', '_journal.json');
+  const journal = JSON.parse(fs.readFileSync(journalPath, 'utf-8')) as {
+    entries?: Array<{ tag: string; when: number }>;
+  };
+  const allEntries = journal.entries || [];
+
+  try {
+    const result = await pgDb.transaction(async (tx) => {
+      await tx.execute(sql`SELECT pg_advisory_xact_lock(90210003)`);
+
+      const coreRes = await tx.execute(sql`
+        SELECT
+          to_regclass('public.users') IS NOT NULL AS has_users,
+          to_regclass('public.children') IS NOT NULL AS has_children,
+          to_regclass('public.sessions') IS NOT NULL AS has_sessions,
+          to_regclass('public.families') IS NOT NULL AS has_families,
+          to_regclass('drizzle.__drizzle_migrations') IS NOT NULL AS has_mig_table
+      `);
+      const coreRow = (coreRes as unknown as { rows?: Array<Record<string, unknown>> })?.rows?.[0] || {};
+      const coreTablesIntact = Boolean(
+        coreRow.has_users && coreRow.has_children && coreRow.has_sessions && coreRow.has_families,
+      );
+      if (!coreRow.has_users || !coreRow.has_children) {
+        return {
+          classification: 'C' as const,
+          action: 'skipped_core_missing' as const,
+          tablesPresentCount: 0,
+          indexesPresentCount: 0,
+          migration0003RecordedCount: 0,
+          pendingMigrationsCount: 1,
+          coreTablesIntact: false,
+          recordedHistoryBefore: [],
+          error: 'Core tables public.users or public.children do not exist.',
+        };
+      }
+
+      const tblRes = await tx.execute(sql`
+        SELECT tablename FROM pg_tables
+        WHERE schemaname = 'public'
+          AND tablename IN ('teacher_join_codes', 'teacher_student_connection_requests', 'teacher_student_connections', 'notifications')
+      `);
+      const existingTables = new Set(
+        ((tblRes as unknown as { rows?: Array<{ tablename: string }> })?.rows || []).map((r) => r.tablename),
+      );
+      const tablesBefore = EXPECTED_TEACHER_CONN_TABLES.filter((t) => existingTables.has(t)).length;
+
+      const idxRes = await tx.execute(sql`
+        SELECT indexname FROM pg_indexes
+        WHERE schemaname = 'public'
+          AND tablename IN ('teacher_join_codes', 'teacher_student_connection_requests', 'teacher_student_connections', 'notifications')
+      `);
+      const existingIndexes = new Set(
+        ((idxRes as unknown as { rows?: Array<{ indexname: string }> })?.rows || []).map((r) => r.indexname),
+      );
+      const indexesBefore = EXPECTED_TEACHER_CONN_INDEXES.filter((i) => existingIndexes.has(i)).length;
+
+      let recordedHistoryBefore: Array<{ id: number; createdAt: string }> = [];
+      let recorded0003Before = 0;
+      if (coreRow.has_mig_table) {
+        const migRes = await tx.execute(
+          sql`SELECT id, hash, created_at FROM drizzle.__drizzle_migrations ORDER BY id ASC`,
+        );
+        const rows =
+          (migRes as unknown as { rows?: Array<{ id: number; hash: string; created_at: string | number }> })?.rows || [];
+        recordedHistoryBefore = rows.map((r) => ({ id: Number(r.id), createdAt: String(r.created_at) }));
+        recorded0003Before = rows.filter(
+          (r) => r.hash === parsedSql.hash || Number(r.created_at) === parsedSql.folderMillis,
+        ).length;
+      }
+
+      if (
+        tablesBefore === EXPECTED_TEACHER_CONN_TABLES.length &&
+        indexesBefore === EXPECTED_TEACHER_CONN_INDEXES.length &&
+        recorded0003Before > 0
+      ) {
+        const maxCreatedAt = recordedHistoryBefore.reduce(
+          (m, r) => Math.max(m, Number(r.createdAt) || 0),
+          0,
+        );
+        return {
+          classification: 'B' as const,
+          action: 'already_applied' as const,
+          tablesPresentCount: tablesBefore,
+          indexesPresentCount: indexesBefore,
+          migration0003RecordedCount: recorded0003Before,
+          pendingMigrationsCount: allEntries.filter((e) => e.when > maxCreatedAt).length,
+          coreTablesIntact,
+          recordedHistoryBefore,
+        };
+      }
+
+      // Strictly additive IF NOT EXISTS statements only; safe even if partial tables/indexes exist
+      await tx.execute(sql`CREATE SCHEMA IF NOT EXISTS "drizzle"`);
+      await tx.execute(sql`
+        CREATE TABLE IF NOT EXISTS "drizzle"."__drizzle_migrations" (
+          id SERIAL PRIMARY KEY,
+          hash text NOT NULL,
+          created_at bigint
+        )
+      `);
+
+      for (const stmt of parsedSql.statements) {
+        await tx.execute(sql.raw(stmt));
+      }
+
+      if (recorded0003Before === 0) {
+        await tx.execute(
+          sql`INSERT INTO "drizzle"."__drizzle_migrations" ("hash", "created_at") VALUES (${parsedSql.hash}, ${parsedSql.folderMillis})`,
+        );
+      }
+
+      const afterTblRes = await tx.execute(sql`
+        SELECT tablename FROM pg_tables
+        WHERE schemaname = 'public'
+          AND tablename IN ('teacher_join_codes', 'teacher_student_connection_requests', 'teacher_student_connections', 'notifications')
+      `);
+      const afterTables = new Set(
+        ((afterTblRes as unknown as { rows?: Array<{ tablename: string }> })?.rows || []).map((r) => r.tablename),
+      );
+      const tablesPresentCount = EXPECTED_TEACHER_CONN_TABLES.filter((t) => afterTables.has(t)).length;
+
+      const afterIdxRes = await tx.execute(sql`
+        SELECT indexname FROM pg_indexes
+        WHERE schemaname = 'public'
+          AND tablename IN ('teacher_join_codes', 'teacher_student_connection_requests', 'teacher_student_connections', 'notifications')
+      `);
+      const afterIndexes = new Set(
+        ((afterIdxRes as unknown as { rows?: Array<{ indexname: string }> })?.rows || []).map((r) => r.indexname),
+      );
+      const indexesPresentCount = EXPECTED_TEACHER_CONN_INDEXES.filter((i) => afterIndexes.has(i)).length;
+
+      const afterMigRes = await tx.execute(
+        sql`SELECT id, hash, created_at FROM drizzle.__drizzle_migrations ORDER BY id ASC`,
+      );
+      const afterMigRows =
+        (afterMigRes as unknown as { rows?: Array<{ id: number; hash: string; created_at: string | number }> })?.rows || [];
+      const migration0003RecordedCount = afterMigRows.filter(
+        (r) => r.hash === parsedSql.hash || Number(r.created_at) === parsedSql.folderMillis,
+      ).length;
+      const maxCreatedAt = afterMigRows.reduce(
+        (m, r) => Math.max(m, Number(r.created_at) || 0),
+        0,
+      );
+
+      return {
+        classification: 'A' as const,
+        action: 'applied_0003' as const,
+        tablesPresentCount,
+        indexesPresentCount,
+        migration0003RecordedCount,
+        pendingMigrationsCount: allEntries.filter((e) => e.when > maxCreatedAt).length,
+        coreTablesIntact,
+        recordedHistoryBefore,
+      };
+    });
+
+    cachedTeacherConnMigrationReport = result;
+    return result;
+  } catch (err) {
+    const safeMsg = scrubSafePgMessage((err as Error)?.message || String(err));
+    console.error('[TeacherConnMigration0003] Inspection/execution failed cleanly (rolled back):', safeMsg);
+    const rep: TeacherConnMigrationReport = {
+      classification: 'C',
+      action: 'skipped_unsafe',
+      tablesPresentCount: 0,
+      indexesPresentCount: 0,
+      migration0003RecordedCount: 0,
+      pendingMigrationsCount: 1,
+      coreTablesIntact: false,
+      recordedHistoryBefore: [],
+      error: safeMsg,
+    };
+    cachedTeacherConnMigrationReport = rep;
+    return rep;
+  }
+}
+
 function scrubSafePgMessage(message?: string): string {
   return String(message || 'Unknown PostgreSQL error').replace(/postgres(?:ql)?:\/\/[^\s]+/gi, 'postgresql://[REDACTED]');
 }
@@ -737,6 +1079,7 @@ export async function checkPgHealthDetailed(): Promise<PgHealthDetails> {
       isPooledEndpoint: false,
       schemaReady: true,
       quranSchemaReady: true,
+      teacherConnSchemaReady: true,
     };
   }
 
@@ -813,6 +1156,7 @@ export async function checkPgHealthDetailed(): Promise<PgHealthDetails> {
       };
     }
     const quranSchemaReady = await checkQuranTablesReady(pgDb).catch(() => false);
+    const teacherConnSchemaReady = await checkTeacherConnTablesReady(pgDb).catch(() => false);
     return {
       healthy: true,
       database: 'postgresql',
@@ -825,6 +1169,8 @@ export async function checkPgHealthDetailed(): Promise<PgHealthDetails> {
       schemaReady: true,
       quranSchemaReady,
       ...(cachedQuranMigrationReport ? { quranMigration: cachedQuranMigrationReport } : {}),
+      teacherConnSchemaReady,
+      ...(cachedTeacherConnMigrationReport ? { teacherConnMigration: cachedTeacherConnMigrationReport } : {}),
       userEqualsDbName: sameUserAndDb,
     };
   } catch (err) {
@@ -1103,6 +1449,10 @@ function buildContextCaches(snapshot: ServerDb): {
   recordMap('quranMannerProgress', snapshot.quranMannerProgress);
   recordArrayById('quranActivityEvents', snapshot.quranActivityEvents);
   recordMap('quranContentVerifications', snapshot.quranContentVerifications);
+  recordMap('teacherJoinCodes', snapshot.teacherJoinCodes);
+  recordMap('teacherStudentConnectionRequests', snapshot.teacherStudentConnectionRequests);
+  recordMap('teacherStudentConnections', snapshot.teacherStudentConnections);
+  recordMap('notifications', snapshot.notifications);
 
   const configHashes = new Map<string, string>();
   configHashes.set('examConfig', stableHashValue(snapshot.examConfig));
@@ -1126,12 +1476,14 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
       configHashes: new Map(),
       pendingCommit: null,
       quranSchemaReady: true,
+      teacherConnSchemaReady: true,
     };
   }
   assertPgConfiguredOrThrow();
 
   let loadedRows;
   let quranSchemaReady = false;
+  let teacherConnSchemaReady = false;
   let quranLoadedRows: [
     Array<typeof schema.quranChildSettings.$inferSelect>,
     Array<typeof schema.quranSurahProgress.$inferSelect>,
@@ -1140,6 +1492,12 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
     Array<typeof schema.quranActivityEvents.$inferSelect>,
     Array<typeof schema.quranContentVerifications.$inferSelect>,
   ] = [[], [], [], [], [], []];
+  let teacherConnLoadedRows: [
+    Array<typeof schema.teacherJoinCodes.$inferSelect>,
+    Array<typeof schema.teacherStudentConnectionRequests.$inferSelect>,
+    Array<typeof schema.teacherStudentConnections.$inferSelect>,
+    Array<typeof schema.notifications.$inferSelect>,
+  ] = [[], [], [], []];
   try {
     // Preflight a single lightweight query so auth/network errors fail once instead of logging 39 Failed query traces
     await runner.execute(sql`SELECT 1`);
@@ -1196,6 +1554,15 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
         runner.select().from(schema.quranMannerProgress),
         runner.select().from(schema.quranActivityEvents),
         runner.select().from(schema.quranContentVerifications),
+      ]);
+    }
+    teacherConnSchemaReady = await checkTeacherConnTablesReady(runner);
+    if (teacherConnSchemaReady) {
+      teacherConnLoadedRows = await Promise.all([
+        runner.select().from(schema.teacherJoinCodes),
+        runner.select().from(schema.teacherStudentConnectionRequests),
+        runner.select().from(schema.teacherStudentConnections),
+        runner.select().from(schema.notifications),
       ]);
     }
   } catch (err) {
@@ -1267,6 +1634,12 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
     quranActivityRows,
     quranVerificationRows,
   ] = quranLoadedRows;
+  const [
+    teacherJoinCodeRows,
+    connectionRequestRows,
+    connectionRows,
+    notificationRows,
+  ] = teacherConnLoadedRows;
 
   const snap = getDefaultServerDb();
 
@@ -2090,6 +2463,70 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
     };
   }
 
+  for (const r of teacherJoinCodeRows) {
+    snap.teacherJoinCodes![r.id] = {
+      id: r.id,
+      teacherId: r.teacherId,
+      codeHash: r.codeHash,
+      codeEncrypted: r.codeEncrypted,
+      codeLast4: r.codeLast4,
+      status: r.status,
+      createdAt: r.createdAt,
+      expiresAt: r.expiresAt,
+      revokedAt: r.revokedAt ?? undefined,
+      updatedAt: r.updatedAt,
+    };
+  }
+
+  for (const r of connectionRequestRows) {
+    snap.teacherStudentConnectionRequests![r.id] = {
+      id: r.id,
+      teacherId: r.teacherId,
+      parentId: r.parentId,
+      childId: r.childId,
+      joinCodeId: r.joinCodeId,
+      status: r.status,
+      requestedAt: r.requestedAt,
+      reviewedAt: r.reviewedAt ?? undefined,
+      reviewedBy: r.reviewedBy ?? undefined,
+      rejectionReason: r.rejectionReason ?? undefined,
+      cancelledAt: r.cancelledAt ?? undefined,
+      expiresAt: r.expiresAt ?? undefined,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    };
+  }
+
+  for (const r of connectionRows) {
+    snap.teacherStudentConnections![r.id] = {
+      id: r.id,
+      teacherId: r.teacherId,
+      parentId: r.parentId,
+      childId: r.childId,
+      requestId: r.requestId ?? undefined,
+      status: r.status,
+      approvedAt: r.approvedAt,
+      disconnectedAt: r.disconnectedAt ?? undefined,
+      disconnectedBy: r.disconnectedBy ?? undefined,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    };
+  }
+
+  for (const r of notificationRows) {
+    snap.notifications![r.id] = {
+      id: r.id,
+      userId: r.userId,
+      type: r.type,
+      title: r.title,
+      message: r.message,
+      relatedType: r.relatedType ?? undefined,
+      relatedId: r.relatedId ?? undefined,
+      readAt: r.readAt ?? undefined,
+      createdAt: r.createdAt,
+    };
+  }
+
   ensureFamilyCollections(snap);
   const { serializedCache, configHashes } = buildContextCaches(snap);
   return {
@@ -2098,6 +2535,7 @@ export async function loadServerDbSnapshotPg(runner: PgRunner = pgDb): Promise<P
     configHashes,
     pendingCommit: null,
     quranSchemaReady,
+    teacherConnSchemaReady,
   };
 }
 
@@ -2212,6 +2650,22 @@ export async function commitServerDbDiffPg(
     ctx.serializedCache.get('quranContentVerifications'),
     after.quranContentVerifications,
   );
+  const dTeacherJoinCodes = diffRecordMap<TeacherJoinCodeRecord>(
+    ctx.serializedCache.get('teacherJoinCodes'),
+    after.teacherJoinCodes,
+  );
+  const dConnRequests = diffRecordMap<TeacherStudentConnectionRequest>(
+    ctx.serializedCache.get('teacherStudentConnectionRequests'),
+    after.teacherStudentConnectionRequests,
+  );
+  const dConnections = diffRecordMap<TeacherStudentConnection>(
+    ctx.serializedCache.get('teacherStudentConnections'),
+    after.teacherStudentConnections,
+  );
+  const dNotifications = diffRecordMap<UserNotification>(
+    ctx.serializedCache.get('notifications'),
+    after.notifications,
+  );
 
   const configChanges: Array<{ key: string; value: unknown; hash: string }> = [];
   for (const [k, val] of [
@@ -2276,6 +2730,10 @@ export async function commitServerDbDiffPg(
       dQuranMannerProg,
       dQuranEvents,
       dQuranVerifications,
+      dTeacherJoinCodes,
+      dConnRequests,
+      dConnections,
+      dNotifications,
     ].some((d) => d.upserts.length > 0 || d.deletes.length > 0);
 
   if (!hasChanges) return;
@@ -2289,6 +2747,13 @@ export async function commitServerDbDiffPg(
     dQuranVerifications,
   ].some((d) => d.upserts.length > 0 || d.deletes.length > 0);
 
+  const hasTeacherConnChanges = [
+    dTeacherJoinCodes,
+    dConnRequests,
+    dConnections,
+    dNotifications,
+  ].some((d) => d.upserts.length > 0 || d.deletes.length > 0);
+
   const execCommit = async (tx: PgRunner) => {
     if (hasQuranChanges && ctx.quranSchemaReady === false) {
       const readyNow = await checkQuranTablesReady(tx);
@@ -2300,6 +2765,17 @@ export async function commitServerDbDiffPg(
         throw err;
       }
       ctx.quranSchemaReady = true;
+    }
+    if (hasTeacherConnChanges && ctx.teacherConnSchemaReady === false) {
+      const readyNow = await checkTeacherConnTablesReady(tx);
+      if (!readyNow) {
+        const err = new Error(
+          'Teacher Connection tables are pending additive migration.',
+        ) as Error & { code?: string };
+        err.code = 'TEACHER_CONN_SCHEMA_PENDING';
+        throw err;
+      }
+      ctx.teacherConnSchemaReady = true;
     }
     // DELETES (reverse FK order)
     if (dAssignedAttempts.deletes.length) {
@@ -2325,6 +2801,18 @@ export async function commitServerDbDiffPg(
     }
     if (dTeacherQs.deletes.length) {
       await tx.delete(schema.teacherQuestions).where(inArray(schema.teacherQuestions.id, dTeacherQs.deletes));
+    }
+    if (dNotifications.deletes.length) {
+      await tx.delete(schema.notifications).where(inArray(schema.notifications.id, dNotifications.deletes));
+    }
+    if (dConnections.deletes.length) {
+      await tx.delete(schema.teacherStudentConnections).where(inArray(schema.teacherStudentConnections.id, dConnections.deletes));
+    }
+    if (dConnRequests.deletes.length) {
+      await tx.delete(schema.teacherStudentConnectionRequests).where(inArray(schema.teacherStudentConnectionRequests.id, dConnRequests.deletes));
+    }
+    if (dTeacherJoinCodes.deletes.length) {
+      await tx.delete(schema.teacherJoinCodes).where(inArray(schema.teacherJoinCodes.id, dTeacherJoinCodes.deletes));
     }
     if (dClasses.deletes.length) {
       await tx.delete(schema.classes).where(inArray(schema.classes.id, dClasses.deletes));
@@ -3670,6 +4158,92 @@ export async function commitServerDbDiffPg(
         .values(payload)
         .onConflictDoUpdate({ target: schema.quranContentVerifications.contentKey, set: updateSet });
     }
+
+    for (const { value: jc } of dTeacherJoinCodes.upserts) {
+      const payload = {
+        id: jc.id,
+        teacherId: jc.teacherId,
+        codeHash: jc.codeHash,
+        codeEncrypted: jc.codeEncrypted,
+        codeLast4: jc.codeLast4,
+        status: jc.status,
+        createdAt: jc.createdAt || nowIso,
+        expiresAt: jc.expiresAt,
+        revokedAt: jc.revokedAt ?? null,
+        updatedAt: jc.updatedAt || nowIso,
+      };
+      const { id: _id, createdAt: _ca, ...updateSet } = payload;
+      await tx
+        .insert(schema.teacherJoinCodes)
+        .values(payload)
+        .onConflictDoUpdate({ target: schema.teacherJoinCodes.id, set: updateSet });
+    }
+
+    for (const { value: cr } of dConnRequests.upserts) {
+      const payload = {
+        id: cr.id,
+        teacherId: cr.teacherId,
+        parentId: cr.parentId,
+        childId: cr.childId,
+        joinCodeId: cr.joinCodeId,
+        status: cr.status,
+        requestedAt: cr.requestedAt || nowIso,
+        reviewedAt: cr.reviewedAt ?? null,
+        reviewedBy: cr.reviewedBy ?? null,
+        rejectionReason: cr.rejectionReason ?? null,
+        cancelledAt: cr.cancelledAt ?? null,
+        expiresAt: cr.expiresAt ?? null,
+        createdAt: cr.createdAt || nowIso,
+        updatedAt: cr.updatedAt || nowIso,
+      };
+      const { id: _id, createdAt: _ca, ...updateSet } = payload;
+      await tx
+        .insert(schema.teacherStudentConnectionRequests)
+        .values(payload)
+        .onConflictDoUpdate({ target: schema.teacherStudentConnectionRequests.id, set: updateSet });
+    }
+
+    for (const { value: cn } of dConnections.upserts) {
+      const payload = {
+        id: cn.id,
+        teacherId: cn.teacherId,
+        parentId: cn.parentId,
+        childId: cn.childId,
+        requestId: cn.requestId ?? null,
+        status: cn.status,
+        approvedAt: cn.approvedAt || nowIso,
+        disconnectedAt: cn.disconnectedAt ?? null,
+        disconnectedBy: cn.disconnectedBy ?? null,
+        createdAt: cn.createdAt || nowIso,
+        updatedAt: cn.updatedAt || nowIso,
+      };
+      const { id: _id, createdAt: _ca, ...updateSet } = payload;
+      await tx
+        .insert(schema.teacherStudentConnections)
+        .values(payload)
+        .onConflictDoUpdate({ target: schema.teacherStudentConnections.id, set: updateSet });
+    }
+
+    for (const { value: nt } of dNotifications.upserts) {
+      const payload = {
+        id: nt.id,
+        userId: nt.userId,
+        type: nt.type,
+        title: nt.title,
+        message: nt.message,
+        relatedType: nt.relatedType ?? null,
+        relatedId: nt.relatedId ?? null,
+        readAt: nt.readAt ?? null,
+        createdAt: nt.createdAt || nowIso,
+      };
+      await tx
+        .insert(schema.notifications)
+        .values(payload)
+        .onConflictDoUpdate({
+          target: schema.notifications.id,
+          set: { readAt: nt.readAt ?? null },
+        });
+    }
   };
 
   if (txRunner) {
@@ -3767,6 +4341,7 @@ export async function runWithPgDbLock<T>(
       outerCtx.serializedCache = freshCtx.serializedCache;
       outerCtx.configHashes = freshCtx.configHashes;
       outerCtx.quranSchemaReady = freshCtx.quranSchemaReady;
+      outerCtx.teacherConnSchemaReady = freshCtx.teacherConnSchemaReady;
       outerCtx.pendingCommit = null;
     }
     return result;

@@ -366,7 +366,16 @@ export interface SecurityEventLog {
     | 'PRIVACY_DELETE_REQUEST'
     | 'CONSENT_RECORDED'
     | 'CONSENT_UPDATED'
-    | 'GARDEN_REWARD';
+    | 'GARDEN_REWARD'
+    | 'TEACHER_CODE_GENERATED'
+    | 'TEACHER_CODE_REGENERATED'
+    | 'TEACHER_CODE_REVOKED'
+    | 'TEACHER_CODE_VALIDATE_FAIL'
+    | 'TEACHER_CONNECTION_REQUESTED'
+    | 'TEACHER_CONNECTION_APPROVED'
+    | 'TEACHER_CONNECTION_REJECTED'
+    | 'TEACHER_CONNECTION_CANCELLED'
+    | 'TEACHER_CONNECTION_DISCONNECTED';
   familyId?: string;
   actorId?: string;
   actorRole?: string;
@@ -2484,6 +2493,125 @@ export interface QuranContentVerificationRecord {
   updatedByUserId?: string;
   updatedAt: string;
 }
+
+// =========================================================================
+// TEACHER JOIN CODES, PARENT-TEACHER CONNECTION SYSTEM & NOTIFICATIONS
+// =========================================================================
+
+export type TeacherJoinCodeStatus = 'active' | 'revoked' | 'expired';
+
+export interface TeacherJoinCodeRecord {
+  id: string;
+  teacherId: string;
+  codeHash: string;
+  codeEncrypted: string;
+  codeLast4: string;
+  status: TeacherJoinCodeStatus;
+  createdAt: string;
+  expiresAt: string;
+  revokedAt?: string;
+  updatedAt: string;
+}
+
+export interface TeacherJoinCodeDto {
+  id: string;
+  code: string;
+  maskedCode: string;
+  codeLast4: string;
+  status: TeacherJoinCodeStatus;
+  createdAt: string;
+  expiresAt: string;
+  revokedAt?: string;
+}
+
+export interface TeacherJoinCodePublicPreview {
+  normalizedCode: string;
+  teacherDisplayName: string;
+  subjects: string[];
+  bio?: string;
+  status: 'active';
+  expiresAt: string;
+}
+
+export type ConnectionRequestStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'cancelled'
+  | 'expired';
+
+export interface TeacherStudentConnectionRequest {
+  id: string;
+  teacherId: string;
+  parentId: string;
+  childId: string;
+  joinCodeId: string;
+  status: ConnectionRequestStatus;
+  requestedAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  rejectionReason?: string;
+  cancelledAt?: string;
+  expiresAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TeacherStudentConnectionStatus = 'active' | 'disconnected';
+
+export interface TeacherStudentConnection {
+  id: string;
+  teacherId: string;
+  parentId: string;
+  childId: string;
+  requestId?: string;
+  status: TeacherStudentConnectionStatus;
+  approvedAt: string;
+  disconnectedAt?: string;
+  disconnectedBy?: 'teacher' | 'parent' | 'admin';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type UserNotificationType =
+  | 'teacher_connection_request'
+  | 'teacher_connection_approved'
+  | 'teacher_connection_rejected'
+  | 'teacher_connection_cancelled'
+  | 'teacher_connection_disconnected'
+  | 'general';
+
+export interface UserNotification {
+  id: string;
+  userId: string;
+  type: UserNotificationType;
+  title: LocalizedText;
+  message: LocalizedText;
+  relatedType?: string;
+  relatedId?: string;
+  readAt?: string;
+  createdAt: string;
+}
+
+export type TeacherStudentSource = 'class' | 'connected' | 'both';
+
+export interface TeacherStudentRowDto {
+  id: string;
+  displayName: string;
+  ageGroup: StoredAgeGroupId;
+  language: string;
+  level: number;
+  stars: number;
+  classes: string[];
+  connectionSource: TeacherStudentSource;
+  connectionId?: string;
+  connectedAt?: string;
+  level1MasteredCount: number;
+  level2MasteredCount: number;
+  completedTeacherExams: number;
+  averageExamPercentage: number | null;
+}
+
 
 
 
