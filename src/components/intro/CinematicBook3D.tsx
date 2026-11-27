@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 interface CinematicBook3DProps {
   scene: 1 | 2 | 3 | 4 | 5 | 6;
   reduced: boolean;
+  lightweight?: boolean;
   onBookTap?: () => void;
 }
 
@@ -23,10 +24,27 @@ const EMITTED_SPARKS = [
   { x: 48, y: -74, delay: 0.52, glyph: '♪', color: '#FF9360' },
 ];
 
-export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced, onBookTap }) => {
+export const CinematicBook3D: React.FC<CinematicBook3DProps> = React.memo(({
+  scene,
+  reduced,
+  lightweight = false,
+  onBookTap,
+}) => {
   const isAwake = scene >= 2;
   const isTurning = scene === 2 && !reduced;
   const isBursting = scene === 2 || scene === 3;
+
+  const bloomAnimate = reduced
+    ? { opacity: 0.72, scale: 1 }
+    : isBursting
+      ? { opacity: [0.65, 1, 0.85], scale: [0.95, 1.22, 1.08] }
+      : isAwake
+        ? lightweight
+          ? { opacity: 0.68, scale: 1.02 }
+          : { opacity: [0.55, 0.82, 0.55], scale: [1, 1.07, 1] }
+        : { opacity: 0.28, scale: 0.88 };
+
+  const bloomRepeat = !reduced && (!lightweight || isBursting) ? (lightweight ? 1 : Infinity) : 0;
 
   return (
     <div
@@ -36,17 +54,19 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
       {/* Volumetric radial bloom beneath & behind the book */}
       <motion.div
         aria-hidden="true"
-        animate={
-          reduced
-            ? { opacity: 0.72, scale: 1 }
-            : isBursting
-              ? { opacity: [0.65, 1, 0.85], scale: [0.95, 1.25, 1.1] }
-              : isAwake
-                ? { opacity: [0.55, 0.82, 0.55], scale: [1, 1.07, 1] }
-                : { opacity: 0.28, scale: 0.88 }
+        animate={bloomAnimate}
+        transition={{ duration: 2.2, repeat: bloomRepeat, ease: 'easeInOut' }}
+        style={{
+          willChange: reduced ? undefined : 'transform, opacity',
+          background: lightweight
+            ? 'radial-gradient(circle, rgba(255,216,77,0.52) 0%, rgba(57,189,242,0.3) 44%, rgba(255,120,183,0.16) 68%, transparent 78%)'
+            : undefined,
+        }}
+        className={
+          lightweight
+            ? 'pointer-events-none absolute -inset-6 sm:-inset-10 rounded-full'
+            : 'pointer-events-none absolute -inset-6 sm:-inset-10 rounded-full bg-gradient-to-tr from-[#39BDF2]/45 via-[#FFD84D]/55 to-[#FF78B7]/40 blur-2xl'
         }
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-        className="pointer-events-none absolute -inset-6 sm:-inset-10 rounded-full bg-gradient-to-tr from-[#39BDF2]/45 via-[#FFD84D]/55 to-[#FF78B7]/40 blur-2xl"
       />
 
       {/* Upward Light Cone emerging from open center */}
@@ -61,9 +81,11 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="pointer-events-none absolute bottom-1/2 w-56 sm:w-72 h-44 sm:h-56 origin-bottom"
           style={{
-            background:
-              'conic-gradient(from 150deg at 50% 100%, transparent 0deg, rgba(255,216,77,0.42) 22deg, rgba(57,189,242,0.34) 40deg, transparent 62deg)',
-            filter: 'blur(8px)',
+            willChange: 'transform, opacity',
+            background: lightweight
+              ? 'conic-gradient(from 150deg at 50% 100%, transparent 0deg, rgba(255,216,77,0.34) 22deg, rgba(57,189,242,0.26) 40deg, transparent 64deg)'
+              : 'conic-gradient(from 150deg at 50% 100%, transparent 0deg, rgba(255,216,77,0.42) 22deg, rgba(57,189,242,0.34) 40deg, transparent 62deg)',
+            filter: lightweight ? undefined : 'blur(8px)',
           }}
         />
       )}
@@ -85,11 +107,17 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
               transition={{
                 duration: 1.45,
                 delay: sp.delay,
-                repeat: scene === 2 ? Infinity : 0,
+                repeat: scene === 2 ? (lightweight ? 1 : Infinity) : 0,
                 ease: 'easeOut',
               }}
-              className="absolute text-lg sm:text-2xl font-extrabold drop-shadow-[0_0_10px_rgba(255,216,77,0.85)]"
-              style={{ color: sp.color }}
+              className={`absolute text-lg sm:text-2xl font-extrabold ${
+                lightweight ? '' : 'drop-shadow-[0_0_10px_rgba(255,216,77,0.85)]'
+              }`}
+              style={{
+                color: sp.color,
+                willChange: 'transform, opacity',
+                textShadow: lightweight ? '0 0 8px rgba(255,216,77,0.65)' : undefined,
+              }}
             >
               {sp.glyph}
             </motion.span>
@@ -119,12 +147,27 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
         className="relative w-64 sm:w-80 md:w-96 h-32 sm:h-40 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD84D] rounded-2xl"
-        style={{ transformStyle: 'preserve-3d' }}
+        style={{
+          transformStyle: 'preserve-3d',
+          willChange: reduced ? undefined : 'transform',
+        }}
       >
         {/* Soft Shadow Floor Reflection */}
         <div
           aria-hidden="true"
-          className="absolute -bottom-4 inset-x-6 h-7 rounded-full bg-[#090F2C]/65 blur-lg"
+          className={
+            lightweight
+              ? 'absolute -bottom-4 inset-x-6 h-7 rounded-full'
+              : 'absolute -bottom-4 inset-x-6 h-7 rounded-full bg-[#090F2C]/65 blur-lg'
+          }
+          style={
+            lightweight
+              ? {
+                  background:
+                    'radial-gradient(ellipse at center, rgba(9,15,44,0.62) 0%, transparent 72%)',
+                }
+              : undefined
+          }
         />
 
         {/* Hardcover Spine & Outer Royal Purple Cover */}
@@ -180,7 +223,7 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
                 transition={{
                   duration: 0.62,
                   delay: pg.delay,
-                  repeat: Infinity,
+                  repeat: lightweight ? 2 : Infinity,
                   repeatDelay: 0.55,
                   ease: [0.42, 0, 0.2, 1],
                 }}
@@ -188,8 +231,11 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
                   transformOrigin: 'left center',
                   transformStyle: 'preserve-3d',
                   backfaceVisibility: 'hidden',
+                  willChange: 'transform, opacity',
                 }}
-                className="pointer-events-none absolute top-2.5 bottom-2.5 right-2.5 w-[calc(50%-0.85rem)] rounded-e-xl bg-gradient-to-l from-[#FFFDF7] to-[#FFEFC2] border border-[#FFD84D] shadow-md flex items-center justify-center gap-2"
+                className={`pointer-events-none absolute top-2.5 bottom-2.5 right-2.5 w-[calc(50%-0.85rem)] rounded-e-xl bg-gradient-to-l from-[#FFFDF7] to-[#FFEFC2] border border-[#FFD84D] ${
+                  lightweight ? '' : 'shadow-md'
+                } flex items-center justify-center gap-2`}
               >
                 <span className="text-xl sm:text-2xl font-extrabold" style={{ color: pg.accent }}>
                   {pg.symbol}
@@ -201,4 +247,6 @@ export const CinematicBook3D: React.FC<CinematicBook3DProps> = ({ scene, reduced
       </motion.button>
     </div>
   );
-};
+});
+
+CinematicBook3D.displayName = 'CinematicBook3D';

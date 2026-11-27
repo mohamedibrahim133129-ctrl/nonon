@@ -126,8 +126,17 @@
   animation: magicalGlowPulse 4.5s ease-in-out infinite;
 }
 
+@keyframes windowShimmer {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
 .animate-float-particle {
   animation: floatParticleUp 4.8s ease-in-out infinite;
+}
+
+.animate-window-shimmer {
+  animation: windowShimmer 3s ease-in-out infinite;
 }
 
 /* Respect reduced motion preferences (OS + Parent Accessibility Setting) */
@@ -137,7 +146,8 @@
   .animate-twinkle,
   .animate-gentle-bob,
   .animate-magical-glow,
-  .animate-float-particle {
+  .animate-float-particle,
+  .animate-window-shimmer {
     animation: none !important;
   }
   * {
@@ -150,7 +160,8 @@ html.reduced-motion .animate-drift-cloud,
 html.reduced-motion .animate-twinkle,
 html.reduced-motion .animate-gentle-bob,
 html.reduced-motion .animate-magical-glow,
-html.reduced-motion .animate-float-particle {
+html.reduced-motion .animate-float-particle,
+html.reduced-motion .animate-window-shimmer {
   animation: none !important;
 }
 html.reduced-motion * {

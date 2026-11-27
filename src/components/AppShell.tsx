@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Award,
   BookOpen,
+  ChevronDown,
   ClipboardCheck,
   Compass,
   FlaskConical,
@@ -54,7 +55,33 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   } = useNonoLand();
 
   const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
+  const [childMenuOpen, setChildMenuOpen] = React.useState(false);
   const [legalDocOpen, setLegalDocOpen] = React.useState<'privacy' | 'terms' | null>(null);
+  const childMenuRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    setChildMenuOpen(false);
+  }, [screen, activeChild?.id, isChildSession]);
+
+  React.useEffect(() => {
+    if (!childMenuOpen) return;
+    const handlePointerDown = (event: PointerEvent) => {
+      if (childMenuRef.current && !childMenuRef.current.contains(event.target as Node)) {
+        setChildMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setChildMenuOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [childMenuOpen]);
 
   const isDashboardScreen =
     screen === 'parent-dashboard' ||
@@ -165,20 +192,70 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
             {/* Child Profile Header Area */}
             {!hideChildWorldChrome && activeChild && (
               isChildSession ? (
-                <div
-                  title={UNIFIED_STAGE_BADGE[language]}
-                  className="h-10 ps-1.5 pe-3 rounded-xl bg-white border border-[#8054D9]/30 text-xs sm:text-sm font-extrabold text-[#27345C] flex items-center gap-2 max-w-[200px]"
-                >
-                  <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shrink-0 pointer-events-none">
-                    <div className="scale-[0.65] origin-center">
-                      <ChildAvatarPreview
-                        avatar={activeChild.avatarConfig || DEFAULT_AVATAR_CONFIG}
-                        size="sm"
-                        animated={false}
-                      />
+                <div className="relative" ref={childMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundEngine.playPop();
+                      setChildMenuOpen((prev) => !prev);
+                    }}
+                    aria-haspopup="menu"
+                    aria-expanded={childMenuOpen}
+                    aria-label={
+                      language === 'ar'
+                        ? `قائمة حساب ${activeChild.displayName}`
+                        : `${activeChild.displayName} account menu`
+                    }
+                    title={UNIFIED_STAGE_BADGE[language]}
+                    className="h-10 ps-1.5 pe-2.5 rounded-xl bg-white border border-[#8054D9]/30 hover:border-[#8054D9] text-xs sm:text-sm font-extrabold text-[#27345C] flex items-center gap-1.5 max-w-[148px] sm:max-w-[210px] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8054D9]"
+                  >
+                    <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shrink-0 pointer-events-none">
+                      <div className="scale-[0.65] origin-center">
+                        <ChildAvatarPreview
+                          avatar={activeChild.avatarConfig || DEFAULT_AVATAR_CONFIG}
+                          size="sm"
+                          animated={false}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <span className="truncate">{activeChild.displayName}</span>
+                    <span className="truncate">{activeChild.displayName}</span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 text-[#8054D9] shrink-0 transition-transform ${
+                        childMenuOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {childMenuOpen && (
+                    <div
+                      role="menu"
+                      aria-label={
+                        language === 'ar' ? 'خيارات حساب الطفل' : 'Child account options'
+                      }
+                      className="absolute top-full mt-2 end-0 z-50 w-52 max-w-[calc(100vw-2rem)] rounded-2xl bg-white border border-[#27345C]/15 shadow-xl p-1.5 text-start"
+                    >
+                      <div className="px-3 py-2 border-b border-[#27345C]/10">
+                        <div className="text-xs sm:text-sm font-extrabold text-[#27345C] truncate">
+                          {activeChild.displayName}
+                        </div>
+                        <div className="text-[11px] font-bold text-[#8054D9] truncate">
+                          {UNIFIED_STAGE_BADGE[language]}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        role="menuitem"
+                        onClick={() => {
+                          setChildMenuOpen(false);
+                          setLogoutModalOpen(true);
+                        }}
+                        className="mt-1 w-full min-h-[44px] px-3 rounded-xl bg-[#FF4D6D]/10 hover:bg-[#FF4D6D]/20 text-[#B91C1C] text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <LogOut className="w-4 h-4 shrink-0" />
+                        <span>{language === 'ar' ? 'تسجيل الخروج' : 'Logout'}</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <>

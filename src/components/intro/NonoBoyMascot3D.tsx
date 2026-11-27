@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 interface NonoBoyMascot3DProps {
   mood?: 'entering' | 'waving' | 'celebrating';
   reduced?: boolean;
+  lightweight?: boolean;
   onTap?: () => void;
   className?: string;
 }
@@ -13,9 +14,10 @@ interface NonoBoyMascot3DProps {
  * (brown tousled hair, large warm eyes with natural blink, blue hoodie with gold chest star,
  * orange backpack straps, playful wave & joyful greeting) without any animals.
  */
-export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
+export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = React.memo(({
   mood = 'waving',
   reduced = false,
+  lightweight = false,
   onTap,
   className = '',
 }) => {
@@ -39,17 +41,32 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
       }
       whileHover={reduced ? undefined : { scale: 1.04 }}
       whileTap={reduced ? undefined : { scale: 0.96 }}
+      style={{ willChange: reduced ? undefined : 'transform' }}
       className={`relative cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD84D] rounded-3xl ${className}`}
     >
       {/* Warm Character Rim Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-3 rounded-full bg-gradient-to-tr from-[#39BDF2]/40 via-[#FFD84D]/35 to-[#FF78B7]/35 blur-xl"
+        className={
+          lightweight
+            ? 'pointer-events-none absolute -inset-3 rounded-full'
+            : 'pointer-events-none absolute -inset-3 rounded-full bg-gradient-to-tr from-[#39BDF2]/40 via-[#FFD84D]/35 to-[#FF78B7]/35 blur-xl'
+        }
+        style={
+          lightweight
+            ? {
+                background:
+                  'radial-gradient(circle, rgba(255,216,77,0.34) 0%, rgba(57,189,242,0.24) 48%, rgba(255,120,183,0.12) 70%, transparent 80%)',
+              }
+            : undefined
+        }
       />
 
       <svg
         viewBox="0 0 240 250"
-        className="relative w-44 sm:w-56 md:w-64 h-auto drop-shadow-[0_18px_32px_rgba(10,16,52,0.5)]"
+        className={`relative w-44 sm:w-56 md:w-64 h-auto ${
+          lightweight ? '' : 'drop-shadow-[0_18px_32px_rgba(10,16,52,0.5)]'
+        }`}
       >
         <defs>
           <linearGradient id="nonoHoodie" x1="0" y1="0" x2="0" y2="1">
@@ -78,7 +95,11 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
         <motion.g
           animate={reduced ? undefined : { rotate: [-6, 12, -4, 10, -6] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: '78px 168px' }}
+          style={{
+            transformOrigin: '78px 168px',
+            transformBox: 'view-box',
+            willChange: reduced ? undefined : 'transform',
+          }}
         >
           <path
             d="M80 165 C55 154, 42 135, 38 118"
@@ -96,9 +117,9 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
 
         {/* Left Arm Resting Cheerfully */}
         <motion.g
-          animate={reduced ? undefined : { rotate: [2, -5, 2] }}
+          animate={reduced || lightweight ? undefined : { rotate: [2, -5, 2] }}
           transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: '162px 168px' }}
+          style={{ transformOrigin: '162px 168px', transformBox: 'view-box' }}
         >
           <path
             d="M160 166 C178 176, 186 194, 182 208"
@@ -127,9 +148,9 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
           fill="#228BFA"
           stroke="#0A4AB8"
           strokeWidth="2"
-          animate={reduced ? undefined : { scaleY: [1, 1.04, 1] }}
+          animate={reduced || lightweight ? undefined : { scaleY: [1, 1.04, 1] }}
           transition={{ duration: 3, repeat: Infinity }}
-          style={{ transformOrigin: '120px 150px' }}
+          style={{ transformOrigin: '120px 150px', transformBox: 'view-box' }}
         />
 
         {/* Golden Chest Star Emblem */}
@@ -141,7 +162,11 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
           strokeLinejoin="round"
           animate={reduced ? undefined : { scale: [1, 1.08, 1] }}
           transition={{ duration: 2.2, repeat: Infinity }}
-          style={{ transformOrigin: '120px 191px' }}
+          style={{
+            transformOrigin: '120px 191px',
+            transformBox: 'view-box',
+            willChange: reduced ? undefined : 'transform',
+          }}
         />
 
         {/* Ears */}
@@ -169,7 +194,11 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
             times: [0, 0.45, 0.47, 0.5, 0.53, 0.9, 1],
             repeat: Infinity,
           }}
-          style={{ transformOrigin: '120px 92px' }}
+          style={{
+            transformOrigin: '120px 92px',
+            transformBox: 'view-box',
+            willChange: reduced ? undefined : 'transform',
+          }}
         >
           {/* Left Eye */}
           <ellipse cx="97" cy="91" rx="12" ry="13.5" fill="#FFFFFF" />
@@ -203,9 +232,9 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
 
         {/* Tousled Chestnut Hair with Natural Bounce */}
         <motion.g
-          animate={reduced ? undefined : { rotate: [-1.2, 1.4, -1.2], y: [0, -1.5, 0] }}
+          animate={reduced || lightweight ? undefined : { rotate: [-1.2, 1.4, -1.2], y: [0, -1.5, 0] }}
           transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: '120px 52px' }}
+          style={{ transformOrigin: '120px 52px', transformBox: 'view-box' }}
         >
           <path
             d="M66 86 C60 55, 82 32, 108 32 C104 18, 128 14, 140 28 C158 24, 178 44, 174 86 C166 64, 152 54, 138 56 C128 66, 110 64, 100 54 C86 58, 74 68, 66 86 Z"
@@ -219,4 +248,6 @@ export const NonoBoyMascot3D: React.FC<NonoBoyMascot3DProps> = ({
       </svg>
     </motion.button>
   );
-};
+});
+
+NonoBoyMascot3D.displayName = 'NonoBoyMascot3D';

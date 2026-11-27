@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -16,10 +16,11 @@ import { useNonoLand } from '../context/NonoLandContext';
 import { UNIFIED_STAGE_AGE_RANGE, UNIFIED_STAGE_NAME } from '../utils/ageAdaptation';
 import { cinematicSound } from '../utils/cinematicSound';
 import { soundEngine } from '../utils/soundEngine';
-import { NonoLandLogo } from './NonoLandLogo';
+import { NONOLAND_LOGO_SRC, NonoLandLogo } from './NonoLandLogo';
 import { CinematicBook3D } from './intro/CinematicBook3D';
-import { CinematicFantasyWorld } from './intro/CinematicFantasyWorld';
+import { CinematicFantasyWorld, INTRO_PANORAMA_IMAGE_SRC } from './intro/CinematicFantasyWorld';
 import { NonoBoyMascot3D } from './intro/NonoBoyMascot3D';
+import { isAndroidWebViewRuntime, preloadAndDecodeImage } from './intro/introRuntime';
 
 export const INTRO_SKIP_STORAGE_KEY = 'nonoland_skip_intro_v1';
 
@@ -66,6 +67,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
     typeof window.matchMedia === 'function' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const reduced = Boolean(parentSettings.reducedMotion) || osReducedMotion;
+  const isAndroidWebView = useMemo(() => isAndroidWebViewRuntime(), []);
 
   const [dontShowAgain, setDontShowAgain] = useState<boolean>(() => {
     try {
@@ -167,6 +169,24 @@ export const CinematicWelcomeIntro: React.FC = () => {
     }
   }, [scene, cinematicAudioActive, parentSettings.muted]);
 
+  // Preload & asynchronously decode Scene 3/5/6 artwork right after the first frame paints
+  useEffect(() => {
+    let cancelled = false;
+    let timerId: number | null = null;
+    const rafId = window.requestAnimationFrame(() => {
+      timerId = window.setTimeout(() => {
+        if (cancelled) return;
+        void preloadAndDecodeImage(NONOLAND_LOGO_SRC);
+        void preloadAndDecodeImage(INTRO_PANORAMA_IMAGE_SRC);
+      }, 90);
+    });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(rafId);
+      if (timerId !== null) window.clearTimeout(timerId);
+    };
+  }, []);
+
   // Clean up all timers, rAFs & audio nodes on unmount
   useEffect(() => {
     return () => {
@@ -192,15 +212,15 @@ export const CinematicWelcomeIntro: React.FC = () => {
     }
   };
 
-  const handleSkipToInvitation = () => {
+  const handleSkipToInvitation = useCallback(() => {
     setAutoPlaying(false);
     setScene(6);
     if (!parentSettings.muted && cinematicAudioActive) {
       cinematicSound.playCueForScene(6, false);
     }
-  };
+  }, [parentSettings.muted, cinematicAudioActive]);
 
-  const handleReplaySequence = () => {
+  const handleReplaySequence = useCallback(() => {
     if (reduced) {
       setScene(6);
       return;
@@ -210,7 +230,15 @@ export const CinematicWelcomeIntro: React.FC = () => {
     if (!parentSettings.muted && cinematicAudioActive) {
       cinematicSound.playCueForScene(1, false);
     }
-  };
+  }, [reduced, parentSettings.muted, cinematicAudioActive]);
+
+  const handleMascotTap = useCallback(() => {
+    soundEngine.playCelebration();
+  }, []);
+
+  const handleScene6BookTap = useCallback(() => {
+    soundEngine.playMusicNote(Math.floor(Math.random() * 5));
+  }, []);
 
   const jumpToScene = (target: IntroScene) => {
     setAutoPlaying(target < 6 && !reduced);
@@ -228,7 +256,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (reduced || scene < 5 || e.pointerType === 'touch') return;
+    if (reduced || isAndroidWebView || scene < 5 || e.pointerType === 'touch') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
     const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
@@ -256,11 +284,21 @@ export const CinematicWelcomeIntro: React.FC = () => {
       className="min-h-screen relative overflow-hidden text-white flex flex-col justify-between px-4 sm:px-8 lg:px-12 py-4 sm:py-6 select-none"
     >
       {/* Multi-Plane 3D Parallax Fantasy Universe Layer */}
-      <CinematicFantasyWorld scene={scene} reduced={reduced} parallax={parallax} />
+      <CinematicFantasyWorld
+        scene={scene}
+        reduced={reduced}
+        lightweight={isAndroidWebView}
+        parallax={parallax}
+      />
 
       {/* Ambient Twinkling Sky Stars (GPU Opacity/Transform Only) */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden z-[2]" aria-hidden="true">
-        {AMBIENT_STARS.map((st, idx) => (
+      <div
+        className={`pointer-events-none absolute inset-0 overflow-hidden z-[2] transition-opacity duration-700 ${
+          scene === 1 ? 'opacity-45' : 'opacity-85'
+        }`}
+        aria-hidden="true"
+      >
+        {(isAndroidWebView ? AMBIENT_STARS.slice(0, 4) : AMBIENT_STARS).map((st, idx) => (
           <svg
             key={idx}
             viewBox="0 0 24 24"
@@ -271,7 +309,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
               width: st.size,
               height: st.size,
               animationDelay: st.delay,
-              opacity: scene === 1 ? 0.45 : 0.85,
+              willChange: reduced ? undefined : 'transform, opacity',
             }}
           >
             <path
@@ -292,7 +330,9 @@ export const CinematicWelcomeIntro: React.FC = () => {
         {!reduced && (
           <nav
             aria-label={language === 'ar' ? 'مشاهد المقدمة' : 'Intro scenes'}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0C1335]/55 backdrop-blur-md border border-white/15"
+            className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 ${
+              isAndroidWebView ? 'bg-[#0C1335]/80' : 'bg-[#0C1335]/55 backdrop-blur-md'
+            }`}
           >
             {([1, 2, 3, 4, 5, 6] as IntroScene[]).map((num) => (
               <button
@@ -404,7 +444,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
           {scene < 6 && (
             <motion.div
               key="cinematic-sequence"
-              initial={{ opacity: 0 }}
+              initial={false}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, scale: 1.03 }}
               transition={{ duration: 0.45 }}
@@ -449,17 +489,24 @@ export const CinematicWelcomeIntro: React.FC = () => {
                       opacity: [0, 1, 0],
                     }}
                     transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative z-20 w-7 h-7 rounded-full bg-[#FFF7C2] shadow-[0_0_28px_10px_#FFD84D]"
+                    style={{ willChange: 'transform, opacity' }}
+                    className="relative z-20 w-7 h-7 rounded-full bg-[#FFF7C2] shadow-[0_0_24px_8px_#FFD84D]"
                   />
 
                   {/* Book Awakening on Spark Impact */}
                   <motion.div
-                    initial={{ opacity: 0.45, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: [0.85, 0.96, 1] }}
-                    transition={{ duration: 1.2, delay: 0.3 }}
+                    initial={{ opacity: 0.65, scale: 0.88 }}
+                    animate={{ opacity: 1, scale: [0.88, 0.96, 1] }}
+                    transition={{ duration: 1.1, delay: 0.2 }}
+                    style={{ willChange: 'transform, opacity' }}
                     className="relative z-10 mt-6"
                   >
-                    <CinematicBook3D scene={1} reduced={reduced} onBookTap={handleSkipToInvitation} />
+                    <CinematicBook3D
+                      scene={1}
+                      reduced={reduced}
+                      lightweight={isAndroidWebView}
+                      onBookTap={handleSkipToInvitation}
+                    />
                   </motion.div>
                 </div>
               )}
@@ -471,9 +518,15 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   initial={{ scale: 0.9, opacity: 0.7 }}
                   animate={{ scale: 1.16, opacity: 1 }}
                   transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ willChange: 'transform, opacity' }}
                   className="relative py-12 flex flex-col items-center justify-center"
                 >
-                  <CinematicBook3D scene={2} reduced={reduced} onBookTap={handleSkipToInvitation} />
+                  <CinematicBook3D
+                    scene={2}
+                    reduced={reduced}
+                    lightweight={isAndroidWebView}
+                    onBookTap={handleSkipToInvitation}
+                  />
                 </motion.div>
               )}
 
@@ -484,15 +537,31 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   initial={{ scale: 0.82, opacity: 0.5 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ willChange: 'transform, opacity' }}
                   className="relative py-8 flex flex-col items-center justify-center gap-6"
                 >
                   <motion.div
                     initial={{ scale: 0.3, opacity: 1 }}
                     animate={{ scale: 1.85, opacity: 0 }}
                     transition={{ duration: 1.25, ease: 'easeOut' }}
-                    className="pointer-events-none absolute w-56 h-56 rounded-full bg-radial from-[#FFF8D6] via-[#FFD84D]/60 to-transparent blur-xl"
+                    style={{
+                      willChange: 'transform, opacity',
+                      background: isAndroidWebView
+                        ? 'radial-gradient(circle, rgba(255,248,214,0.85) 0%, rgba(255,216,77,0.48) 45%, transparent 72%)'
+                        : undefined,
+                    }}
+                    className={
+                      isAndroidWebView
+                        ? 'pointer-events-none absolute w-56 h-56 rounded-full'
+                        : 'pointer-events-none absolute w-56 h-56 rounded-full bg-radial from-[#FFF8D6] via-[#FFD84D]/60 to-transparent blur-xl'
+                    }
                   />
-                  <CinematicBook3D scene={3} reduced={reduced} onBookTap={handleSkipToInvitation} />
+                  <CinematicBook3D
+                    scene={3}
+                    reduced={reduced}
+                    lightweight={isAndroidWebView}
+                    onBookTap={handleSkipToInvitation}
+                  />
                 </motion.div>
               )}
 
@@ -527,10 +596,11 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   <NonoBoyMascot3D
                     mood="entering"
                     reduced={reduced}
-                    onTap={() => soundEngine.playCelebration()}
+                    lightweight={isAndroidWebView}
+                    onTap={handleMascotTap}
                   />
                   <div className="scale-75 -mt-6 opacity-85">
-                    <CinematicBook3D scene={4} reduced={reduced} />
+                    <CinematicBook3D scene={4} reduced={reduced} lightweight={isAndroidWebView} />
                   </div>
                 </motion.div>
               )}
@@ -542,6 +612,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ willChange: 'transform, opacity' }}
                   className="relative flex flex-col items-center justify-center gap-4 py-4"
                 >
                   {/* Orbiting Golden Star Ring Behind Approved Logo */}
@@ -549,15 +620,19 @@ export const CinematicWelcomeIntro: React.FC = () => {
                     aria-hidden="true"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+                    style={{ willChange: 'transform' }}
                     className="pointer-events-none absolute w-72 h-72 sm:w-[26rem] sm:h-[26rem] flex items-center justify-center"
                   >
                     {ORBITING_STARS.map((st, idx) => (
                       <span
                         key={idx}
-                        className="absolute text-lg sm:text-xl font-bold drop-shadow-[0_0_10px_rgba(255,216,77,0.9)]"
+                        className={`absolute text-lg sm:text-xl font-bold ${
+                          isAndroidWebView ? '' : 'drop-shadow-[0_0_10px_rgba(255,216,77,0.9)]'
+                        }`}
                         style={{
                           color: st.color,
                           transform: `rotate(${st.angle}deg) translateY(-148px)`,
+                          textShadow: isAndroidWebView ? '0 0 8px rgba(255,216,77,0.75)' : undefined,
                         }}
                       >
                         {st.glyph}
@@ -566,7 +641,11 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   </motion.div>
 
                   {/* Official Approved NonoLand Logo Reveal (Sharp & Visually Unchanged) */}
-                  <div className="relative z-10 rounded-[2rem] p-2 sm:p-3 bg-white/10 backdrop-blur-md border border-[#FFD84D]/55 shadow-[0_24px_70px_-10px_rgba(255,216,77,0.45)]">
+                  <div
+                    className={`relative z-10 rounded-[2rem] p-2 sm:p-3 border border-[#FFD84D]/55 shadow-[0_24px_70px_-10px_rgba(255,216,77,0.45)] ${
+                      isAndroidWebView ? 'bg-white/15' : 'bg-white/10 backdrop-blur-md'
+                    }`}
+                  >
                     <NonoLandLogo
                       variant="main"
                       size="xl"
@@ -579,7 +658,7 @@ export const CinematicWelcomeIntro: React.FC = () => {
 
                   {/* Floating Foreground Magical Book */}
                   <div className="-mt-7 scale-75 sm:scale-85 relative z-20">
-                    <CinematicBook3D scene={5} reduced={reduced} />
+                    <CinematicBook3D scene={5} reduced={reduced} lightweight={isAndroidWebView} />
                   </div>
                 </motion.div>
               )}
@@ -691,12 +770,29 @@ export const CinematicWelcomeIntro: React.FC = () => {
                   {/* Soft Living World Glow */}
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-4 top-4 bottom-8 rounded-[3rem] bg-gradient-to-tr from-[#39BDF2]/35 via-[#FFD84D]/30 to-[#FF78B7]/30 blur-2xl animate-magical-glow"
+                    className={
+                      isAndroidWebView
+                        ? 'pointer-events-none absolute inset-x-4 top-4 bottom-8 rounded-[3rem] animate-magical-glow'
+                        : 'pointer-events-none absolute inset-x-4 top-4 bottom-8 rounded-[3rem] bg-gradient-to-tr from-[#39BDF2]/35 via-[#FFD84D]/30 to-[#FF78B7]/30 blur-2xl animate-magical-glow'
+                    }
+                    style={{
+                      willChange: reduced ? undefined : 'transform, opacity',
+                      background: isAndroidWebView
+                        ? 'radial-gradient(circle, rgba(255,216,77,0.34) 0%, rgba(57,189,242,0.28) 46%, rgba(255,120,183,0.16) 70%, transparent 82%)'
+                        : undefined,
+                    }}
                   />
 
                   {/* Sharp, Approved Official NonoLand Logo */}
-                  <div className="animate-float-slow relative z-10 w-full flex justify-center">
-                    <div className="rounded-[2rem] p-2 sm:p-2.5 bg-white/10 backdrop-blur-md border border-white/25 shadow-[0_24px_60px_-14px_rgba(9,15,44,0.65)]">
+                  <div
+                    className="animate-float-slow relative z-10 w-full flex justify-center"
+                    style={{ willChange: reduced ? undefined : 'transform' }}
+                  >
+                    <div
+                      className={`rounded-[2rem] p-2 sm:p-2.5 border border-white/25 shadow-[0_24px_60px_-14px_rgba(9,15,44,0.65)] ${
+                        isAndroidWebView ? 'bg-white/14' : 'bg-white/10 backdrop-blur-md'
+                      }`}
+                    >
                       <NonoLandLogo
                         variant="main"
                         size="xl"
@@ -713,7 +809,8 @@ export const CinematicWelcomeIntro: React.FC = () => {
                     <CinematicBook3D
                       scene={6}
                       reduced={reduced}
-                      onBookTap={() => soundEngine.playMusicNote(Math.floor(Math.random() * 5))}
+                      lightweight={isAndroidWebView}
+                      onBookTap={handleScene6BookTap}
                     />
                   </div>
                 </div>

@@ -1,11 +1,15 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import mapPanoramaImg from '../../assets/images/adventure_map_panorama_1794739848578.jpg';
 
 interface CinematicFantasyWorldProps {
   scene: 1 | 2 | 3 | 4 | 5 | 6;
   reduced: boolean;
+  lightweight?: boolean;
   parallax: { x: number; y: number };
 }
+
+export const INTRO_PANORAMA_IMAGE_SRC = mapPanoramaImg;
 
 /**
  * Multi-plane 3D parallax fantasy world featuring:
@@ -14,9 +18,10 @@ interface CinematicFantasyWorldProps {
  * - Grand illuminated castle with gently shimmering golden windows
  * - Drifting layered clouds & Scene 3 concentric expanding energy portal
  */
-export const CinematicFantasyWorld: React.FC<CinematicFantasyWorldProps> = ({
+export const CinematicFantasyWorld: React.FC<CinematicFantasyWorldProps> = React.memo(({
   scene,
   reduced,
+  lightweight = false,
   parallax,
 }) => {
   const showWorld = scene >= 3;
@@ -56,18 +61,27 @@ export const CinematicFantasyWorld: React.FC<CinematicFantasyWorldProps> = ({
       <motion.div
         animate={reduced ? { scale: 1, x: 0, y: 0 } : cameraTransform}
         transition={{ duration: scene >= 5 ? 0.5 : 1.15, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: reduced ? undefined : 'transform' }}
         className="absolute inset-0"
       >
-        {/* Subtle Depth-of-Field Horizon Panorama Artwork (Lazy & Softly Blended from Scene 3+) */}
+        {/* Subtle Depth-of-Field Horizon Panorama Artwork (Bundled, Async Decoded & Softly Blended from Scene 3+) */}
         <motion.img
-          src="/src/assets/images/adventure_map_panorama_1794739848578.jpg"
+          src={mapPanoramaImg}
           alt=""
-          loading="lazy"
+          loading="eager"
           decoding="async"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showWorld ? (scene >= 5 ? 0.16 : 0.24) : 0 }}
-          transition={{ duration: 1.1 }}
-          className="absolute inset-0 w-full h-full object-cover mix-blend-screen blur-[1px]"
+          fetchPriority="low"
+          initial={false}
+          animate={{
+            opacity: showWorld ? (scene >= 5 ? (lightweight ? 0.14 : 0.16) : lightweight ? 0.2 : 0.24) : 0,
+          }}
+          transition={{ duration: 0.9 }}
+          style={{ willChange: 'opacity' }}
+          className={
+            lightweight
+              ? 'absolute inset-0 w-full h-full object-cover'
+              : 'absolute inset-0 w-full h-full object-cover mix-blend-screen blur-[1px]'
+          }
         />
 
         {/* Scene 3: Concentric Expanding Portal Rings (Purple, Royal Blue, Turquoise & Gold) */}
@@ -77,27 +91,33 @@ export const CinematicFantasyWorld: React.FC<CinematicFantasyWorldProps> = ({
               { size: 'w-56 h-56 sm:w-80 sm:h-80', border: 'border-[#FFD84D]/85', delay: 0 },
               { size: 'w-72 h-72 sm:w-[26rem] sm:h-[26rem]', border: 'border-[#39BDF2]/75', delay: 0.12 },
               { size: 'w-96 h-96 sm:w-[34rem] sm:h-[34rem]', border: 'border-[#8054D9]/80', delay: 0.24 },
-              { size: 'w-[28rem] h-[28rem] sm:w-[44rem] sm:h-[44rem]', border: 'border-[#FF78B7]/65', delay: 0.36 },
+              ...(lightweight
+                ? []
+                : [{ size: 'w-[28rem] h-[28rem] sm:w-[44rem] sm:h-[44rem]', border: 'border-[#FF78B7]/65', delay: 0.36 }]),
             ].map((ring, idx) => (
               <motion.div
                 key={idx}
                 initial={{ scale: 0.25, opacity: 0.95 }}
                 animate={{ scale: 2.35, opacity: 0 }}
                 transition={{ duration: 1.5, delay: ring.delay, ease: [0.16, 1, 0.3, 1] }}
-                className={`absolute rounded-full border-4 ${ring.size} ${ring.border} shadow-[0_0_40px_rgba(255,216,77,0.45)]`}
+                style={{ willChange: 'transform, opacity' }}
+                className={`absolute rounded-full border-4 ${ring.size} ${ring.border} ${
+                  lightweight ? '' : 'shadow-[0_0_40px_rgba(255,216,77,0.45)]'
+                }`}
               />
             ))}
           </div>
         )}
 
-        {/* Fantasy Environment SVG: Rainbow, Castle with Glowing Windows, Floating Islands, Waterfalls & Glowing Trees */}
+        {/* Fantasy Environment SVG: Static Landscape Texture + Separate GPU Cloud Layer */}
         <motion.div
           initial={false}
           animate={{ opacity: showWorld ? 1 : 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
           className="absolute inset-0 flex items-end justify-center"
           style={{
-            transform: `translate3d(${parallax.x * 8}px, ${parallax.y * 5}px, 0)`,
+            transform: lightweight ? undefined : `translate3d(${parallax.x * 8}px, ${parallax.y * 5}px, 0)`,
+            willChange: 'opacity',
           }}
         >
           <svg
@@ -183,32 +203,41 @@ export const CinematicFantasyWorld: React.FC<CinematicFantasyWorldProps> = ({
               <line x1="1127" y1="138" x2="1127" y2="112" stroke="#FFD84D" strokeWidth="4" />
               <polygon points="1127,112 1154,121 1127,130" fill="#FF78B7" />
 
-              {/* Illuminated Castle Arch Gate & Shimmering Windows */}
+              {/* Illuminated Castle Arch Gate & Shimmering Windows (opacity-only shimmer on desktop, static glow on WebView) */}
               <path d="M1104 437 L1104 388 Q1127 362 1150 388 L1150 437 Z" fill="url(#castleWindowGlow)" />
-              <rect x="1054" y="335" width="18" height="28" rx="9" fill="url(#castleWindowGlow)" className="animate-twinkle" />
-              <rect x="1182" y="335" width="18" height="28" rx="9" fill="url(#castleWindowGlow)" className="animate-twinkle" />
-              <rect x="1118" y="256" width="18" height="30" rx="9" fill="url(#castleWindowGlow)" className="animate-twinkle" />
-              <rect x="1016" y="360" width="14" height="22" rx="7" fill="url(#castleWindowGlow)" className="animate-twinkle" />
-              <rect x="1223" y="360" width="14" height="22" rx="7" fill="url(#castleWindowGlow)" className="animate-twinkle" />
+              <rect x="1054" y="335" width="18" height="28" rx="9" fill="url(#castleWindowGlow)" className={reduced || lightweight ? undefined : 'animate-window-shimmer'} />
+              <rect x="1182" y="335" width="18" height="28" rx="9" fill="url(#castleWindowGlow)" className={reduced || lightweight ? undefined : 'animate-window-shimmer'} />
+              <rect x="1118" y="256" width="18" height="30" rx="9" fill="url(#castleWindowGlow)" className={reduced || lightweight ? undefined : 'animate-window-shimmer'} />
+              <rect x="1016" y="360" width="14" height="22" rx="7" fill="url(#castleWindowGlow)" className={reduced || lightweight ? undefined : 'animate-window-shimmer'} />
+              <rect x="1223" y="360" width="14" height="22" rx="7" fill="url(#castleWindowGlow)" className={reduced || lightweight ? undefined : 'animate-window-shimmer'} />
 
               {/* Glowing Tree Beside Castle */}
               <rect x="970" y="395" width="11" height="40" fill="#7D4E34" />
               <circle cx="975" cy="376" r="26" fill="#FF78B7" />
               <circle cx="966" cy="368" r="8" fill="#FFD84D" opacity="0.7" />
             </g>
-
-            {/* Drifting Foreground & Midground Clouds */}
-            <g className="animate-drift-cloud" opacity="0.34">
-              <ellipse cx="280" cy="610" rx="165" ry="38" fill="#FFFFFF" />
-              <ellipse cx="380" cy="595" rx="110" ry="32" fill="#FFFFFF" />
-            </g>
-            <g className="animate-drift-cloud" style={{ animationDelay: '-6s' }} opacity="0.28">
-              <ellipse cx="1090" cy="600" rx="185" ry="42" fill="#FFFFFF" />
-              <ellipse cx="975" cy="590" rx="115" ry="30" fill="#FFFFFF" />
-            </g>
           </svg>
+
+          {/* Isolated GPU-Composited Drifting Cloud Layer (keeps main castle SVG static) */}
+          <div
+            className={`pointer-events-none absolute inset-x-0 bottom-[12%] flex items-end justify-between px-4 sm:px-12 ${
+              reduced ? '' : 'animate-drift-cloud'
+            }`}
+            style={{ willChange: reduced ? undefined : 'transform' }}
+          >
+            <div className="relative w-56 sm:w-80 h-12 sm:h-16">
+              <div className="absolute inset-x-0 bottom-0 h-10 sm:h-14 rounded-full bg-white/30" />
+              <div className="absolute end-6 -top-2 w-32 sm:w-48 h-9 sm:h-12 rounded-full bg-white/25" />
+            </div>
+            <div className="relative w-60 sm:w-96 h-14 sm:h-18">
+              <div className="absolute inset-x-0 bottom-0 h-11 sm:h-15 rounded-full bg-white/26" />
+              <div className="absolute start-8 -top-2 w-36 sm:w-52 h-9 sm:h-12 rounded-full bg-white/22" />
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </div>
   );
-};
+});
+
+CinematicFantasyWorld.displayName = 'CinematicFantasyWorld';
